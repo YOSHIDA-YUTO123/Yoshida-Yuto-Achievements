@@ -16,14 +16,20 @@
 #include "wall_constants.hpp"
 #include "utility_math.h"
 
+//************************************************
+// ’è”éŒ¾
+//************************************************
+namespace TitleWallConst
+{
+	const int MAX_TIME = 600;	// •âŠÔŠÔ
+}
+
 //================================================
 // XVˆ—
 //================================================
 void TitleWallSystem::Update(entt::registry& registry)
 {
 	bool bFinishLerp;	 // •Ç‚Ì•âŠÔ‚ª‚¨‚í‚Á‚½‚©‚Ç‚¤‚©
-
-	const int MAX_TIME = 600;
 
 	// •Ç‚Ìæ“¾
 	auto view = registry.view<Tag::MeshWallTag>();
@@ -37,16 +43,16 @@ void TitleWallSystem::Update(entt::registry& registry)
 		auto& nameComp = registry.get<EntityNameComponent>(entity);
 
 		// ”ÍˆÍ§ŒÀ
-		titleWallComp.nLerpTime = math::Clamp(titleWallComp.nLerpTime, 0, MAX_TIME);
+		titleWallComp.nLerpTime = math::Clamp(titleWallComp.nLerpTime, 0, TitleWallConst::MAX_TIME);
 
 		// •âŠÔ‚ªI—¹‚µ‚½‚ç
-		if (titleWallComp.nLerpTime == MAX_TIME)
+		if (titleWallComp.nLerpTime == TitleWallConst::MAX_TIME)
 		{
 			bFinishLerp = true;
 		}
 
 		// Š„‡‚ğ‹‚ß‚é
-		float fRateTime = titleWallComp.nLerpTime / static_cast<float>(MAX_TIME);
+		float fRateTime = titleWallComp.nLerpTime / static_cast<float>(TitleWallConst::MAX_TIME);
 
 		// •âŠÔŠÔ‚ğ‰ÁZ
 		titleWallComp.nLerpTime++;

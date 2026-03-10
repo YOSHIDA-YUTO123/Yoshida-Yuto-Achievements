@@ -113,16 +113,19 @@ bool ScoreAreaSystem::CollisionBall(entt::registry& registry, ScoreAreaComponent
     using namespace ScoreArea_Const;
 
     // ボールの取得
-    auto ballID = registry.view<Tag::BallTag>().front();
+    auto ballColliderID = registry.view<ColliderTag::BallSphere>().front();
 
     // 使用できないなら
-    if (!registry.valid(ballID))
+    if (!registry.valid(ballColliderID))
     {
         return false;
     }
 
     // ボールの球のコライダーの取得
-    auto& ballSphereCollider = registry.get<SphereColliderComponent>(ballID);
+    auto& ballSphereCollider = registry.get<SphereColliderComponent>(ballColliderID);
+
+    // ボールのIDの取得
+    const auto ballID = ballSphereCollider.ownerID;
 
     int nCnt = 0;
 

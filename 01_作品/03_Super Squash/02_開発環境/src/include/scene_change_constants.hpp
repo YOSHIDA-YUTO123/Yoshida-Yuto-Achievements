@@ -1,6 +1,6 @@
 //===================================================
 //
-// メッシュの壁のデータ [mesh_wall_component.hpp]
+// シーン変更時の値の定数 [scene_change_constants.h]
 // Author:YUTO YOSHIDA
 //
 //===================================================
@@ -8,18 +8,15 @@
 //***************************************************
 // 多重インクルード防止
 //***************************************************
-#ifndef _MESH_WALL_COMPONENT_HPP_
-#define _MESH_WALL_COMPONENT_HPP_
+#ifndef _SCENE_CHANGE_CONSTANTS_H_
+#define _SCENE_CHANGE_CONSTANTS_H_
 
 //***************************************************
-// インクルードファイル
+// シーン変更時の値の定数の名前空間の定義
 //***************************************************
-
-//***************************************************
-// メッシュの壁のコンポーネント
-//***************************************************
-struct MeshWallComponent
+namespace SceneChangeConst
 {
-	MeshWallComponent() = default;
-};
+	constexpr int GAME_TO_RESULT = 120;	// ゲームからリザルトに行く時間
+	constexpr int TITLE_TO_RESULT = 180;	// ゲームからリザルトに行く時間
+}
 #endif

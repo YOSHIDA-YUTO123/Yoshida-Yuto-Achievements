@@ -128,7 +128,6 @@ void PauseMenuSystem::Update(entt::registry& registry)
 			CScene* pScene = pManager->GetScene();
 
 			CSceneController* pSceneController = pScene->GetController();
-			//pController->SetPause(false);
 
 			// カメラのアニメーションの取得
 			pSceneController->ChangeScene(std::make_shared<CMinigameState>(), CCameraAnimationSystem::TYPE_RETRY, 120);
@@ -140,7 +139,6 @@ void PauseMenuSystem::Update(entt::registry& registry)
 			CScene* pScene = pManager->GetScene();
 
 			CSceneController* pSceneController = pScene->GetController();
-			//pController->SetPause(false);
 
 			// カメラのアニメーションの取得
 			pSceneController->ChangeScene(std::make_shared<CTitleState>(), CCameraAnimationSystem::TYPE_REULT_TO_TITLE, 120);

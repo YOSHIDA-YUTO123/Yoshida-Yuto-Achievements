@@ -250,12 +250,13 @@ void MeshFieldUpdateSystem::ResetNormal(entt::entity entity, entt::registry& reg
 
 				vec2 = vtx3 - vtx0; // âE
 				vec3 = vtx4 - vtx0; // â∫
-
+				
 				D3DXVec3Cross(&nor0, &vec0, &vec1);
 				D3DXVec3Cross(&nor1, &vec3, &vec0);
 				D3DXVec3Cross(&nor2, &vec1, &vec2);
 				D3DXVec3Cross(&nor3, &vec2, &vec3);
 
+				// ïΩãœílÇãÅÇﬂÇÈ
 				normal = (nor0 + nor1 + nor2 + nor3) * 0.25f;
 			}
 

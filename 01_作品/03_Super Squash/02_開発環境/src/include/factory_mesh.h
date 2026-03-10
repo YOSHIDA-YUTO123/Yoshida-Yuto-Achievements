@@ -30,7 +30,7 @@ namespace FactoryMesh
 		entt::entity WallMT(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& size, const char* pTexturePath, const char* pTexturePath2, const D3DXVECTOR3& rot = Const::VEC3_NULL);
 		entt::entity Dome(entt::registry& registry, const D3DXVECTOR3& pos, const float fRadius, const char* pTexturePath, const bool bReverse = false);
 		entt::entity Circle(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, const D3DXCOLOR& col, const char* pTexturePath, const int nSegment = BASE_SEGMENT);
-		entt::entity Ball(entt::registry& registry, const D3DXVECTOR3& pos, const float fRadius, const char* pTexturePath, const int nSegmentUV);
+		entt::entity Ball(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& move, const float fRadius, const char* pTexturePath, const int nSegmentUV);
 		entt::entity ResultBall(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& move, const float fRadius, const char* pTexturePath, const int nSegmentUV, const int nLife);
 		entt::entity Orbit(entt::registry& registry, const entt::entity ownerID, const D3DXVECTOR3& top, const D3DXVECTOR3& bottom, const D3DXCOLOR& col, const char* pTexturePath, const int nSegment = BASE_SEGMENT);
 		entt::entity Sphere(entt::registry& registry, const D3DXVECTOR3& pos, const float fRadius, const float fHeight, const int nSegmentUV, const char* pTexturePath, const bool bReverse = false, const D3DXCOLOR& col = Const::WHITE);

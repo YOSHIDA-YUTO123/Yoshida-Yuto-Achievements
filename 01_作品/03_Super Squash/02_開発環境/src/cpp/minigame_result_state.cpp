@@ -14,7 +14,6 @@
 #include "input.h"
 #include "camera_animation_system.h"
 #include "tag_component.hpp"
-#include "renderer_mt_key_component.hpp"
 #include "entity_name_component.hpp"
 #include "fstream"
 #include "result_loader.h"
@@ -63,7 +62,7 @@
 //************************************************
 // 定数宣言
 //************************************************
-namespace MinigameResultState_Const
+namespace MinigameResultStateConst
 {
 	constexpr const char* UI_000_TEXTURE			= "data/TEXTURE/result_ui.png";			// UIのテクスチャ
 	constexpr const char* UI_SCORE_TEXTURE			= "data/TEXTURE/number001.png";			// スコアのテクスチャ
@@ -131,7 +130,7 @@ HRESULT CMinigameResultState::Init(void)
 	auto& registry = pScene->GetRegistry();
 
 	// 定数の使用
-	using namespace MinigameResultState_Const;
+	using namespace MinigameResultStateConst;
 
 	// 基盤のシーンのロード
 	Loader::Scene::BaseScene(registry);

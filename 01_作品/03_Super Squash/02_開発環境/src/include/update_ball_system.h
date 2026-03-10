@@ -43,5 +43,6 @@ private:
 	D3DXVECTOR3 SetShotAngle(entt::registry& registry, const entt::entity character, Transform3DComponent& characterTransform);
 	void SetEffect(entt::registry& registry, const entt::entity ball, VelocityComponent& velocityComp, MeshVtxComponent& meshVtxComp, Transform3DComponent& transformComp);
 	void SetHitStopEffect(entt::registry& registry, const entt::entity ball, Transform3DComponent& transformComp);
+	void UpdateMotionBlurBySpeed(entt::registry& registry, const entt::entity ball, const VelocityComponent& velocityComp);
 };
 #endif

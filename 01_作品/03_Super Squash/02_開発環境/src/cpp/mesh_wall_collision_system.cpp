@@ -33,15 +33,15 @@
 void MeshWallCollisionSystem::Update(entt::registry& registry)
 {
 	// 指定したコンポーネントを持つエンティティの取得
-	auto view = registry.view<MeshWallCollisionComponent>();
+	auto view = registry.view<ColliderTag::Wall>();
 
 	// 指定したコンポーネントを持つエンティティの取得
-	auto wall_view = registry.view<Tag::MeshWallTag>();
+	auto wallView = registry.view<Tag::MeshWallTag>();
 
 	bool bHit = false;
 
 	// 壁の数分回す
-	for (auto wall : wall_view)
+	for (auto wall : wallView)
 	{
 		// 当たり判定コンポーネント分回す
 		for (auto collision : view)
@@ -58,15 +58,15 @@ void MeshWallCollisionSystem::Update(entt::registry& registry)
 void MeshWallCollisionSystem::CheckCollision(entt::registry& registry, const entt::entity collisionID, const entt::entity wallID, bool* pHit)
 {
 	// コンポーネントを取得
-	auto& collisionComp = registry.get<MeshWallCollisionComponent>(collisionID);
-	auto& otherTransformComp = registry.get<Transform3DComponent>(collisionID);
+	auto& colliderSphere = registry.get<SphereColliderComponent>(collisionID);
+	auto& collisionComp = registry.get<MeshWallCollisionComponent>(colliderSphere.ownerID);
+	auto& otherTransformComp = registry.get<Transform3DComponent>(colliderSphere.ownerID);
 	auto& meshVtxComp = registry.get<MeshVtxComponent>(wallID);
 	auto& sizeComp = registry.get<Size3DComponent>(wallID);
 	auto& vertexBufferComp = registry.get<VertexBufferComponent>(wallID);
 	auto& transformComp = registry.get<Transform3DComponent>(wallID);
-	auto& sphereColliderComp = registry.get<SphereColliderComponent>(collisionID);
 
-	// 当たってないなら
+	// 当たってないなら //out
 	if (*pHit == false)
 	{
 		collisionComp.bCollision = false;
@@ -107,7 +107,7 @@ void MeshWallCollisionSystem::CheckCollision(entt::registry& registry, const ent
 	// インデックス数の設定
 	int nNumIndex = nNumPolygon + 2;
 
-	VERTEX_3D_MULT* pVtx = NULL;
+	VERTEX_3D_MULT* pVtx = nullptr;
 
 	// 頂点バッファをロック
 	vertexBufferComp.pVtxBuffer->Lock(0, 0, (void**)&pVtx, 0);
@@ -148,21 +148,21 @@ void MeshWallCollisionSystem::CheckCollision(entt::registry& registry, const ent
 		D3DXVECTOR3 edge1 = vtx2 - vtx1; // 辺ベクトル1
 		D3DXVECTOR3 edge2 = vtx0 - vtx2; // 辺ベクトル2
 
-		D3DXVECTOR3 Normal = {};
+		D3DXVECTOR3 normal = {};
 
 		if (nCnt % 2 == 0)
 		{
 			// 偶数番目の三角形
-			Normal = math::Cross(edge0, edge1);
+			normal = math::Cross(edge0, edge1);
 		}
 		else
 		{
 			// 奇数番目の三角形（順序が逆になっている）
-			Normal = math::Cross(edge1, edge0);
+			normal = math::Cross(edge1, edge0);
 		}
 
 		// 地面の法線を求める
-		D3DXVec3Normalize(&Normal, &Normal);
+		D3DXVec3Normalize(&normal, &normal);
 
 		// 判定回数
 		const int MAX_CHECK = 5;
@@ -173,7 +173,7 @@ void MeshWallCollisionSystem::CheckCollision(entt::registry& registry, const ent
 		bool bCollision = false;
 
 		// 球体コライダーの半径
-		float fRadius = sphereColliderComp.fRadius;
+		float fRadius = colliderSphere.fRadius;
 
 		// 移動量を幅を求める
 		D3DXVECTOR3 vecMove = otherTransformComp.posOld - otherTransformComp.pos;
@@ -205,7 +205,7 @@ void MeshWallCollisionSystem::CheckCollision(entt::registry& registry, const ent
 
 				collisionComp.bCollision = true;
 				collisionComp.meshID = wallID;
-				collisionComp.normal = Normal;
+				collisionComp.normal = normal;
 				*pHit = true;
 			}
 		};
@@ -214,7 +214,7 @@ void MeshWallCollisionSystem::CheckCollision(entt::registry& registry, const ent
 		if (CheckClosestPosInTriangle(
 			otherTransformComp.pos,
 			vtx0, vtx1, vtx2,
-			Normal,
+			normal,
 			fRadius,
 			push, registry))
 		{
@@ -226,7 +226,7 @@ void MeshWallCollisionSystem::CheckCollision(entt::registry& registry, const ent
 			otherTransformComp.pos,
 			vtx0, vtx1, vtx2,
 			fRadius,
-			push, registry, Normal))
+			push, registry, normal))
 		{
 			tryPush(push);
 		}
@@ -236,7 +236,7 @@ void MeshWallCollisionSystem::CheckCollision(entt::registry& registry, const ent
 			otherTransformComp.pos,
 			vtx0, vtx1, vtx2,
 			fRadius,
-			Normal,
+			normal,
 			push,
 			registry))
 		{
@@ -247,7 +247,7 @@ void MeshWallCollisionSystem::CheckCollision(entt::registry& registry, const ent
 		{
 			// 押し出す
 			otherTransformComp.pos += Finalpush;
-			otherTransformComp.pos += Normal * fRadius * 0.1f;
+			otherTransformComp.pos += normal * fRadius * 0.1f;
 
 			// 衝突点の設定
 			collisionComp.hitPos = otherTransformComp.pos;
@@ -270,25 +270,25 @@ void MeshWallCollisionSystem::CheckCollision(entt::registry& registry, const ent
 		}
 		
 		// プレイヤーまでのベクトルと法線の内積
-		float dot = math::Dot(vecToPlayerVtx, Normal);
+		float dot = math::Dot(vecToPlayerVtx, normal);
 
 		// ポリゴンの裏側に行っているなら
 		if (dot < 0.0f)
 		{
 			// 平面を求める
-			float D = math::Dot(Normal, vtx0);
+			float D = math::Dot(normal, vtx0);
 
 			// 法線方向にどれだけ離れているか - 平面で距離を求める
-			float fDistance = math::Dot(Normal, otherTransformComp.pos) - D;
+			float fDistance = math::Dot(normal, otherTransformComp.pos) - D;
 
 			// 押し出す
-			otherTransformComp.pos -= Normal * fDistance;
-			otherTransformComp.pos += Normal * fRadius;
+			otherTransformComp.pos -= normal * fDistance;
+			otherTransformComp.pos += normal * fRadius;
 
 			collisionComp.hitPos = otherTransformComp.pos;
 			collisionComp.bCollision = true;
 			collisionComp.meshID = wallID;
-			collisionComp.normal = Normal;
+			collisionComp.normal = normal;
 			*pHit = true;
 		}
 		
@@ -307,16 +307,16 @@ void MeshWallCollisionSystem::CheckCollision(entt::registry& registry, const ent
 bool MeshWallCollisionSystem::CheckClosestPosInTriangle(
 	const D3DXVECTOR3& sphere, const D3DXVECTOR3& vtx0,
 	const D3DXVECTOR3& vtx1, const D3DXVECTOR3& vtx2,
-	const D3DXVECTOR3& Normal,const float fRadius,
+	const D3DXVECTOR3& normal,const float fRadius,
 	D3DXVECTOR3& push, entt::registry& reg)
 {
 	(void)reg;
 
 	// 法線と頂点までのベクトルの内積
-	float fDist = math::Dot(sphere - vtx0, Normal);
+	float fDist = math::Dot(sphere - vtx0, normal);
 
 	// 三角形の平面に投影した点
-	D3DXVECTOR3 closestPos = sphere - Normal * fDist;
+	D3DXVECTOR3 closestPos = sphere - normal * fDist;
 
 	// 投影点が三角形の中にいるかどうか
 	if (math::InTriangle(closestPos, vtx0, vtx1, vtx2))
@@ -328,8 +328,6 @@ bool MeshWallCollisionSystem::CheckClosestPosInTriangle(
 		if (fDistance <= fRadius)
 		{
 #ifdef _DEBUG
-			//auto effect = FactoryBillboard::Create::Effect(reg, closestPos, Const::WHITE, 3.0f, "");
-			//FactoryBillboard::Build::Effect(reg, effect, 180, Const::VEC3_NULL);
 #else
 			(void)reg;
 #endif // _DEBUG
@@ -338,7 +336,7 @@ bool MeshWallCollisionSystem::CheckClosestPosInTriangle(
 			float fDepth = fRadius - fDistance;
 
 			// 押し出し方向の設定
-			push = fDepth * Normal;
+			push = fDepth * normal;
 
 			return true;
 		}
@@ -402,24 +400,6 @@ bool MeshWallCollisionSystem::CheckEdgeOnPos(
 		}
 	}
 
-	//float side = math::dot(math::GetVector(sphere, nearPos), Normal);
-
-	//// 判定用の距離
-	//float fDistanceCheck = fDistanceMin;
-
-//	if (side < 0.0f)
-//	{
-//#ifdef _DEBUG
-//		auto effect = FactoryBillboard::Create::Effect(reg, nearPos, Color::RED, 30.0f, "data/TEXTURE/effect000.jpg");
-//		FactoryBillboard::Build::Effect(reg, effect, 300, Const::VEC3_NULL);
-//		(void)reg;
-//#else
-//		(void)reg;
-//#endif // _DEBUG
-//
-//		fDistanceCheck *= -1.0f;
-//	}
-
 	// 距離が半径以内だったら当たっている
 	if (fDistanceMin <= fRadius)
 	{
@@ -428,15 +408,6 @@ bool MeshWallCollisionSystem::CheckEdgeOnPos(
 
 		D3DXVECTOR3 dir = Const::VEC3_NULL;
 
-		//if (side >= 0.0f)
-		//{
-		//	dir = math::GetVector(sphere, nearPos);
-		//}
-		//else if(side < 0.0f)
-		//{ 
-		//	dir = math::GetVector(nearPos, sphere);
-		//}
-		
 		// 押し出し方向の設定
 		push = fDepth * Normal;
 
@@ -495,8 +466,6 @@ bool MeshWallCollisionSystem::CheckVtxOnPos(
 		float fDepth = fRadius - fDistanceMin;
 
 #ifdef _DEBUG
-		//auto effect = FactoryBillboard::Create::Effect(reg, nearVtx, Color::AQUA, 3.0f, "");
-		//FactoryBillboard::Build::Effect(reg, effect, 180, Const::VEC3_NULL);
 #else
 		(void)reg;
 #endif

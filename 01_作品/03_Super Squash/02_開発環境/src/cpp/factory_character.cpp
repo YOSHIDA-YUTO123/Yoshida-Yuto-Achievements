@@ -40,26 +40,27 @@
 //***************************************************
 namespace FactoryCharacterConst
 {
-    constexpr const char* JET_PACK_PATH = "JetPack_x";                  // ジェットパックのモデルのパス
-    constexpr float MOVE_SPEED = 2.5f;                                  // 移動速度
-    constexpr float PLAYER_CAPSULE_RADIUS = 20.0f;                      // プレイヤーのカプセルコライダーの半径
-    constexpr float PLAYER_INERTIA = 0.25f;                             // プレイヤーの移動慣性
-    constexpr float PLAYER_GRAVITY = 0.1f;                              // プレイヤーの重力量
-    constexpr float PLAYER_SPHERE_RADIUS = 40.0f;                       // プレイヤーの球のコライダーの半径
-    constexpr float BALL_SHOT_RANGE = 70.0f;                            // ボールを打てる範囲
-    constexpr float RACKET_CAPSULE_RADIUS = 40.0f;                      // ボールのカプセルの半径
-    constexpr float OUTLINE_SIZE = 0.3f;                                // アウトラインの太さ
-    const D3DXVECTOR3 BALL_SHOT_RANGE_OFFSET = { 0.0f,70.0f,-10.0f };   // ボールを打てる範囲のオフセット
-    const D3DXVECTOR3 STENCIL_SHADOW_SCALE = { 2.0f,5.0f,2.0f };        // ステンシルの影の大きさ
-    const D3DXVECTOR3 PLAYER_CAPSULE_END_POS = { 0.0f,70.0f,0.0f };     // プレイヤーのカプセルコライダーの終点の位置
-    const D3DXVECTOR3 PLAYER_CAPSULE_START_POS = { 0.0f,0.0f,0.0f };    // プレイヤーのカプセルコライダーの始点の位置
-    const D3DXVECTOR3 JET_PACK_POS = { 0.0f,10.0f,0.0f };               // ジェットパックの位置
+    constexpr const char* JET_PACK_PATH         = "JetPack.x";            // ジェットパックのモデルのパス
+    constexpr float MOVE_SPEED                  = 2.5f;                   // 移動速度
+    constexpr float PLAYER_CAPSULE_RADIUS       = 20.0f;                  // プレイヤーのカプセルコライダーの半径
+    constexpr float PLAYER_INERTIA              = 0.25f;                  // プレイヤーの移動慣性
+    constexpr float PLAYER_GRAVITY              = 0.1f;                   // プレイヤーの重力量
+    constexpr float PLAYER_SPHERE_RADIUS        = 40.0f;                  // プレイヤーの球のコライダーの半径
+    constexpr float BALL_SHOT_RANGE             = 70.0f;                  // ボールを打てる範囲
+    constexpr float RACKET_CAPSULE_RADIUS       = 40.0f;                  // ボールのカプセルの半径
+    constexpr float OUTLINE_SIZE                = 0.3f;                   // アウトラインの太さ
+    const D3DXVECTOR3 BALL_SHOT_RANGE_OFFSET    = { 0.0f,70.0f,-10.0f };  // ボールを打てる範囲のオフセット
+    const D3DXVECTOR3 STENCIL_SHADOW_SCALE      = { 2.0f,5.0f,2.0f };     // ステンシルの影の大きさ
+    const D3DXVECTOR3 PLAYER_CAPSULE_END_POS    = { 0.0f,70.0f,0.0f };    // プレイヤーのカプセルコライダーの終点の位置
+    const D3DXVECTOR3 PLAYER_CAPSULE_START_POS  = { 0.0f,0.0f,0.0f };     // プレイヤーのカプセルコライダーの始点の位置
+    const D3DXVECTOR3 JET_PACK_POS              = { 0.0f,10.0f,10.0f };   // ジェットパックの位置
+    const D3DXVECTOR3 PLAYER_SPHERE_OFFSET      = { 0.0f,50.0f,0.0f };    // プレイヤーの球のコライダーのオフセット
 }
 
 //===================================================
 // キャラクターの生成処理
 //===================================================
-entt::entity FactoryCharacter::CreateCharacter(entt::registry& registry, const char* pMotionFile, const int nNumMotion, const D3DXVECTOR3 pos, const D3DXVECTOR3 rot)
+entt::entity FactoryCharacter::CreateCharacter(entt::registry& registry, const char* pMotionFile, const int nNumMotion, const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
 {
     // 名前空間の使用
     using namespace FactoryCharacterConst;
@@ -111,13 +112,17 @@ void FactoryCharacter::BuildPlayer(entt::registry& registry, entt::entity player
     registry.emplace<FieldCollisionComponent>(player, player);
     registry.emplace<PlayerCommandComponent>(player);
     registry.emplace<MeshWallCollisionComponent>(player, player);
-    registry.emplace<SphereColliderComponent>(player, PLAYER_SPHERE_RADIUS, player);
     registry.emplace<CapsuleColliderComponent>(player, PLAYER_CAPSULE_START_POS, PLAYER_CAPSULE_END_POS, PLAYER_CAPSULE_RADIUS, player);
     registry.emplace<CollisionEffectWallComponent>(player);
 
     // 球のコライダーの生成
     auto sphereID = FactorySystemEntity::CreateSphereCollider(registry, player, BALL_SHOT_RANGE, BALL_SHOT_RANGE_OFFSET);
     registry.emplace<ColliderTag::BallShotRange>(sphereID);
+
+    // 地面の判定するコライダーの生成
+    sphereID = FactorySystemEntity::CreateSphereCollider(registry, player, PLAYER_SPHERE_RADIUS, FactoryCharacterConst::PLAYER_SPHERE_OFFSET);
+    registry.emplace<ColliderTag::Wall>(sphereID);
+    registry.emplace<ColliderTag::Field>(sphereID);
 
     auto& childrenComp = registry.get<ChildrenComponent>(player);
 

@@ -43,6 +43,16 @@
 #include "color_constants.hpp"
 #endif // _DEBUG
 
+//***************************************************
+// 定数宣言
+//***************************************************
+namespace PlayerSystemConst
+{
+	constexpr float WALL_EFFECT_RADIUS	= 50.0f;	// 壁のエフェクトの半径
+	constexpr float WALL_EFFECT_ROUGH	= 0.9f;		// 壁のエフェクトの粗さ
+	constexpr int WALL_EFFECT_TIME		= 20;		// 壁のエフェクトの発生時間
+}
+
 //===================================================
 // 移動の更新処理
 //===================================================
@@ -86,7 +96,7 @@ void PlayerSystem::Update(entt::registry& registry)
 		// キャラクターのコンポ―ネント
 		auto& characterComp = registry.get<CharacterComponent>(player);
 
-		//auto& playerTransform = registry.get<Transform3DComponent>(player);
+		auto& fieldCollisionComp = registry.get<FieldCollisionComponent>(player);
 
 		// キーボードの移動
 		InputMove(registry, player, pKeyboard, pJoyPad, motionComp, velocityComp);
@@ -94,11 +104,10 @@ void PlayerSystem::Update(entt::registry& registry)
 		// ボールの発射角度の設定
 		SetShotPitchAngle(registry, player, characterComp, pKeyboard, pJoyPad);
 
-		auto& fieldCollisionComp = registry.get<FieldCollisionComponent>(player);
-
 		// ショットかサーブのモーションの再生処理
 		StartShotOrServeMotion(registry, player, motionComp, characterComp);
 		
+		// エフェクトの壁との当たり判定
 		SetCollisionEffectWall(registry, player);
 
 		// ジャンプ中で地面に着地していたら
@@ -126,29 +135,34 @@ void PlayerSystem::InputMove(entt::registry& registry, const entt::entity player
 
 	bool bMove = false;
 
-	CharacterSpec::Motion::CBlowOff					is_BlowOff;			// 吹き飛びモーション
-	CharacterSpec::Motion::CJetPackMoveLeft			is_jetpackMoveLeft;	// ジェットパックの素早い左移動か判定
-	CharacterSpec::Motion::CJetPackMoveRight		is_jetpack_MoveRight;	// ジェットパックの素早い右移動か判定
+	CharacterSpec::Motion::CBlowOff					isBlowOff;			// 吹き飛びモーション
+	CharacterSpec::Motion::CJetPackMoveLeft			isJetpackMoveLeft;	// ジェットパックの素早い左移動か判定
+	CharacterSpec::Motion::CJetPackMoveRight		isJetpackMoveRight;	// ジェットパックの素早い右移動か判定
 
 	// ショットモーションの判定
-	CharacterSpec::Motion::CCheckShot				is_shot;	// ショットモーションかどうか
-	CharacterSpec::Motion::CCharge					is_charge;	// チャージモーションかどうか
+	CharacterSpec::Motion::CCheckShot				isShot;	// ショットモーションかどうか
+	CharacterSpec::Motion::CCharge					isCharge;	// チャージモーションかどうか
 
 	// 吹き飛び,ジェットパックの素早い移動だったら
-	if (COrSpec(is_BlowOff, is_jetpackMoveLeft).IsSatisfiedBy(registry, player) ||
-		is_jetpack_MoveRight.IsSatisfiedBy(registry, player))
+	if (COrSpec(isBlowOff, isJetpackMoveLeft).IsSatisfiedBy(registry, player) ||
+		isJetpackMoveRight.IsSatisfiedBy(registry, player))
 	{
 		return;
 	}
 
 	// キーボードの移動処理
-	if (KeyboardMove(registry, player, pKeyboard, pJoypad, velocityComp)) bMove = true;
-
+	if (KeyboardMove(registry, player, pKeyboard, pJoypad, velocityComp))
+	{
+		bMove = true;
+	}
 	// パッドの移動処理
-	else if(JoyPadMove(registry,player, pJoypad,velocityComp)) bMove = true;
+	else if (JoyPadMove(registry, player, pJoypad, velocityComp))
+	{
+		bMove = true;
+	}
 
-	CharacterSpec::Transform::CBallOnLeftSide		is_ballOnLeftSideSpec;	// ボールがキャラクターの左にいるかどうか
-	CharacterSpec::Motion::CJetPack					is_Jetpack;	// ジェットパックモーションかどうか
+	CharacterSpec::Transform::CBallOnLeftSide		isballOnLeftSideSpec;	// ボールがキャラクターの左にいるかどうか
+	CharacterSpec::Motion::CJetPack					isJetpack;				// ジェットパックモーションかどうか
 
 	// 移動しているなら
 	if (bMove)
@@ -156,11 +170,11 @@ void PlayerSystem::InputMove(entt::registry& registry, const entt::entity player
 		bool bPlayMoveMotion = false;
 
 		// ジェットパックモーションとチャージモーションなら
-		COrSpec is_Jet_Or_Charge = { is_Jetpack, is_charge };
+		COrSpec isJetOrCharge = { isJetpack, isCharge };
 
 		// 移動モーションを出せるなら
-		if (CNotSpec(is_shot).IsSatisfiedBy(registry, player) &&
-			CNotSpec(is_Jet_Or_Charge).IsSatisfiedBy(registry,player))
+		if (CNotSpec(isShot).IsSatisfiedBy(registry, player) &&
+			CNotSpec(isJetOrCharge).IsSatisfiedBy(registry,player))
 		{
 			// 移動状態にする
 			characterComp.state = CharacterComponent::State::Move;
@@ -196,13 +210,13 @@ void PlayerSystem::InputMove(entt::registry& registry, const entt::entity player
 	characterComp.state = CharacterComponent::State::Normal;
 	
 	// 移動モーションからニュートラルにできるか
-	CharacterSpec::Motion::CMoveToNeutral is_MoveToNeutral;
+	CharacterSpec::Motion::CMoveToNeutral isMoveToNeutral;
 
 	// 移動モーションじゃないなら
-	if (CNotSpec(is_MoveToNeutral).IsSatisfiedBy(registry, player)) return;
+	if (CNotSpec(isMoveToNeutral).IsSatisfiedBy(registry, player)) return;
 	
 	// ボールがプレイヤーの左側にあるなら
-	if (is_ballOnLeftSideSpec.IsSatisfiedBy(registry, player))
+	if (isballOnLeftSideSpec.IsSatisfiedBy(registry, player))
 	{
 		// モーションの再生
 		MotionManager::Helper::Play(motionComp, MotionComponent::MOTIONTYPE_NEUTRAL_LEFT_HAND, 10, true);
@@ -235,9 +249,6 @@ bool PlayerSystem::KeyboardMove(entt::registry& registry, const entt::entity pla
 	// カメラの向きの取得
 	D3DXVECTOR3 cameraRot = pCamera->GetRotation();
 
-	// カメラの向きを取得
-	float fCameraRotY = cameraRot.y;
-
 	// キャラクターのコンポーネントの取得
 	auto& characterComp = registry.get<CharacterComponent>(player);
 
@@ -250,132 +261,32 @@ bool PlayerSystem::KeyboardMove(entt::registry& registry, const entt::entity pla
 
 	if (pKeyboard->GetPress(DIK_A))
 	{
-		//プレイヤーの移動(上)
-		if (pKeyboard->GetPress(DIK_W) == true)
-		{
-			velocityComp.move.x += sinf(fCameraRotY - D3DX_PI * 0.25f) * fSpeed;
-			velocityComp.move.z += cosf(fCameraRotY - D3DX_PI * 0.25f) * fSpeed;
+		velocityComp.move.x -= fSpeed;
 
-			// 目的の向き
-			characterComp.fRotDest = fCameraRotY + D3DX_PI;
+		//// 目的の向き
+		//characterComp.fRotDest = fCameraRotY + D3DX_PI * 0.5f;
 
-			// 左上移動
-			playerCommand.moveDir = PlayerCommandComponent::MoveDir::Left_Forward;
+		// 目的の向き
+		characterComp.fRotDest = cameraRot.y + D3DX_PI;
 
-			bMove = true;
-		}
-		//プレイヤーの移動(下)
-		else if (pKeyboard->GetPress(DIK_S))
-		{
-			velocityComp.move.x += sinf(fCameraRotY - D3DX_PI * 0.75f) * fSpeed;
-			velocityComp.move.z += cosf(fCameraRotY - D3DX_PI * 0.75f) * fSpeed;
+		// 左移動
+		playerCommand.moveDir = PlayerCommandComponent::MoveDir::Left;
 
-			//// 目的の向き
-			//characterComp.fRotDest = fCameraRotY + D3DX_PI * 0.25f;
-
-			// 目的の向き
-			characterComp.fRotDest = fCameraRotY + D3DX_PI;
-
-			// 左下移動
-			playerCommand.moveDir = PlayerCommandComponent::MoveDir::Left_Back;
-
-			bMove = true;
-		}
-		// プレイヤーの移動(左)
-		else
-		{
-			velocityComp.move.z += sinf(fCameraRotY) * fSpeed;
-			velocityComp.move.x -= cosf(fCameraRotY) * fSpeed;
-
-			//// 目的の向き
-			//characterComp.fRotDest = fCameraRotY + D3DX_PI * 0.5f;
-
-			// 目的の向き
-			characterComp.fRotDest = fCameraRotY + D3DX_PI;
-
-			// 左移動
-			playerCommand.moveDir = PlayerCommandComponent::MoveDir::Left;
-
-			bMove = true;
-		}
+		bMove = true;
 	}
 	//プレイヤーの移動(右)
 	else if (pKeyboard->GetPress(DIK_D))
 	{
-		//プレイヤーの移動(上)
-		if (pKeyboard->GetPress(DIK_W))
-		{
-			velocityComp.move.x += sinf(fCameraRotY + D3DX_PI * 0.25f) * fSpeed;
-			velocityComp.move.z += cosf(fCameraRotY + D3DX_PI * 0.25f) * fSpeed;
+		velocityComp.move.x += fSpeed;
 
-			// 目的の向き
-			characterComp.fRotDest = fCameraRotY + D3DX_PI;
-
-			// 右上移動
-			playerCommand.moveDir = PlayerCommandComponent::MoveDir::Right_Forward;
-
-			bMove = true;
-		}
-		//プレイヤーの移動(下)
-		else if (pKeyboard->GetPress(DIK_S))
-		{
-			velocityComp.move.x += sinf(fCameraRotY + D3DX_PI * 0.75f) * fSpeed;
-			velocityComp.move.z += cosf(fCameraRotY + D3DX_PI * 0.75f) * fSpeed;
-
-			//// 目的の向き
-			//characterComp.fRotDest = fCameraRotY - D3DX_PI * 0.25f;
-
-			// 目的の向き
-			characterComp.fRotDest = fCameraRotY + D3DX_PI;
-
-			// 右下移動
-			playerCommand.moveDir = PlayerCommandComponent::MoveDir::Right_Back;
-
-			bMove = true;
-		}
-		// プレイヤーの移動(右)
-		else
-		{
-			velocityComp.move.z -= sinf(fCameraRotY) * fSpeed;
-			velocityComp.move.x += cosf(fCameraRotY) * fSpeed;
-
-			// 右移動
-			playerCommand.moveDir = PlayerCommandComponent::MoveDir::Right;
-
-			// 目的の向き
-			characterComp.fRotDest = fCameraRotY + D3DX_PI;
-
-			//// 目的の向き
-			//characterComp.fRotDest = fCameraRotY - D3DX_PI * 0.5f;
-
-			bMove = true;
-		}
-	}
-	//プレイヤーの移動(上)
-	else if (pKeyboard->GetPress(DIK_W) == true)
-	{
-		velocityComp.move.x += sinf(fCameraRotY) * fSpeed;
-		velocityComp.move.z += cosf(fCameraRotY) * fSpeed;
+		// 右移動
+		playerCommand.moveDir = PlayerCommandComponent::MoveDir::Right;
 
 		// 目的の向き
-		characterComp.fRotDest = fCameraRotY + D3DX_PI;
+		characterComp.fRotDest = cameraRot.y + D3DX_PI;
 
-		// 正面移動
-		playerCommand.moveDir = PlayerCommandComponent::MoveDir::Forward;
-
-		bMove = true;
-	}
-	//プレイヤーの移動(下)
-	else if (pKeyboard->GetPress(DIK_S) == true)
-	{
-		velocityComp.move.x -= sinf(fCameraRotY) * (fSpeed * 0.5f);
-		velocityComp.move.z -= cosf(fCameraRotY) * (fSpeed * 0.5f);
-
-		// 目的の向き
-		characterComp.fRotDest = fCameraRotY + D3DX_PI;
-
-		// 後ろ移動
-		playerCommand.moveDir = PlayerCommandComponent::MoveDir::Back;
+		//// 目的の向き
+		//characterComp.fRotDest = fCameraRotY - D3DX_PI * 0.5f;
 
 		bMove = true;
 	}
@@ -690,7 +601,7 @@ void PlayerSystem::SetShotPitchAngle(entt::registry& registry, const entt::entit
 	else
 	{
 		// 正面に飛ばす
-		characterComp.fShotPitchAngle = 2.0f;
+		characterComp.fShotPitchAngle = PlayerConstants::NO_INPUT_ANGLE;
 	}
 }
 
@@ -699,6 +610,9 @@ void PlayerSystem::SetShotPitchAngle(entt::registry& registry, const entt::entit
 //===================================================
 void PlayerSystem::SetCollisionEffectWall(entt::registry& registry, const entt::entity player)
 {
+	// 名前空間の使用
+	using namespace PlayerSystemConst;
+
 	// エフェクトの壁の当たり判定の取得
 	auto& effectWallCollisionComp = registry.get<CollisionEffectWallComponent>(player);
 
@@ -712,7 +626,7 @@ void PlayerSystem::SetCollisionEffectWall(entt::registry& registry, const entt::
 	if (effectWallCollisionComp.bCollision)
 	{
 		// エフェクトの生成
-		MeshEffectManager::CreateEffect(registry, effectWallCollisionComp.wallID, effectWallCollisionComp.hitPos, 50.0f,0.9f, 20);
+		MeshEffectManager::CreateEffect(registry, effectWallCollisionComp.wallID, effectWallCollisionComp.hitPos, WALL_EFFECT_RADIUS, WALL_EFFECT_ROUGH, WALL_EFFECT_TIME);
 		effectWallCollisionComp.bCollision = false;
 	}
 }

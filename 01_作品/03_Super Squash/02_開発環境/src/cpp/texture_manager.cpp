@@ -58,15 +58,27 @@ int CTextureManager::Register(const char* pFilename)
 	// テクスチャの数
 	int nNumTexture = static_cast<int>(m_apTextureInfo.size());
 
+	// nullだったら
+	if (pFilename == nullptr)
+	{
+		return INVALID_ID;
+	}
+
+	// 省略用ファイルパス
+	std::string filePath = pFilename;
+
+	// ファイルパスが省略されていたら
+	if (filePath.find(TEXTURE_ROOT_PATH) == std::string::npos)
+	{
+		// 文字列を連結
+		filePath = TEXTURE_ROOT_PATH + filePath;
+	}
+
+	// テクスチャ分回す
 	for (int nCnt = 0; nCnt < nNumTexture; nCnt++)
 	{
-		if (pFilename == nullptr)
-		{
-			continue;
-		}
-
 		// 文字列が一致していたら
-		if (m_apTextureInfo[nCnt].filepath == pFilename)
+		if (m_apTextureInfo[nCnt].filepath == filePath)
 		{
 			return nCnt;
 		}
@@ -78,16 +90,19 @@ int CTextureManager::Register(const char* pFilename)
 		// テクスチャの情報
 		TextureInfo info = {};
 
+		// テクスチャのパスを格納
+		const char* pTexturePath = filePath.c_str();
+
 		// テクスチャの読み込み
 		if (FAILED(D3DXCreateTextureFromFile(pDevice,
-			pFilename,
+			pTexturePath,
 			&info.pTexture)))
 		{
 			return INVALID_ID;
 		}
 
 		// ファイルのパスの取得
-		info.filepath = pFilename;
+		info.filepath = pTexturePath;
 
 		// 要素の設定
 		m_apTextureInfo.push_back(info);

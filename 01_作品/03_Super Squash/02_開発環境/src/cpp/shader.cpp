@@ -88,23 +88,6 @@ HRESULT CShader::Init(const char* pShaderFile, const char* pTech)
         }
     }
 
-    //D3DVERTEXELEMENT9 vertexElement[] =
-    //{
-    //    {0, 0, D3DDECLTYPE_FLOAT3, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 0},    // 位置の情報
-    //    {0, 12, D3DDECLTYPE_FLOAT1, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 1},   // rhwの情報
-    //    {0, 16, D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_COLOR, 0},    // 色の情報
-    //    {0, 20, D3DDECLTYPE_FLOAT2, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},   // テクスチャの情報
-    //    D3DDECL_END()
-    //};
-
-    //result = pDevice->CreateVertexDeclaration(vertexElement, &shaderComp.pVertexDecl);
-
-    //if (FAILED(result))
-    //{
-    //    MessageBox(NULL, "VertexDeclaration生成失敗", pShaderFile, MB_OK);
-    //    return E_FAIL;
-    //}
-
 	return S_OK;
 }
 
@@ -149,9 +132,6 @@ void CShader::SetValue(const char* pKey, const void* pData, size_t size)
 //===================================================
 void CShader::SetFloat(const char* pKey, const float fParam)
 {   
-    //// パラメータの設定
-    //m_Param.emplace(key, fParam);
-
     // nullなら処理しない
     if (m_pEffect == nullptr) return;
 
@@ -176,9 +156,6 @@ void CShader::SetFloatArray(const D3DXHANDLE& hHandle, const FLOAT* pParam, cons
 //===================================================
 void CShader::SetVector(const char* pKey, const D3DXVECTOR4& vector4)
 {
-    //// パラメータの設定
-    //m_Param.emplace(key, vector4);
-
     // nullなら処理しない
     if (m_pEffect == nullptr) return;
 
@@ -191,9 +168,6 @@ void CShader::SetVector(const char* pKey, const D3DXVECTOR4& vector4)
 //===================================================
 void CShader::SetMatrix(const char* pKey, const D3DXMATRIX& matrix)
 {
-    //// パラメータの設定
-    //m_Param.emplace(key, matrix);
-
     // nullなら処理しない
     if (m_pEffect == nullptr) return;
 

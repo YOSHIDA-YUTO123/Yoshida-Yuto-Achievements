@@ -205,16 +205,16 @@ bool CharacterSpec::Motion::CJetPackMoveRight::IsSatisfiedBy(const entt::registr
 //===================================================
 bool CharacterSpec::Motion::CMoveToNeutral::IsSatisfiedBy(const entt::registry& registry, const entt::entity character) const
 {
-	Motion::CMove		is_Move(false);			// 移動モーションかどうか
-	Motion::CRightMove	is_RightMove(false);	// 右移動モーションかどうか
-	Motion::CLeftMove	is_LeftMove(false);		// 左移動モーションかどうか
+	Motion::CMove		isMove(false);			// 移動モーションかどうか
+	Motion::CRightMove	isRightMove(false);		// 右移動モーションかどうか
+	Motion::CLeftMove	isLeftMove(false);		// 左移動モーションかどうか
 
 	// ニュートラルモーションが発動できるかどうか
-	COrSpec is_Move_right = { is_Move ,is_RightMove };
+	COrSpec isMoveright = { isMove,isRightMove };
 
-	const bool is_PlayNeutral = is_Move_right.IsSatisfiedBy(registry, character) || is_LeftMove.IsSatisfiedBy(registry, character);
+	const bool isPlayNeutral = isMoveright.IsSatisfiedBy(registry, character) || isLeftMove.IsSatisfiedBy(registry, character);
 
-	return is_PlayNeutral;
+	return isPlayNeutral;
 }
 
 //===================================================
@@ -223,16 +223,26 @@ bool CharacterSpec::Motion::CMoveToNeutral::IsSatisfiedBy(const entt::registry& 
 bool CharacterSpec::Motion::CMove::IsSatisfiedBy(const entt::registry& registry, const entt::entity character) const
 {
 	// モーションのコンポーネントの取得
-	auto& MotionComp = registry.get<MotionComponent>(character);
+	auto& motionComp = registry.get<MotionComponent>(character);
 
-	// ブレンドモーションだったらだったら
-	if (MotionManager::Check::BlendType(MotionComp, MotionComponent::MOTIONTYPE_MOVE) && m_bBlend)
+	// 左・右移動のブレンドモーション
+	const bool bBlendLeftMove = MotionManager::Check::BlendType(motionComp, MotionComponent::MOTIONTYPE_LEFT_MOVE);
+	const bool bBlendRightMove = MotionManager::Check::BlendType(motionComp, MotionComponent::MOTIONTYPE_RIGHT_MOVE);
+
+	// 左・右移動のモーション
+	const bool bLeftMove = MotionManager::Check::Type(motionComp, MotionComponent::MOTIONTYPE_LEFT_MOVE);
+	const bool bRightMove = MotionManager::Check::Type(motionComp, MotionComponent::MOTIONTYPE_RIGHT_MOVE);
+
+	if (m_bBlend)
 	{
-		return true;
+		// ブレンドモーションだったらだったら
+		if (bBlendLeftMove || bBlendRightMove)
+		{
+			return true;
+		}
 	}
-
 	// ブレンドモーションだったらだったら
-	if (MotionManager::Check::Type(MotionComp, MotionComponent::MOTIONTYPE_MOVE) && !m_bBlend)
+	else if (bLeftMove || bRightMove)
 	{
 		return true;
 	}
@@ -246,16 +256,16 @@ bool CharacterSpec::Motion::CMove::IsSatisfiedBy(const entt::registry& registry,
 bool CharacterSpec::Motion::CRightMove::IsSatisfiedBy(const entt::registry& registry, const entt::entity character) const
 {
 	// モーションのコンポーネントの取得
-	auto& MotionComp = registry.get<MotionComponent>(character);
+	auto& motionComp = registry.get<MotionComponent>(character);
 
 	// ブレンドモーションだったらだったら
-	if (MotionManager::Check::BlendType(MotionComp, MotionComponent::MOTIONTYPE_RIGHT_MOVE) && m_bBlend)
+	if (MotionManager::Check::BlendType(motionComp, MotionComponent::MOTIONTYPE_RIGHT_MOVE) && m_bBlend)
 	{
 		return true;
 	}
 
 	// モーションだったらだったら
-	if (MotionManager::Check::Type(MotionComp, MotionComponent::MOTIONTYPE_RIGHT_MOVE) && !m_bBlend)
+	if (MotionManager::Check::Type(motionComp, MotionComponent::MOTIONTYPE_RIGHT_MOVE) && !m_bBlend)
 	{
 		return true;
 	}
@@ -271,14 +281,16 @@ bool CharacterSpec::Motion::CLeftMove::IsSatisfiedBy(const entt::registry& regis
 	// モーションのコンポーネントの取得
 	auto& MotionComp = registry.get<MotionComponent>(character);
 
-	// ブレンドモーションだったらだったら
-	if (MotionManager::Check::BlendType(MotionComp, MotionComponent::MOTIONTYPE_LEFT_MOVE) && m_bBlend)
+	// ブレンドモーションだったら
+	if (m_bBlend)
 	{
-		return true;
+		if (MotionManager::Check::BlendType(MotionComp, MotionComponent::MOTIONTYPE_LEFT_MOVE))
+		{
+			return true;
+		}
 	}
-
-	// モーションだったらだったら
-	if (MotionManager::Check::Type(MotionComp, MotionComponent::MOTIONTYPE_LEFT_MOVE) && !m_bBlend)
+	// モーションじゃないなら
+	else if (MotionManager::Check::Type(MotionComp, MotionComponent::MOTIONTYPE_LEFT_MOVE))
 	{
 		return true;
 	}

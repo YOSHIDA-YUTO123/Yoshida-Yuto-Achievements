@@ -55,7 +55,6 @@ entt::entity FactoryBillboard::Create::Billboard(entt::registry& registry, const
     registry.emplace<VertexBufferComponent>(entity);
     registry.emplace<ColorComponent>(entity, Const::WHITE);
     
-
     // ƒtƒ‰ƒO‚Ìİ’è
     int renderFlag =
         RendererComponent::TYPE_LIGHT_OFF | 
@@ -147,8 +146,7 @@ entt::entity FactoryBillboard::Create::Effect(entt::registry& registry, const D3
 
     // entity‚Ì¶¬
     const entt::entity entity = registry.create();
-    
-
+   
     registry.emplace<Transform3DComponent>(entity, pos);
     registry.emplace<ColorComponent>(entity, col);
     registry.emplace<Tag::BillboardTag>(entity);

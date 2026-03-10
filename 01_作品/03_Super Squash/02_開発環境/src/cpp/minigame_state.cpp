@@ -28,6 +28,7 @@
 #include "scene.h"
 #include "wall_constants.hpp"
 #include "follow_camera.h"
+#include "scene_change_constants.hpp"
 
 // 更新処理
 #include "system_manager.h"
@@ -108,7 +109,6 @@
 #include "score_component.hpp"
 #include "minigame_manager.h"
 #include "entity_name_component.hpp"
-#include "renderer_mt_key_component.hpp"
 #include "mesh_wall_component.hpp"
 #include "motion_component.hpp"
 #include "mrt_target_component.hpp"
@@ -245,7 +245,7 @@ void CMinigameState::Update(void)
 		// シーンの操作クラスの取得
 		CSceneController* pSceneController = pScene->GetController();
 
-		pSceneController->ChangeScene(std::make_shared<CMinigameResultState>(), CCameraAnimationSystem::TYPE_GAME_TO_RESULT, 120);
+		pSceneController->ChangeScene(std::make_shared<CMinigameResultState>(), CCameraAnimationSystem::TYPE_GAME_TO_RESULT, SceneChangeConst::GAME_TO_RESULT);
 	}
 
 #endif // _DEBUG
@@ -331,14 +331,11 @@ void CMinigameState::CreateSystem(CScene* pScene)
 	// マネージャーの取得
 	CManager* pManager = CManager::GetInstance();
 
-	// レジストリーの取得
-	auto& registry = pScene->GetRegistry();
+	//// カメラの取得
+	//CCamera* pCamera = pManager->GetCamera();
 
-	// カメラの取得
-	CCamera* pCamera = pManager->GetCamera();
-
-	// カメラの処理の追加
-	pCamera->AddSystem(std::make_unique<CFollowCamera>(registry));
+	//// カメラの処理の追加
+	//pCamera->AddSystem(std::make_unique<CFollowCamera>(registry));
 
 	// 処理の補助クラスの取得
 	CWorldSystemManager* pWorldSystemManager = pManager->GetWorldSystemManager();
@@ -378,9 +375,6 @@ void CMinigameState::CreateSystem(CScene* pScene)
 		// 影の更新処理
 		pSystemManager->AddSystem(std::make_unique<ShadowSystem>());
 
-		// コライダーの更新処理
-		pSystemManager->AddSystem(std::make_unique<ColliderSystem>());
-
 		{
 			// フィールドの当たり判定の更新システムの追加
 			pSystemManager->AddSystem(std::make_unique<FieldCollisionSystem>());
@@ -403,6 +397,9 @@ void CMinigameState::CreateSystem(CScene* pScene)
 			// メッシュの球体の更新処理
 			pSystemManager->AddSystem(std::make_unique<MeshSphereSystem>());
 		}
+
+		// コライダーの更新処理
+		pSystemManager->AddSystem(std::make_unique<ColliderSystem>());
 
 		pSystemManager->AddSystem(std::make_unique<EffectSystem>());
 

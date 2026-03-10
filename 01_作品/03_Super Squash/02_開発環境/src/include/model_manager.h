@@ -23,7 +23,8 @@ class CModelManager
 {
 public:
 
-	static constexpr int INVALID_ID = -1;	// 無効なID
+	static constexpr int INVALID_ID = -1;					// 無効なID
+	static constexpr auto MODEL_ROOT_PATH = "data/MODEL/";	// 省略用パス
 
 	// モデルの情報の定義
 	struct ModelInfo

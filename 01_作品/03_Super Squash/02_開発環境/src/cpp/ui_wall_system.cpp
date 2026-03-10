@@ -29,7 +29,7 @@ void UIWallSystem::Update(entt::registry& registry)
 	for (auto entity : view)
 	{
 		// コンポーネントの取得
-		auto& UIWallComp = registry.get<UIWallComponent>(entity);
+		auto& uiWallComp = registry.get<UIWallComponent>(entity);
 		auto& vertexBufferComp = registry.get<VertexBufferComponent>(entity);
 		auto& entityNameComp = registry.get<EntityNameComponent>(entity);
 
@@ -38,25 +38,7 @@ void UIWallSystem::Update(entt::registry& registry)
 		{
 			continue;
 		}
-#if 0
-		// 頂点バッファのアンロック
-		vertexBufferComp.pVtxBuffer->Lock(0, 0, (void**)&pVtx, 0);
 
-		// テクスチャのスクロール
-		pVtx[0].tex -= UIWallComp.ScrolSpeed;
-		pVtx[1].tex -= UIWallComp.ScrolSpeed;
-		pVtx[2].tex -= UIWallComp.ScrolSpeed;
-		pVtx[3].tex -= UIWallComp.ScrolSpeed;
-
-		// 
-		pVtx[0].texMT += UIWallComp.ScrolSpeed;
-		pVtx[1].texMT += UIWallComp.ScrolSpeed;
-		pVtx[2].texMT += UIWallComp.ScrolSpeed;
-		pVtx[3].texMT += UIWallComp.ScrolSpeed;
-
-		// 頂点バッファのロック
-		vertexBufferComp.pVtxBuffer->Unlock();
-#else
 		// 頂点バッファのアンロック
 		vertexBufferComp.pVtxBuffer->Lock(0, 0, (void**)&pVtx, 0);
 
@@ -65,21 +47,19 @@ void UIWallSystem::Update(entt::registry& registry)
 		for (int nCnt = 0; nCnt < meshVtxComp.nNumVertex; nCnt++)
 		{
 			// スクロールするなら
-			if (UIWallComp.bScrol)
+			if (uiWallComp.bScrol)
 			{
 				// テクスチャのスクロール
-				pVtx[nCnt].tex -= UIWallComp.scrolSpeed;
+				pVtx[nCnt].tex -= uiWallComp.scrolSpeed;
 			}
 			// 背景スクロールするなら
-			if (UIWallComp.bBackgrondScrol)
+			if (uiWallComp.bBackgrondScrol)
 			{
-				pVtx[nCnt].texMT += UIWallComp.scrolSpeed;
+				pVtx[nCnt].texMT += uiWallComp.scrolSpeed;
 			}
 		}
 
 		// 頂点バッファのロック
 		vertexBufferComp.pVtxBuffer->Unlock();
-
-#endif // 0
 	}
 }

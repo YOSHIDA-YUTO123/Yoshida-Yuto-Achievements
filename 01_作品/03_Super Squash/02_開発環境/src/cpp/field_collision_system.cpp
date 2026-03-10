@@ -15,6 +15,7 @@
 #include "size_component.hpp"
 #include "transform_component.hpp"
 #include "vertex_buffer_component.hpp"
+#include "sphere_collider_component.hpp"
 
 //===================================================
 // 更新処理
@@ -22,21 +23,23 @@
 void FieldCollisionSystem::Update(entt::registry& registry)
 {
 	// 地面の当たり判定のコンポーネントを持つエンティティの取得
-	auto CollisionEntity = registry.view<FieldCollisionComponent>();
+	auto collisionEntity = registry.view<ColliderTag::Field>();
 
 	// 地面のコンポーネントを持つエンティティの取得(front())
-	auto FieldEntity = registry.view<Tag::MeshFieldTag>().front();
+	auto fieldEntity = registry.view<Tag::MeshFieldTag>().front();
 
 	// 当たり判定
-	for (auto entity : CollisionEntity)
+	for (auto entity : collisionEntity)
 	{
 		// コンポーネントの取得
-		auto& VtxComp = registry.get<MeshVtxComponent>(FieldEntity);
-		auto& sizeComp = registry.get<Size3DComponent>(FieldEntity);
-		auto& FieldTransformComp = registry.get<Transform3DComponent>(FieldEntity);
-		auto& transformComp = registry.get<Transform3DComponent>(entity);
-		auto& vtxBufferComp = registry.get<VertexBufferComponent>(FieldEntity);
-		auto& collision = registry.get<FieldCollisionComponent>(entity);
+		auto& VtxComp = registry.get<MeshVtxComponent>(fieldEntity);
+		auto& sizeComp = registry.get<Size3DComponent>(fieldEntity);
+		auto& fieldTransformComp = registry.get<Transform3DComponent>(fieldEntity);
+		auto& vtxBufferComp = registry.get<VertexBufferComponent>(fieldEntity);
+
+		auto& colliderComp = registry.get<SphereColliderComponent>(entity);
+		auto& transformComp = registry.get<Transform3DComponent>(colliderComp.ownerID);
+		auto& collision = registry.get<FieldCollisionComponent>(colliderComp.ownerID);
 
 		collision.bLanding = false;
 
@@ -102,20 +105,20 @@ void FieldCollisionSystem::Update(entt::registry& registry)
 			D3DXVECTOR3 edge1 = vtx2 - vtx1; // 辺ベクトル1
 			D3DXVECTOR3 edge2 = vtx0 - vtx2; // 辺ベクトル2
 
-			D3DXVECTOR3 Normal = {};
+			D3DXVECTOR3 normal = {};
 
 			if (nCnt % 2 == 0)
 			{
 				// 偶数番目の三角形
-				D3DXVec3Cross(&Normal, &edge0, &edge1);
+				D3DXVec3Cross(&normal, &edge0, &edge1);
 			}
 			else
 			{
 				// 奇数番目の三角形（順序が逆になっている）
-				D3DXVec3Cross(&Normal, &edge1, &edge0);
+				D3DXVec3Cross(&normal, &edge1, &edge0);
 			}
 
-			D3DXVec3Normalize(&Normal, &Normal);
+			D3DXVec3Normalize(&normal, &normal);
 
 			D3DXVECTOR3 PlayerVec0 = transformComp.pos - vtx0;
 			D3DXVECTOR3 PlayerVec1 = transformComp.pos - vtx1;
@@ -152,32 +155,28 @@ void FieldCollisionSystem::Update(entt::registry& registry)
 
 			if (Cross0.y >= 0.0f && Cross1.y >= 0.0f && Cross2.y >= 0.0f)
 			{
-				//float xz = ((pPos->x - vtx0.x) * Normal.x + (pPos->z - pPos->z) * Normal.z);
-
-				//float fHeight = vtx0.y - (xz / Normal.y);
-
 				// 平面の方程式のDを計算
-				float D = -(Normal.x * vtx0.x + Normal.y * vtx0.y + Normal.z * vtx0.z);
+				float D = -(normal.x * vtx0.x + normal.y * vtx0.y + normal.z * vtx0.z);
 
 				// プレイヤーの位置に基づいて、プレイヤーのY位置を計算
-				float PosY = (Normal.x * transformComp.pos.x + Normal.z * transformComp.pos.z + D) / -Normal.y;
+				float PosY = (normal.x * transformComp.pos.x + normal.z * transformComp.pos.z + D) / -normal.y;
 
 				D3DXVECTOR3 vec = vtx0 - transformComp.pos;
 				D3DXVec3Normalize(&vec, &vec);
 
 				// プレイヤーがポリゴンの裏側かどうかの判定
-				float dot = D3DXVec3Dot(&Normal, &vec); // 法線とプレイヤー方向との内積
+				float dot = D3DXVec3Dot(&normal, &vec); // 法線とプレイヤー方向との内積
 				
 				if (dot >= 0.0f)
 				{
-					collision.normal = Normal;
+					collision.normal = normal;
 
 					// 位置の設定
-					transformComp.pos.y = FieldTransformComp.pos.y + PosY;
+					transformComp.pos.y = fieldTransformComp.pos.y + PosY;
 
 					collision.bLanding = true;
 
-					collision.meshID = FieldEntity;
+					collision.meshID = fieldEntity;
 
 					break;
 				}

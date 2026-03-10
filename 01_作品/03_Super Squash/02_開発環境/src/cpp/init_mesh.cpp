@@ -38,9 +38,9 @@ namespace FactoryMeshConst
 HRESULT InitMesh::Cylinder(entt::registry& registry, entt::entity entity)
 {
 	// コンポーネントの取得
-	auto& SphereComp = registry.get<SphereComponent>(entity);
-	auto& MeshVtx = registry.get<MeshVtxComponent>(entity);
-	auto& CylinderComp = registry.get<MeshCylinderComponent>(entity);
+	auto& sphereComp = registry.get<SphereComponent>(entity);
+	auto& meshVtx = registry.get<MeshVtxComponent>(entity);
+	auto& cylinderComp = registry.get<MeshCylinderComponent>(entity);
 	auto& vertexBufferComp = registry.get<VertexBufferComponent>(entity);
 	auto& transformComp = registry.get<Transform3DComponent>(entity);
 
@@ -54,8 +54,8 @@ HRESULT InitMesh::Cylinder(entt::registry& registry, entt::entity entity)
 	int nCntVtx = 0;
 
 	// テクスチャの座標の割合
-	float fTexPosX = 1.0f / MeshVtx.nSegmentU;
-	float fTexPosY = 1.0f / MeshVtx.nSegmentV;
+	float fTexPosX = 1.0f / meshVtx.nSegmentU;
+	float fTexPosY = 1.0f / meshVtx.nSegmentV;
 
 	// 計算用の位置
 	D3DXVECTOR3 posWk;
@@ -65,17 +65,17 @@ HRESULT InitMesh::Cylinder(entt::registry& registry, entt::entity entity)
 	// 頂点バッファをロック
 	vertexBufferComp.pVtxBuffer->Lock(0, 0, (void**)&pVtx, 0);
 
-	for (int nCntZ = 0; nCntZ <= MeshVtx.nSegmentV; nCntZ++)
+	for (int nCntZ = 0; nCntZ <= meshVtx.nSegmentV; nCntZ++)
 	{
-		for (int nCntX = 0; nCntX <= MeshVtx.nSegmentU; nCntX++)
+		for (int nCntX = 0; nCntX <= meshVtx.nSegmentU; nCntX++)
 		{
 			// 円周の割合を求める
-			float fAngle = (D3DX_PI * 2.0f) / MeshVtx.nSegmentU * nCntX;
+			float fAngle = (D3DX_PI * 2.0f) / meshVtx.nSegmentU * nCntX;
 
 			// 位置の設定
-			posWk.x = sinf(fAngle) * SphereComp.fRadius;
-			posWk.y = CylinderComp.fHeight - (CylinderComp.fHeight / MeshVtx.nSegmentV * nCntZ);
-			posWk.z = cosf(fAngle) * SphereComp.fRadius;
+			posWk.x = sinf(fAngle) * sphereComp.fRadius;
+			posWk.y = cylinderComp.fHeight - (cylinderComp.fHeight / meshVtx.nSegmentV * nCntZ);
+			posWk.z = cosf(fAngle) * sphereComp.fRadius;
 
 			pVtx[nCntVtx].pos = posWk;
 
@@ -83,7 +83,7 @@ HRESULT InitMesh::Cylinder(entt::registry& registry, entt::entity entity)
 			pVtx[nCntVtx].nor = math::GetVector(posWk, transformComp.pos);
 
 			//頂点カラーの設定
-			pVtx[nCntVtx].col = MeshVtx.col;
+			pVtx[nCntVtx].col = meshVtx.col;
 
 			//テクスチャ座標の設定
 			pVtx[nCntVtx].tex = D3DXVECTOR2((fTexPosX * nCntX), (fTexPosY * nCntZ));
@@ -96,7 +96,7 @@ HRESULT InitMesh::Cylinder(entt::registry& registry, entt::entity entity)
 	vertexBufferComp.pVtxBuffer->Unlock();
 
 	// インデックスの設定
-	VertexManager::GridIndex(&vertexBufferComp.pIdxBuffer, MeshVtx.nSegmentU, MeshVtx.nSegmentV);
+	VertexManager::GridIndex(&vertexBufferComp.pIdxBuffer, meshVtx.nSegmentU, meshVtx.nSegmentV);
 
 	return S_OK;
 }
@@ -704,6 +704,7 @@ HRESULT InitMesh::Sphere(entt::registry& registry, entt::entity entity)
 
 	// ポリゴン数の設定
 	meshVtxComp.nNumPolygon = nNumPolygon;
+	meshVtxComp.nNumVertex = nNumVertex;
 
 	// 頂点バッファの生成
 	if (FAILED(VertexManager::CreateMeshVtxBuffer(registry, entity, nNumVertex, nNumIndex)))

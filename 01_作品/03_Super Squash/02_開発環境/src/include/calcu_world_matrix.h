@@ -25,7 +25,5 @@ struct CalcuWorldMatrix : SystemBase
 	~CalcuWorldMatrix() = default;
 
 	void Update(entt::registry& registry) override;
-private:
-	void ApplyParentTransfrom(entt::registry& registry, entt::entity entity);
 };
 #endif

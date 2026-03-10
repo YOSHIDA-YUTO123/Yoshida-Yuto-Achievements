@@ -45,6 +45,23 @@
 #include "parent_component.hpp"
 #include "minigame_state.h"
 
+//***************************************************
+// 定数宣言
+//***************************************************
+namespace MinigamePlayerConst
+{
+	constexpr int COMBO_LEVEL = 0;		// コンボのレベル0
+	constexpr int COMBO_LEVEL_1 = 3;	// コンボのレベル1
+	constexpr int COMBO_LEVEL_2 = 6;	// コンボのレベル2
+	constexpr int COMBO_LEVEL_3 = 9;	// コンボのレベル3
+	constexpr int COMBO_LEVEL_4 = 12;	// コンボのレベル4
+
+	constexpr float OUTLINE_SIZE_LEVEL_1 = 0.3f;	// アウトラインの大きさレベル1
+	constexpr float OUTLINE_SIZE_LEVEL_2 = 0.6f;	// アウトラインの大きさレベル2
+	constexpr float OUTLINE_SIZE_LEVEL_3 = 0.9f;	// アウトラインの大きさレベル3
+	constexpr float OUTLINE_SIZE_LEVEL_4 = 1.3f;	// アウトラインの大きさレベル4
+}
+
 //===================================================
 // 更新処理
 //===================================================
@@ -247,16 +264,16 @@ void MinigamePlayerSystem::SetJetPack(entt::registry& registry, const entt::enti
 bool MinigamePlayerSystem::CollisionBall(entt::registry& registry, CapsuleColliderComponent& capsuleComp, Transform3DComponent& trasnformComp)
 {
 	// ボールの取得
-	auto ball_view = registry.view<Tag::BallTag>();
+	auto ballView = registry.view<ColliderTag::BallSphere>();
 
 	// ボール分回す
-	for (auto ball : ball_view)
+	for (auto ball : ballView)
 	{
 		// ボールのコライダーの取得
 		auto& ballSphereColliderComp = registry.get<SphereColliderComponent>(ball);
-		auto& ballTransfromComp = registry.get<Transform3DComponent>(ball);
-		auto& ballVelocityComp = registry.get<VelocityComponent>(ball);
-		auto& ballComp = registry.get<BallComponent>(ball);
+		auto& ballTransfromComp = registry.get<Transform3DComponent>(ballSphereColliderComp.ownerID);
+		auto& ballVelocityComp = registry.get<VelocityComponent>(ballSphereColliderComp.ownerID);
+		auto& ballComp = registry.get<BallComponent>(ballSphereColliderComp.ownerID);
 
 		// 最近接点
 		D3DXVECTOR3 closePos = Const::VEC3_NULL;
@@ -307,15 +324,13 @@ bool MinigamePlayerSystem::CollisionBall(entt::registry& registry, CapsuleCollid
 //===================================================
 void MinigamePlayerSystem::SetComboEffect(entt::registry& registry, const entt::entity player)
 {
+	// 名前空間の使用
+	using namespace MinigamePlayerConst;
+
 	// コンポーネントの取得
 	auto& childrenComp = registry.get<ChildrenComponent>(player);
 	auto& minigameComp = registry.get<MinigamePlayerComponent>(player);
 
-	const int COMBO_LEVEL = 0;
-	const int COMBO_LEVEL_1 = 3;
-	const int COMBO_LEVEL_2 = 6;
-	const int COMBO_LEVEL_3 = 9;
-	const int COMBO_LEVEL_4 = 12;
 
 	// モデルの数分回す
 	for (const auto& children : childrenComp.aChildrenID)
@@ -326,22 +341,22 @@ void MinigamePlayerSystem::SetComboEffect(entt::registry& registry, const entt::
 		// コンボ数が0だったら
 		if (minigameComp.nCombo <= COMBO_LEVEL)
 		{
-			outLineShaderComp.fSize = 0.3f;
+			outLineShaderComp.fSize = OUTLINE_SIZE_LEVEL_1;
 			outLineShaderComp.col = Color::AQUA;
 		}
 		else if (math::IsInRange(minigameComp.nCombo, COMBO_LEVEL_1, COMBO_LEVEL_2))
 		{
-			outLineShaderComp.fSize = 0.6f;
+			outLineShaderComp.fSize = OUTLINE_SIZE_LEVEL_2;
 			outLineShaderComp.col = Color::MAGENTA;
 		}
 		else if (math::IsInRange(minigameComp.nCombo, COMBO_LEVEL_2, COMBO_LEVEL_3))
 		{
-			outLineShaderComp.fSize = 0.9f;
+			outLineShaderComp.fSize = OUTLINE_SIZE_LEVEL_3;
 			outLineShaderComp.col = Color::GOLD;
 		}
 		else if (math::IsInRange(minigameComp.nCombo, COMBO_LEVEL_3, COMBO_LEVEL_4))
 		{
-			outLineShaderComp.fSize = 1.3f;
+			outLineShaderComp.fSize = OUTLINE_SIZE_LEVEL_4;
 			outLineShaderComp.col = Color::CRIMSON;
 		}
 	}

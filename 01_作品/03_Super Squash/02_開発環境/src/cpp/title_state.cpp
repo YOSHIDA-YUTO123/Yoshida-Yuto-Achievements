@@ -14,7 +14,6 @@
 #include "tItle_menu.hpp"
 #include "tag_component.hpp"
 #include "entity_name_component.hpp"
-#include "renderer_mt_key_component.hpp"
 #include "color_constants.hpp"
 #include "sound.h"
 #include "scene.h"
@@ -55,6 +54,7 @@
 #include "sprite_mrt_renderer.h"
 #include "mesh_renderer.h"
 #include "mesh_wall_renderer.h"
+#include "outline_model_renderer.h"
 
 // ファクトリー
 #include "factory_2d.h"
@@ -208,7 +208,7 @@ void CTitleState::CreateTitleMenu(entt::registry& registry)
 	FactorySystemEntity::BuildMenuSelect(registry, menuSelectID, DIK_DOWN, CInputJoypad::JOYKEY_DOWN);
 
 	// タイトルロゴの生成
-	FactoryModel::CreateModel(registry, TITLE_LOGO_POS, Const::VEC3_NULL, TITLE_LOGO_PATH);
+	FactoryModel::CreateOutLineModel(registry, TITLE_LOGO_POS, Const::VEC3_NULL, TITLE_LOGO_PATH);
 
 	// タイトルの選択肢の生成
 	auto titleMenu = FactoryModel::CreateModel(registry, TITLE_START_POS, Const::VEC3_NULL, TITLE_START_PATH);
@@ -271,6 +271,9 @@ void CTitleState::CreateRendererSystem(CSystemManager* pSystemManager)
 
 	// メッシュの壁の描画処理
 	pSystemManager->AddRendererSystem(std::make_unique<MeshWallRenderer>());
+
+	// メッシュの描画処理
+	pSystemManager->AddRendererSystem(std::make_unique<OutLineModelRenderer>());
 
 	// モデルの描画処理
 	pSystemManager->AddRendererSystem(std::make_unique<ModelRenderer>());

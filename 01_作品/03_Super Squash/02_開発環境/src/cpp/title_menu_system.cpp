@@ -23,6 +23,7 @@
 #include "sound.h"
 #include "titlemenu_animation_component.hpp"
 #include "scene.h"
+#include "scene_change_constants.hpp"
 
 //===================================================
 // 更新処理
@@ -88,7 +89,7 @@ void TitleMenuSystem::Update(entt::registry& registry)
 			CSceneController* pSceneController = pScene->GetController();
 
 			// カメラのアニメーションの取得
-			pSceneController->ChangeScene(std::make_shared<CMinigameState>(),CCameraAnimationSystem::TYPE_TITLE_TO_GAME, 180);
+			pSceneController->ChangeScene(std::make_shared<CMinigameState>(),CCameraAnimationSystem::TYPE_TITLE_TO_GAME, SceneChangeConst::TITLE_TO_RESULT);
 
 			menuSelectComp.bActive = false;
 		}

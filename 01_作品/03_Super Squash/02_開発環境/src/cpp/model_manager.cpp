@@ -60,15 +60,32 @@ int CModelManager::Register(const char* pFilename)
 	// モデルの数
 	int nNumModel = static_cast<int>(m_aModelInfo.size());
 
+	// nullだったら
+	if (pFilename == nullptr)
+	{
+		return INVALID_ID;
+	}
+
+	// 省略用ファイルパス
+	std::string filePath = pFilename;
+
+	// ファイルパスが省略されていたら
+	if (filePath.find(MODEL_ROOT_PATH) == std::string::npos)
+	{
+		// 文字列を連結
+		filePath = MODEL_ROOT_PATH + filePath;
+	}
+
 	// モデルの数分回す
 	for (int nCnt = 0; nCnt < nNumModel; nCnt++)
 	{
-		if (pFilename == NULL || m_aModelInfo[nCnt].filepath.empty())
+		if (m_aModelInfo[nCnt].filepath.empty())
 		{
 			continue;
 		}
 
-		if (strcmp(m_aModelInfo[nCnt].filepath.c_str(), pFilename) == 0)
+		// 文字列が一致したら
+		if (m_aModelInfo[nCnt].filepath == filePath)
 		{
 			return nCnt;
 		}
@@ -79,8 +96,11 @@ int CModelManager::Register(const char* pFilename)
 		// モデルの情報
 		ModelInfo info = {};
 
+		// ファイルパス
+		const char* pFilePath = filePath.c_str();
+
 		////Xファイルの読み込み
-		if (FAILED(D3DXLoadMeshFromX(pFilename,
+		if (FAILED(D3DXLoadMeshFromX(pFilePath,
 			D3DXMESH_SYSTEMMEM,
 			pDevice,
 			NULL,
@@ -90,13 +110,13 @@ int CModelManager::Register(const char* pFilename)
 			&info.pMesh)))
 		{
 			// メッセージボックスの表示
-			MessageBox(NULL, pFilename, "モデルが読み込めませんでした", MB_OK | MB_ICONWARNING);
+			MessageBox(NULL, pFilePath, "モデルが読み込めませんでした", MB_OK | MB_ICONWARNING);
 
 			return INVALID_ID;
 		}
 
 		// ファイルパスの設定
-		info.filepath = pFilename;
+		info.filepath = pFilePath;
 
 		// 大きさの設定
 		SetSize(&info);
@@ -270,58 +290,6 @@ void CModelManager::SetMaterial(ModelInfo* pModelInfo)
 //==============================================
 HRESULT CModelManager::Load(void)
 {
-#if 0
-	// ファイルを開く
-	fstream file("data/TXT/Modellist.txt");
-	string line, input;
-
-	// nullじゃなかったら
-	if (file.is_open())
-	{
-		// ロードマネージャーの生成
-		unique_ptr<CLoadManager> pLoad = make_unique<CLoadManager>();
-
-		// ファイルを一行ずつ読み取る
-		while (getline(file, line))
-		{
-			size_t equal_pos = line.find("="); // =の位置
-
-			// [=] から先を求める
-			input = line.substr(equal_pos + 1);
-
-			// 文字列が一致していたら
-			if (line.find("FILENAME") != string::npos)
-			{
-				// 数値を読み込む準備
-				istringstream value_Input = pLoad->SetInputvalue(input);
-
-				// モデルの名前格納用変数
-				string modelName;
-
-				// 数値を代入する
-				value_Input >> modelName;
-
-				// モデルの名前を代入
-				const char* MODEL_NAME = modelName.c_str();
-
-				// モデルの読み込み
-				Register(MODEL_NAME);
-			}
-		}
-
-		// ファイルを閉じる
-		file.close();
-		file.clear();
-	}
-	else
-	{
-		// メッセージボックス
-		MessageBox(NULL, "ファイルが開けません", "modelManager.txt", MB_OK | MB_ICONWARNING);
-		return E_FAIL;
-	}
-
-	return S_OK;
-#else
 	using json = nlohmann::json; // jsonを使用
 
 	// ファイルを開く
@@ -350,7 +318,6 @@ HRESULT CModelManager::Load(void)
 	}
 
 	return S_OK;
-#endif // 0
 }
 
 //==============================================

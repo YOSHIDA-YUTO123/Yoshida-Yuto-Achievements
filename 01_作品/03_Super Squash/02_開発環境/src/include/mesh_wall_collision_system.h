@@ -35,7 +35,7 @@ private:
 
 	bool CheckClosestPosInTriangle(
 		const D3DXVECTOR3& sphere, const D3DXVECTOR3& vtx0  , const D3DXVECTOR3& vtx1,
-		const D3DXVECTOR3& vtx2  , const D3DXVECTOR3& Normal, const float fRadius,
+		const D3DXVECTOR3& vtx2  , const D3DXVECTOR3& normal, const float fRadius,
 		D3DXVECTOR3& push,entt::registry& reg);
 
 	bool CheckEdgeOnPos(

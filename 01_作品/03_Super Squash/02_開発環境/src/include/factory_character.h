@@ -20,7 +20,7 @@
 //***************************************************
 namespace FactoryCharacter
 {
-	entt::entity CreateCharacter(entt::registry& registry, const char* pMotionFile, const int nNumMotion, const D3DXVECTOR3 pos, const D3DXVECTOR3 rot);
+	entt::entity CreateCharacter(entt::registry& registry, const char* pMotionFile, const int nNumMotion, const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
 
 	void BuildPlayer(entt::registry& registry, entt::entity player);
 	void BuildMinigamePlayer(entt::registry& registry, entt::entity player);

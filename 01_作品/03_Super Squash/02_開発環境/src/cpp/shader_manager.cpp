@@ -13,7 +13,15 @@
 #include "renderer.h"
 #include "color_constants.hpp"
 #include "shader_outline.h"
-#include "mesh_wall_effect_shader.h"
+
+//***************************************************
+// 定数宣言
+//***************************************************
+namespace ShaderConst
+{
+    constexpr const char* OUTLINE_PATH = "data/SHADER/OutLine.hlsl";    // アウトラインシェーダーのパス
+    constexpr const char* TECHNIQUE    = "tech";                        // テクニック宣言
+}
 
 //===================================================
 // コンストラクタ
@@ -62,7 +70,7 @@ HRESULT CShaderManager::Init(void)
     m_apShader[TYPE_OUTLINE] = std::make_unique<CShaderOutLine>();
 
     // アウトラインの初期化
-    if (FAILED(m_apShader[TYPE_OUTLINE]->Init("data/SHADER/OutLine.hlsl", "tech"))) return E_FAIL;
+    if (FAILED(m_apShader[TYPE_OUTLINE]->Init(ShaderConst::OUTLINE_PATH, ShaderConst::TECHNIQUE))) return E_FAIL;
 
     return S_OK;
 }

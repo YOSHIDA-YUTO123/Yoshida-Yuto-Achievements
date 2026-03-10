@@ -33,7 +33,6 @@
 #include "factory_2d.h"
 #include "entity_name_component.hpp"
 #include "transform_component.hpp"
-#include "renderer_mt_key_component.hpp"
 
 //***************************************************
 // çXêVèàóù
@@ -57,7 +56,7 @@ void DebugSystem::Update(entt::registry& registry)
 
 		math::GetMouseRay(&rayOrigin, &rayDir);
 
-		auto entity = FactoryMesh::Create::Ball(registry, rayOrigin, BallConstants::RADIUS, BallConstants::TEXTURE_PATH, BallConstants::SEGMENT);
+		auto entity = FactoryMesh::Create::Ball(registry, rayOrigin,Const::VEC3_NULL, BallConstants::RADIUS, BallConstants::TEXTURE_PATH, BallConstants::SEGMENT);
 
 		auto& velocity = registry.get<VelocityComponent>(entity);
 

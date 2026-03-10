@@ -18,9 +18,7 @@ namespace FactoryMeshQuad
 {
 	entt::entity Quad(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& size, const char* pTexturePath);
 	entt::entity Shadow(entt::registry& registry, const entt::entity owner, const D3DXVECTOR3& pos, const D3DXVECTOR2& size, const float fMaxHeight);
-	entt::entity Timer(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& size, const int nTime, const char* pTexturePath);
 	entt::entity Sheet(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& size, const char* pTexturePath, const int nSegmentU, const int nSegmentV, const bool bRendererMT = false);
-	entt::entity UIWall(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& size, const char* pTexturePath, const char* pTexturePath2, const D3DXVECTOR2& offPosUVLeft, const D3DXVECTOR2& offPosUVRight,const D3DXVECTOR3& rot = Const::VEC3_NULL);
 }
 
 //***************************************************

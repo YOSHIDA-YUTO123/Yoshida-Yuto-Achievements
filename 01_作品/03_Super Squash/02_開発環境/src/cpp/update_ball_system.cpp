@@ -49,6 +49,8 @@
 #include "sound.h"
 #include "explotion_manager.h"
 #include "score_manager.h"
+#include "motion_blur_component.hpp"
+
 
 #ifdef _DEBUG
 #include "line.h"
@@ -64,9 +66,17 @@
 //***************************************************
 // 定数宣言
 //***************************************************
-namespace UpdateBall_Const
+namespace UpdateBallConst
 {
-	constexpr float DISTANCE = 10000.0f;
+	constexpr int NUM_EXPLOSION				= 8;		// 煙の数
+	constexpr int WAVE_TIME					= 30;		// メッシュの波の時間
+	constexpr float EXPLOSION_MOVE_SPEED	= 2.0f;		// 煙を出す移動量
+	constexpr float WAVE_INRADIUS			= 0.0f;		// メッシュの波の内側の半径
+	constexpr float WAVE_OUTRADIUS			= 100.0f;	// メッシュの波の外側の半径
+	constexpr float WAVE_HEIGHT_OFFSET		= 50.0f;	// メッシュの波の高さのオフセット
+	constexpr float WAVE_SPEED				= 5.0f;		// メッシュの波の速さ
+	constexpr float WAVE_COEF				= 0.01f;	// メッシュの波の係数
+	constexpr float SHOW_MOTION_BLUR_SPEED	= 40.0f;	// モーションブラーを表示する速度
 }
 
 //===================================================
@@ -97,9 +107,9 @@ void UpdateBallSystem::Update(entt::registry& registry)
 			velocityComp.move = math::Bound(velocityComp.move, fieldCollisionComp.normal, 1.0f);
 
 			// yの移動量が低いなら煙を出さない
-			if (fabsf(velocityComp.move.y) >= 2.0f)
+			if (fabsf(velocityComp.move.y) >= UpdateBallConst::EXPLOSION_MOVE_SPEED)
 			{
-				ExplotionManager::BallLandingExplotion(registry, ballTransformComp.pos, 8, D3DXVECTOR3(velocityComp.fMoveLength * 0.1f, 0.2f, velocityComp.fMoveLength * 0.1f));
+				ExplotionManager::BallLandingExplotion(registry, ballTransformComp.pos, UpdateBallConst::NUM_EXPLOSION, D3DXVECTOR3(velocityComp.fMoveLength * 0.1f, 0.2f, velocityComp.fMoveLength * 0.1f));
 			}
 
 			fieldCollisionComp.bLanding = false;
@@ -168,6 +178,9 @@ void UpdateBallSystem::Update(entt::registry& registry)
 		velocityComp.move.x = math::Clamp(velocityComp.move.x, -maxSpeed, maxSpeed);
 		velocityComp.move.y = math::Clamp(velocityComp.move.y, -maxSpeed, maxSpeed);
 		velocityComp.move.z = math::Clamp(velocityComp.move.z, -maxSpeed, maxSpeed);
+
+		// 移動速度によってモーションブラーの表示を切り替える処理
+		UpdateMotionBlurBySpeed(registry, ball, velocityComp);
 	}
 }
 
@@ -200,7 +213,6 @@ void UpdateBallSystem::SetInterVal(entt::registry& registry, entt::entity ball)
 
 			// パラメータの取得
 			pParticleHelper->GetParam(particle, transformComp.pos, "Ball_Smoke", EffectComponent::FLAG_DEC_ALPHA);
-			//particle.move = -velocityComp.move * 0.5f;
 
 			// パーティクルの生成
 			auto parcileID = FactoryBillboard::Create::Particle(registry, particle);
@@ -258,27 +270,15 @@ void UpdateBallSystem::SetCollisionWall(entt::registry& registry, const entt::en
 		MeshWaveComponent::Param param = {};
 
 		param.epicenter = trasformComp.pos;
-		param.fInRadius = 0.0f;
-		param.fOutRadius = 100.0f;
-		param.fHeight = (velocityComp.fMoveLength + 50.0f);
-		param.fSpeed = 5.0f;
-		param.fCoef = 0.01f;
-		param.nTime = 30;
+		param.fInRadius = UpdateBallConst::WAVE_INRADIUS;
+		param.fOutRadius = UpdateBallConst::WAVE_OUTRADIUS;
+		param.fHeight = (velocityComp.fMoveLength + UpdateBallConst::WAVE_HEIGHT_OFFSET);
+		param.fSpeed = UpdateBallConst::WAVE_SPEED;
+		param.fCoef = UpdateBallConst::WAVE_COEF;
+		param.nTime = UpdateBallConst::WAVE_TIME;
 
 		// 波の生成
 		MeshEffectManager::CreateWave(param, MeshWaveComponent::Type::MULT_XY, registry, collisionComp.meshID, Color::WHITE);
-	}
-
-	// メッシュの壁の取得
-	auto pMeshWallComp = registry.try_get<MeshWallComponent>(collisionComp.meshID);
-
-	// 無いならスキップ
-	if (pMeshWallComp == nullptr) return;
-
-	// キャンパスがないなら
-	if (!registry.valid(pMeshWallComp->campusID) )
-	{
-		return;
 	}
 
 	BallSpec::CSpeedLevelAboveSmall	 is_SpeedSmall;	// 速さがSmall以上なら
@@ -313,8 +313,10 @@ void UpdateBallSystem::SetCollisionEffectWall(entt::registry& registry, const en
 //===================================================
 bool UpdateBallSystem::CollisionRacket(entt::registry& registry, const entt::entity ball, D3DXVECTOR3& OutDir, float& fOutShotPower)
 {
+	auto ballColliderID = registry.view<ColliderTag::BallSphere>().front();
+	
 	// ボールのコンポーネントの取得
-	auto& sphereComp = registry.get<SphereColliderComponent>(ball);
+	auto& sphereComp = registry.get<SphereColliderComponent>(ballColliderID);
 	auto& ballComp = registry.get<BallComponent>(ball);
 	auto& velocityComp = registry.get<VelocityComponent>(ball);
 
@@ -601,4 +603,28 @@ void UpdateBallSystem::SetHitStopEffect(entt::registry& registry, const entt::en
 		// ヒットストップのイベント
 		pHitStopController->AddFinishEvent(Effect);
 	}
+}
+
+//===================================================
+// 速度によってモーションブラーを設定する関数
+//===================================================
+void UpdateBallSystem::UpdateMotionBlurBySpeed(entt::registry& registry, const entt::entity ball, const VelocityComponent& velocityComp)
+{
+	// コンポーネントを持っていないなら
+	if (!registry.any_of<MotionBlurComponent>(ball))
+	{
+		return;
+	}
+
+	// コンポーネントの取得
+	auto& motionBlurComp = registry.get<MotionBlurComponent>(ball);
+
+	// 移動した幅
+	float fMoveLength = velocityComp.fMoveLength;
+
+	// モーションブラーを表示する速度に達したか判定
+	const bool bShowMotionBlur = fMoveLength >= BallConstants::MOVE_THRESHOLD_LEVEL_SMALL;
+
+	// モーションブラーの設定
+	motionBlurComp.bShow = bShowMotionBlur;
 }

@@ -72,11 +72,11 @@ void CShaderOutLine::Apply(const entt::registry& registry, const entt::entity en
     auto& shaderComp = registry.get<OutLineShaderComponent>(entity);
 
     // ワールドマトリックス
-    D3DXMATRIX WorldViewProjMatrix;
-    WorldViewProjMatrix = transformComp.mtxWorld * mtxView * mtxProj;
+    D3DXMATRIX worldViewProjMatrix;
+    worldViewProjMatrix = transformComp.mtxWorld * mtxView * mtxProj;
 
     // マトリックスの設定
-    CShader::SetMatrix("g_WorldViewProj", WorldViewProjMatrix);
+    CShader::SetMatrix("g_WorldViewProj", worldViewProjMatrix);
 
     // 色の設定
     D3DXCOLOR col = shaderComp.col;

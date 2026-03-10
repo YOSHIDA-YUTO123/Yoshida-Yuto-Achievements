@@ -231,6 +231,7 @@
     <ClCompile Include="src\cpp\init_mesh.cpp" />
     <ClCompile Include="src\cpp\init_mesh_field.cpp" />
     <ClCompile Include="src\cpp\input.cpp" />
+    <ClCompile Include="src\cpp\input_system.cpp" />
     <ClCompile Include="src\cpp\jet_pack_system.cpp" />
     <ClCompile Include="src\cpp\json_manager.cpp" />
     <ClCompile Include="src\cpp\light.cpp" />
@@ -254,7 +255,6 @@
     <ClCompile Include="src\cpp\mesh_sphere_renderer_mrt.cpp" />
     <ClCompile Include="src\cpp\mesh_sphere_system.cpp" />
     <ClCompile Include="src\cpp\mesh_wall_collision_system.cpp" />
-    <ClCompile Include="src\cpp\mesh_wall_effect_shader.cpp" />
     <ClCompile Include="src\cpp\mesh_wall_loader.cpp" />
     <ClCompile Include="src\cpp\mesh_wall_renderer.cpp" />
     <ClCompile Include="src\cpp\mesh_wave_system.cpp" />
@@ -369,6 +369,7 @@
     <ClInclude Include="src\components\mesh_wave_component.hpp" />
     <ClInclude Include="src\components\minigame_player_component.hpp" />
     <ClInclude Include="src\components\model_component.hpp" />
+    <ClInclude Include="src\components\motion_blur_component.hpp" />
     <ClInclude Include="src\components\motion_component.hpp" />
     <ClInclude Include="src\components\move_to_rotation_component.hpp" />
     <ClInclude Include="src\components\mrt_target_component.hpp" />
@@ -380,7 +381,6 @@
     <ClInclude Include="src\components\ranking_component.hpp" />
     <ClInclude Include="src\components\ranking_highlight_component.hpp" />
     <ClInclude Include="src\components\renderer_component.hpp" />
-    <ClInclude Include="src\components\renderer_mt_key_component.hpp" />
     <ClInclude Include="src\components\result_ball_component.hpp" />
     <ClInclude Include="src\components\result_system_component.hpp" />
     <ClInclude Include="src\components\rotation_move_component.hpp" />
@@ -460,6 +460,7 @@
     <ClInclude Include="src\include\init_mesh.h" />
     <ClInclude Include="src\include\init_mesh_field.h" />
     <ClInclude Include="src\include\input.h" />
+    <ClInclude Include="src\include\input_system.h" />
     <ClInclude Include="src\include\jet_pack_system.h" />
     <ClInclude Include="src\include\json.hpp" />
     <ClInclude Include="src\include\json_manager.h" />
@@ -486,7 +487,6 @@
     <ClInclude Include="src\include\mesh_sphere_renderer_mrt.h" />
     <ClInclude Include="src\include\mesh_sphere_system.h" />
     <ClInclude Include="src\include\mesh_wall_collision_system.h" />
-    <ClInclude Include="src\include\mesh_wall_effect_shader.h" />
     <ClInclude Include="src\include\mesh_wall_loader.h" />
     <ClInclude Include="src\include\mesh_wall_renderer.h" />
     <ClInclude Include="src\include\mesh_wave_system.h" />
@@ -525,6 +525,7 @@
     <ClInclude Include="src\include\result_system.h" />
     <ClInclude Include="src\include\rotation_move_system.h" />
     <ClInclude Include="src\include\scene.h" />
+    <ClInclude Include="src\include\scene_change_constants.hpp" />
     <ClInclude Include="src\include\scene_controller.h" />
     <ClInclude Include="src\include\scene_loader.h" />
     <ClInclude Include="src\include\scene_state_base.h" />

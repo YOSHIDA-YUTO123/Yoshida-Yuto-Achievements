@@ -25,7 +25,7 @@ void TextureAnimationSystem::Update(entt::registry& registry)
 	{
 		// コンポーネントの取得
 		auto& textureAnimComp = registry.get<TextureAnimationComponent>(entity);
-		auto& SheetComp = registry.get<SheetComponent>(entity);
+		auto& sheetComp = registry.get<SheetComponent>(entity);
 
 		// カウンターを超えたら
 		if (textureAnimComp.nCounter >= textureAnimComp.nSpeed)
@@ -36,24 +36,24 @@ void TextureAnimationSystem::Update(entt::registry& registry)
 			// アニメーションのカウンターを進める
 			textureAnimComp.nCounter = 0;
 
-			float fPosTexU = 1.0f / SheetComp.nSegmentU;
-			float fPosTexH = 1.0f / SheetComp.nSegmentV;
+			float fPosTexU = 1.0f / sheetComp.nSegmentU;
+			float fPosTexH = 1.0f / sheetComp.nSegmentV;
 
 			// Y座標の割合
-			int nRatePosY = textureAnimComp.nPattern / SheetComp.nSegmentU;
+			int nRatePosY = textureAnimComp.nPattern / sheetComp.nSegmentU;
 
 			// テクスチャ座標の計算
 			float fNewTexPosU = fPosTexU * textureAnimComp.nPattern;
 			float fNewTexPosV = nRatePosY * fPosTexH;
 
 			// テクスチャ座標の設定
-			SheetComp.aPosUV[0] = D3DXVECTOR2(fNewTexPosU, fNewTexPosV);
-			SheetComp.aPosUV[1] = D3DXVECTOR2(fNewTexPosU + fPosTexU, fNewTexPosV);
-			SheetComp.aPosUV[2] = D3DXVECTOR2(fNewTexPosU, fNewTexPosV + fPosTexH);
-			SheetComp.aPosUV[3] = D3DXVECTOR2(fNewTexPosU + fPosTexU, fNewTexPosV + fPosTexH);
+			sheetComp.aPosUV[0] = D3DXVECTOR2(fNewTexPosU, fNewTexPosV);
+			sheetComp.aPosUV[1] = D3DXVECTOR2(fNewTexPosU + fPosTexU, fNewTexPosV);
+			sheetComp.aPosUV[2] = D3DXVECTOR2(fNewTexPosU, fNewTexPosV + fPosTexH);
+			sheetComp.aPosUV[3] = D3DXVECTOR2(fNewTexPosU + fPosTexU, fNewTexPosV + fPosTexH);
 
 			// パターンが最大まで行ったか判定
-			const bool bPatternMax = textureAnimComp.nPattern >= (SheetComp.nSegmentU * SheetComp.nSegmentV);
+			const bool bPatternMax = textureAnimComp.nPattern >= (sheetComp.nSegmentU * sheetComp.nSegmentV);
 
 			// 最大まで行ったら
 			if (bPatternMax)

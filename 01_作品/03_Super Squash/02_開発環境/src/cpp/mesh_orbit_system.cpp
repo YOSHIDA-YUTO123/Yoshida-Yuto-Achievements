@@ -39,7 +39,6 @@ void MeshOrbitSystem::Update(entt::registry& registry)
 		}
 
 		auto& OwnerTransformComp = registry.get<Transform3DComponent>(meshOrbitComp.ownerID);
-		//auto& transformComp = registry.get<Transform3DComponent>(entity);
 
 		D3DXMATRIX mtxTrans = OwnerTransformComp.mtxWorld;
 

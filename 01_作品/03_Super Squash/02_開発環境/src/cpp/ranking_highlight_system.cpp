@@ -13,6 +13,14 @@
 #include "score_component.hpp"
 #include "color_component.hpp"
 
+//***************************************************
+// 定数宣言
+//***************************************************
+namespace RankingConst
+{
+	constexpr float FLASH_SPEED = 0.01f;	// 点滅速度
+}
+
 //===================================================
 // 更新処理
 //===================================================
@@ -34,7 +42,7 @@ void RankingHighLightSystem::Update(entt::registry& registry)
 			// 色の取得
 			auto& colorComp = registry.get<ColorComponent>(numberID);
 
-			highLightComp.fTime += 0.01f;
+			highLightComp.fTime += RankingConst::FLASH_SPEED;
 
 			colorComp.col.g = fabsf(sinf(highLightComp.fTime));
 			colorComp.col.b = fabsf(sinf(highLightComp.fTime));

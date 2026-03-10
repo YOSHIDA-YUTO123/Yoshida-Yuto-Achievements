@@ -70,7 +70,7 @@ void ModelRendererMRT::Renderer(entt::registry& registry, const int nType)
 		}
 
 		// æ“¾‚Å‚«‚È‚©‚Á‚½‚çˆ—‚µ‚È‚¢
-		if (modelComp.nModelID == -1)
+		if (modelComp.nModelID == CModelManager::INVALID_ID)
 		{
 			return;
 		}

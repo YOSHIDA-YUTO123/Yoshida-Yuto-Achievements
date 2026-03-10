@@ -24,6 +24,17 @@
 #include "scene.h"
 
 //***************************************************
+// 定数宣言
+//***************************************************
+namespace ManagerConst
+{
+	const D3DXVECTOR3 LIGHT_DIR_000 = { 1.000f, -0.637f, -0.495f };	// ライトの方向0
+	const D3DXVECTOR3 LIGHT_DIR_001 = { -0.403f, -0.47f, -0.401f };	// ライトの方向1
+	const D3DXVECTOR3 LIGHT_DIR_002 = { 0.515f, -0.616f, 1.0f };	// ライトの方向2
+	constexpr const char* PARTICLE_LOAD_PATH = "data/SYSTEM/particle_param.json";	// パーティクルの情報のファイルパス
+}
+
+//***************************************************
 // 静的メンバ変数
 //***************************************************
 std::unique_ptr<CManager> CManager::m_pInstance = nullptr;			// 自分のインスタンス
@@ -163,12 +174,9 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWind)
 	m_pLight = std::make_unique<CLight>();
 
 	m_pLight->Init();
-	m_pLight->SetDirectional(Const::WHITE, D3DXVECTOR3(1.000f, -0.637f, -0.495f), Const::VEC3_NULL);
-	m_pLight->SetDirectional(Const::WHITE, D3DXVECTOR3(-0.403f, -0.47f, -0.401f), Const::VEC3_NULL);
-	m_pLight->SetDirectional(Const::WHITE, D3DXVECTOR3(0.515f, -0.616f, 1.0f), Const::VEC3_NULL);
-
-	//m_pLight->SetDirectional(Const::WHITE, D3DXVECTOR3(0.21f, 1.0f, 0.03f), Const::VEC3_NULL);
-	//m_pLight->SetDirectional(Const::WHITE, D3DXVECTOR3(0.0f, -0.1f, 1.0f), Const::VEC3_NULL);
+	m_pLight->SetDirectional(Const::WHITE, ManagerConst::LIGHT_DIR_000, Const::VEC3_NULL);
+	m_pLight->SetDirectional(Const::WHITE, ManagerConst::LIGHT_DIR_001, Const::VEC3_NULL);
+	m_pLight->SetDirectional(Const::WHITE, ManagerConst::LIGHT_DIR_002, Const::VEC3_NULL);
 
 	// テクスチャマネージャーの生成
 	m_pTextureManager = std::make_unique<CTextureManager>();
@@ -191,7 +199,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWind)
 	m_pWorldSystem = std::make_unique<CWorldSystemManager>();
 
 	m_pParticleHelper = std::make_unique<CParticleHelper>();
-	m_pParticleHelper->Load("data/SYSTEM/particle_param.json");
+	m_pParticleHelper->Load(ManagerConst::PARTICLE_LOAD_PATH);
 
 	// シェーダーのマネージャーの生成
 	m_pShaderManager = CShaderManager::Create();

@@ -79,14 +79,14 @@ bool CharacterSpec::Collision::CBallHitBody::IsSatisfiedBy(const entt::registry&
 //===================================================
 bool CharacterSpec::Collision::CShotRange::IsSatisfiedBy(const entt::registry& registry, const entt::entity character) const
 {
-	// ボールの取得
-	auto ball_view = registry.view<Tag::BallTag>();
-
 	// 使用できないなら
 	if (!registry.valid(character))
 	{
 		return false;
 	}
+
+	// ボールの取得
+	auto ballView = registry.view<ColliderTag::BallSphere>();
 
 	// ボールを打つ範囲のコライダーの取得
 	auto ballShotRangeColliderID = registry.view<ColliderTag::BallShotRange>().front();
@@ -94,7 +94,7 @@ bool CharacterSpec::Collision::CShotRange::IsSatisfiedBy(const entt::registry& r
 	auto& ballShotRange = registry.get<SphereColliderComponent>(ballShotRangeColliderID);
 
 	// ボール分回す
-	for (auto ball : ball_view)
+	for (auto ball : ballView)
 	{
 		// ボールのコライダーの取得
 		auto& ballSphereColliderComp = registry.get<SphereColliderComponent>(ball);

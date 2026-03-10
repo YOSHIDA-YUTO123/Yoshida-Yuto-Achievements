@@ -126,8 +126,6 @@ void MeshSphereSystem::Update(entt::registry& registry)
 			pVtx[nCntVtx].nor = math::GetVector(pVtx[nCntVtx].pos, transformComp.pos);
 			pVtx[nCntVtx].col = meshVtxComp.col;
 
-			//FactoryModel::CreateModel(registry, pVtx[nCntVtx].pos, "data/MODEL/testmodel.x");
-
 			nCntVtx++;
 		}
 

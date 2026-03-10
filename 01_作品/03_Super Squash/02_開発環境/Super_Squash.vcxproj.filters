@@ -313,14 +313,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\cpp\ball_spec.cpp">
-      <Filter>ソース ファイル\system\update\ball</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\ball_to_field_collision_system.cpp">
       <Filter>ソース ファイル\system\update\collision</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\billboard_renderer.cpp">
-      <Filter>ソース ファイル\system\update\billboard</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\calcu_world_matrix.cpp">
       <Filter>ソース ファイル\system\update\transform</Filter>
@@ -330,9 +324,6 @@
     </ClCompile>
     <ClCompile Include="src\cpp\camera_shake.cpp">
       <Filter>ソース ファイル\base\camera</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\character_collision_spec.cpp">
-      <Filter>ソース ファイル\system\update\collision</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\character_motion_spec.cpp">
       <Filter>ソース ファイル\specification</Filter>
@@ -481,12 +472,6 @@
     <ClCompile Include="src\cpp\mesh_sphere_system.cpp">
       <Filter>ソース ファイル\system\update\mesh</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\mesh_wall_collision_system.cpp">
-      <Filter>ソース ファイル\system\update\mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\mesh_wall_effect_shader.cpp">
-      <Filter>ソース ファイル\system\update\mesh</Filter>
-    </ClCompile>
     <ClCompile Include="src\cpp\mesh_wave_system.cpp">
       <Filter>ソース ファイル\system\update\mesh</Filter>
     </ClCompile>
@@ -528,9 +513,6 @@
     </ClCompile>
     <ClCompile Include="src\cpp\minigame_player_system.cpp">
       <Filter>ソース ファイル\system\update\character</Filter>
-    </ClCompile>
-    <ClCompile Include="src\cpp\model_renderer.cpp">
-      <Filter>ソース ファイル\system\update\model</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\model_manager.cpp">
       <Filter>ソース ファイル\manager</Filter>
@@ -736,6 +718,24 @@
     <ClCompile Include="src\cpp\utility_math.cpp">
       <Filter>ソース ファイル\core</Filter>
     </ClCompile>
+    <ClCompile Include="src\cpp\ball_spec.cpp">
+      <Filter>ソース ファイル\specification</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\billboard_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\character_collision_spec.cpp">
+      <Filter>ソース ファイル\specification</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\model_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_wall_collision_system.cpp">
+      <Filter>ソース ファイル\system\update\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\input_system.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\include\ball_constants.hpp">
@@ -925,9 +925,6 @@
       <Filter>ヘッダー ファイル\systems\update\mesh</Filter>
     </ClInclude>
     <ClInclude Include="src\include\mesh_wall_collision_system.h">
-      <Filter>ヘッダー ファイル\systems\update\mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\mesh_wall_effect_shader.h">
       <Filter>ヘッダー ファイル\systems\update\mesh</Filter>
     </ClInclude>
     <ClInclude Include="src\include\mesh_wave_system.h">
@@ -1368,9 +1365,6 @@
     <ClInclude Include="src\components\layer_component.hpp">
       <Filter>ヘッダー ファイル\component\renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\components\renderer_mt_key_component.hpp">
-      <Filter>ヘッダー ファイル\component\renderer</Filter>
-    </ClInclude>
     <ClInclude Include="src\components\mrt_target_component.hpp">
       <Filter>ヘッダー ファイル\component\renderer</Filter>
     </ClInclude>
@@ -1442,6 +1436,15 @@
     </ClInclude>
     <ClInclude Include="src\include\update_position_3d_system.h">
       <Filter>ヘッダー ファイル\systems\update\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\scene_change_constants.hpp">
+      <Filter>ヘッダー ファイル\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\input_system.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\motion_blur_component.hpp">
+      <Filter>ヘッダー ファイル\component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

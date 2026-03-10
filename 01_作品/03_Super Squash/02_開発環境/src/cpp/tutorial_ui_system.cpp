@@ -31,7 +31,6 @@
 #include "factory_mesh_quad.h"
 #include "factory_system_entity.h"
 #include "entity_name_component.hpp"
-#include "renderer_mt_key_component.hpp"
 #include "sound.h"
 #include "manager.h"
 #include "input.h"
@@ -44,9 +43,26 @@
 //***************************************************
 // チュートリアルの定数
 //***************************************************
-namespace TutorialUI_Const
+namespace TutorialUIConst
 {
-	constexpr int INTERVAL = 180;	// タスクを進ませない時間
+	constexpr const char* MOVE_TASK_PATH		= "tutorial_move.png";			// 移動のタスクのテクスチャパス
+	constexpr const char* SUCCESS_PATH			= "tutorial_success.png";		// 成功時のテクスチャパス
+	constexpr const char* JETPACK_TASK_PATH		= "tutorial_jetpack.png";		// ジェットパックのタスクのテクスチャパス
+	constexpr const char* SHOT_TASK_PATH		= "tutorial_shot.png";			// ショットのタスクのテクスチャパス
+	constexpr const char* QUICK_TASK_PATH		= "tutorial_quick.png";			// 素早い移動のタスクのテクスチャパス
+	constexpr const char* SMALL_TASK_PATH		= "tutorial_small.png";			// 速度中のタスクのテクスチャパス
+	constexpr const char* MEDIUM_TASK_PATH		= "tutorial_medium.png";		// 速度大のタスクのテクスチャパス
+	constexpr const char* TIMER_TEXTURE_PATH	= "number001.png";				// タイマーのテクスチャパス
+	constexpr const char* SKIP_PATH				= "tutorial_dec_skip.png";		// スキップのテクスチャパス
+
+	const D3DXVECTOR2 TIMER_POS					= { 1090.0f,360.0f };			// タイマーの位置
+	const D3DXVECTOR2 TIMER_SIZE				= { 300.0f, 200.0f };			// タイマーの大きさ
+	const D3DXVECTOR3 BALL_POS					= { 0.0f,150.0f,0.0f };			// ボールの位置
+	const D3DXVECTOR3 SCORE_AREA_POS			= { 0.0f,120.0f,330.0f };		// スコアのエリアの位置
+	const D3DXVECTOR3 BALL_MOVE					= { 5.0f,2.5f,5.0f };			// ボールの移動量
+	constexpr float BALL_RESUTITUTION			= 0.98f;						// ボールの反発係数
+	constexpr int TIMER_VALUE					= 120;							// ゲームの時間
+	constexpr int INTERVAL						= 180;							// タスクを進ませない時間
 }
 
 //===================================================
@@ -73,8 +89,8 @@ void TutorialUISystem::Update(entt::registry& registry)
 	if (tutorialComp.currentState == TutorialSystemComponent::State::None && tutorialComp.nFirstuiDisplayTime <= 0)
 	{
 		tutorialComp.currentState = TutorialSystemComponent::State::Move;
-		UIWallController::SetTutorialTask(registry,"data/TEXTURE/tutorial_move.png");
-		tutorialComp.nInterval = TutorialUI_Const::INTERVAL;
+		UIWallController::SetTutorialTask(registry, TutorialUIConst::MOVE_TASK_PATH);
+		tutorialComp.nInterval = TutorialUIConst::INTERVAL;
 	}
 
 	tutorialComp.nInterval--;
@@ -150,8 +166,8 @@ void TutorialUISystem::SetBall(entt::registry& registry, TutorialSystemComponent
 	if (!tutorialComp.bSetBall)
 	{
 		// ボールの生成
-		auto ball = FactoryMesh::Create::Ball(registry, { 0.0f,150.0f,0.0f }, BallConstants::RADIUS * 2.0f, BallConstants::TEXTURE_PATH, BallConstants::SEGMENT);
-		FactoryMesh::Build::Ball(registry, ball, 0.98f);
+		auto ball = FactoryMesh::Create::Ball(registry, TutorialUIConst::BALL_POS, TutorialUIConst::BALL_MOVE, BallConstants::RADIUS * 2.0f, BallConstants::TEXTURE_PATH, BallConstants::SEGMENT);
+		FactoryMesh::Build::Ball(registry, ball, TutorialUIConst::BALL_RESUTITUTION);
 		tutorialComp.bSetBall = true;
 	}
 }
@@ -169,8 +185,8 @@ void TutorialUISystem::SetSuccess(entt::registry& registry, TutorialSystemCompon
 		pSound->Play(CSound::LABEL_SE_TASK_OK);
 	}
 
-	UIWallController::SetTutorialTask(registry, "data/TEXTURE/tutorial_success.png");
-	tutorialComp.nInterval = 180;
+	UIWallController::SetTutorialTask(registry, TutorialUIConst::SUCCESS_PATH);
+	tutorialComp.nInterval = TutorialUIConst::INTERVAL;
 	tutorialComp.bSetTask = false;
 }
 
@@ -201,7 +217,7 @@ void TutorialUISystem::SetJetPackTask(entt::registry& registry, const entt::enti
 	if (tutorialComp.currentState == TutorialSystemComponent::State::jetPack)
 	{
 		// タスクの設定
-		SetTask(registry, "data/TEXTURE/tutorial_jetpack.png", tutorialComp);
+		SetTask(registry, TutorialUIConst::JETPACK_TASK_PATH, tutorialComp);
 
 		if (is_jetpack.IsSatisfiedBy(registry, playerID))
 		{
@@ -226,7 +242,7 @@ void TutorialUISystem::SetShotTask(entt::registry& registry, const entt::entity 
 		SetBall(registry, tutorialComp);
 
 		// タスクの設定
-		SetTask(registry, "data/TEXTURE/tutorial_shot.png", tutorialComp);
+		SetTask(registry, TutorialUIConst::SHOT_TASK_PATH, tutorialComp);
 
 		if (is_shot.IsSatisfiedBy(registry, playerID))
 		{
@@ -249,7 +265,7 @@ void TutorialUISystem::SetQuickTask(entt::registry& registry, const entt::entity
 	if (tutorialComp.currentState == TutorialSystemComponent::State::QuickMove)
 	{
 		// タスクの設定
-		SetTask(registry, "data/TEXTURE/tutorial_quick.png", tutorialComp);
+		SetTask(registry, TutorialUIConst::QUICK_TASK_PATH, tutorialComp);
 
 		if (COrSpec(is_quickMove_left, is_quickMove_right).IsSatisfiedBy(registry, playerID))
 		{
@@ -280,7 +296,7 @@ void TutorialUISystem::SetBallSpeedSmallTask(entt::registry& registry, TutorialS
 	if (tutorialComp.currentState == TutorialSystemComponent::State::BallShot_Small)
 	{
 		// タスクの設定
-		SetTask(registry, "data/TEXTURE/tutorial_small.png", tutorialComp);
+		SetTask(registry, TutorialUIConst::SMALL_TASK_PATH, tutorialComp);
 
 		if (is_aboveSmall.IsSatisfiedBy(registry, ballID))
 		{
@@ -311,7 +327,7 @@ void TutorialUISystem::SetBallSpeedMediumTask(entt::registry& registry, Tutorial
 	if (tutorialComp.currentState == TutorialSystemComponent::State::BallShot_Medium)
 	{
 		// タスクの設定
-		SetTask(registry, "data/TEXTURE/tutorial_medium.png", tutorialComp);
+		SetTask(registry, TutorialUIConst::MEDIUM_TASK_PATH, tutorialComp);
 
 		if (is_aboveMedium.IsSatisfiedBy(registry, ballID))
 		{
@@ -354,7 +370,7 @@ void TutorialUISystem::SetRuleUI(entt::registry& registry, TutorialSystemCompone
 
 			UIWallController::SetTutotialGameStart(registry);
 
-			tutorialComp.nInterval = TutorialUI_Const::INTERVAL;
+			tutorialComp.nInterval = TutorialUIConst::INTERVAL;
 		}
 	}
 }
@@ -407,12 +423,12 @@ void TutorialUISystem::SetGameStartTask(entt::registry& registry, TutorialSystem
 	// パラメータ
 	Factory2D::Param param;
 
-	param.pos = { 1090.0f,360.0f };
-	param.size = { 300.0f, 200.0f };
-	param.texturePath = "data/TEXTURE/number001.png";
+	param.pos = TutorialUIConst::TIMER_POS;
+	param.size = TutorialUIConst::TIMER_SIZE;
+	param.texturePath = TutorialUIConst::TIMER_TEXTURE_PATH;
 
 	// タイマーの生成
-	Factory2D::Create::Timer(registry, param, 120);
+	Factory2D::Create::Timer(registry, param, TutorialUIConst::TIMER_VALUE);
 
 	param.pos = Const::CENTER_POS_2D;
 	param.size = { SCREEN_WIDTH,SCREEN_HEIGHT };
@@ -423,7 +439,7 @@ void TutorialUISystem::SetGameStartTask(entt::registry& registry, TutorialSystem
 	Factory2D::Create::SpriteMRT(registry, param, MRTType::TYPE_TIMER);
 
 	// スコアのエリアの生成
-	FactorySystemEntity::CreateScoreArea(registry, { 0.0f,120.0f,330.0f });
+	FactorySystemEntity::CreateScoreArea(registry, TutorialUIConst::SCORE_AREA_POS);
 
 	tutorialComp.currentState = TutorialSystemComponent::State::Max;
 
@@ -431,11 +447,11 @@ void TutorialUISystem::SetGameStartTask(entt::registry& registry, TutorialSystem
 	UIWallController::SetGameStart(registry);
 
 	// ミニゲームのプレイヤーの取得
-	auto minigame_playerID = registry.view<MinigamePlayerComponent>().front();
+	auto minigamePlayerID = registry.view<MinigamePlayerComponent>().front();
 
-	if (registry.valid(minigame_playerID))
+	if (registry.valid(minigamePlayerID))
 	{
-		auto& minigameComp = registry.get<MinigamePlayerComponent>(minigame_playerID);
+		auto& minigameComp = registry.get<MinigamePlayerComponent>(minigamePlayerID);
 		minigameComp.nCombo = 0;
 	}
 
@@ -480,11 +496,11 @@ void TutorialUISystem::Skip(entt::registry& registry, TutorialSystemComponent& t
 		SetBall(registry, tutorialComp);
 
 		// チュートリアルのタスクの設定
-		UIWallController::SetTutorialTask(registry, "data/TEXTURE/tutorial_dec_skip.png");
+		UIWallController::SetTutorialTask(registry, TutorialUIConst::SKIP_PATH);
 
 		// ステートを変更、インターバルを設定
 		tutorialComp.currentState = TutorialSystemComponent::State::MinigameRule;
-		tutorialComp.nInterval = TutorialUI_Const::INTERVAL;
+		tutorialComp.nInterval = TutorialUIConst::INTERVAL;
 		tutorialComp.bSetTask = false;
 	}
 }

@@ -18,6 +18,43 @@
 #include "mesh_vtx_component.hpp"
 #include "texture_mt_manager.h"
 
+//***************************************************
+// 定数宣言
+//***************************************************
+namespace UIWallControlConst
+{
+	constexpr const char* TITLE_UI							= "title_UI.png";				// タイトルのテクスチャ
+	constexpr const char* TITLE_BACKGROUND					= "backgrond003.png";			// タイトルの背景テクスチャ
+
+	constexpr const char* TUTORIAL_START_UI					= "tutorial_start.png";			// チュートリアル開始のテクスチャ
+	constexpr const char* TUTORIAL_START_BACKGROUND			= "backgrond003.png";			// チュートリアル開始の背景テクスチャ
+
+	constexpr const char* TUTORIAL_SKIP_UI					= "tutorial_skip.png";			// チュートリアルスキップのテクスチャ
+	constexpr const char* TUTORIAL_SKIP_BACKGROUND			= "backgrond003.png";			// チュートリアルスキップのテクスチャ
+
+	constexpr const char* TUTORIAL_RULE_UI					= "tutorial_rule.png";			// チュートリアルルールのテクスチャ
+	constexpr const char* TUTORIAL_RULE_BACKGROUND			= "backgrond003.png";			// チュートリアルルールのテクスチャ
+
+	constexpr const char* TUTORIAL_GAME_START_UI			= "tutorial_gamestart.png";		// チュートリアルゲームスタートのテクスチャ
+	constexpr const char* TUTORIAL_GAME_START_BACKGROUND	= "background009.png";			// チュートリアルゲームスタートのテクスチャ
+
+	constexpr const char* GAME_START_UI						= "backgrond003.png";			// ゲームスタートのテクスチャ
+	constexpr const char* GAME_START_BACKGROUND				= "backgrond003.png";			// ゲームスタートのテクスチャ
+
+	constexpr const char* RESULT_UI							= "backgrond003.png";			// リザルトのテクスチャ
+	constexpr const char* RESULT_BACKGROUND					= "backgrond003.png";			// リザルトのテクスチャ
+
+	constexpr const char* RANKING_UI						= "tutorial_start.png";			// ランキングのテクスチャ
+	constexpr const char* RANKING_BACKGROUND				= "backgrond003.png";			// ランキングのテクスチャ
+
+	constexpr const char* TIME_LIMIT_60_UI					= "TimeLimit60.png";			// 残り時間60秒のテクスチャ
+	constexpr const char* TIME_LIMIT_60_BACKGROUND			= "backgrond001.png";			// 残り時間60秒のテクスチャ
+
+	constexpr const char* SECOND_FAZE_UI					= "backgrond001.png";			// 第2フェーズのテクスチャ
+	constexpr const char* SECOND_FAZE_BACKGROUND			= "backgrond001.png";			// 第2フェーズのテクスチャ
+
+}
+
 //===================================================
 // タイトルの壁の設定処理
 //===================================================
@@ -49,8 +86,8 @@ void UIWallController::SetTitleWall(entt::registry& registry)
 		}
 		
 		// テクスチャのIDの取得
-		int nTextureID = pTextureManager->Register("data/TEXTURE/title_UI.png");
-		int nTextureMTID = pTextureManager->Register("data/TEXTURE/backgrond003.png");
+		int nTextureID = pTextureManager->Register(UIWallControlConst::TITLE_UI);
+		int nTextureMTID = pTextureManager->Register(UIWallControlConst::TITLE_BACKGROUND);
 
 		// テクスチャのIDの設定
 		uiWallComp.pTexture = pTextureManager->GetAdress(nTextureID);
@@ -92,8 +129,8 @@ void UIWallController::SetTutorialWall(entt::registry& registry)
 		}
 
 		// テクスチャのIDの取得
-		int nTextureID = pTextureManager->Register("data/TEXTURE/tutorial_start.png");
-		int nTextureMTID = pTextureManager->Register("data/TEXTURE/backgrond003.png");
+		int nTextureID = pTextureManager->Register(UIWallControlConst::TUTORIAL_START_UI);
+		int nTextureMTID = pTextureManager->Register(UIWallControlConst::TUTORIAL_START_BACKGROUND);
 
 		// テクスチャのIDの設定
 		uiWallComp.pTexture = pTextureManager->GetAdress(nTextureID);
@@ -139,7 +176,7 @@ void UIWallController::SetTutorialTask(entt::registry& registry, const char* pTe
 		}
 
 		// テクスチャのIDの取得
-		int nTextureID = -1;
+		int nTextureID = CTextureManager::INVALID_ID;
 
 		// 正面の壁だったら
 		if (entityNameComp.name == WallConst::FRONT_WALL)
@@ -151,10 +188,10 @@ void UIWallController::SetTutorialTask(entt::registry& registry, const char* pTe
 		else
 		{
 			// テクスチャのIDの設定
-			nTextureID = pTextureManager->Register("data/TEXTURE/tutorial_skip.png");
+			nTextureID = pTextureManager->Register(UIWallControlConst::TUTORIAL_SKIP_UI);
 		}
 
-		int nTextureMTID = pTextureManager->Register("data/TEXTURE/backgrond003.png");
+		int nTextureMTID = pTextureManager->Register(UIWallControlConst::TUTORIAL_SKIP_BACKGROUND);
 
 		// テクスチャの設定
 		uiWallComp.pTexture = pTextureManager->GetAdress(nTextureID);
@@ -199,20 +236,20 @@ void UIWallController::SetTutorialGameRule(entt::registry& registry)
 		}
 
 		// テクスチャのIDの取得
-		int nTextureID = -1;
-		int nTextureMTID = -1;
+		int nTextureID = CTextureManager::INVALID_ID;
+		int nTextureMTID = CTextureManager::INVALID_ID;
 
 		// 正面の壁じゃないなら
 		if (entityNameComp.name == WallConst::FRONT_WALL)
 		{
 			// テクスチャのIDの設定
-			nTextureID = pTextureManager->Register("data/TEXTURE/tutorial_rule.png");
-			nTextureMTID = pTextureManager->Register("data/TEXTURE/backgrond003.png");
+			nTextureID = pTextureManager->Register(UIWallControlConst::TUTORIAL_RULE_UI);
+			nTextureMTID = pTextureManager->Register(UIWallControlConst::TUTORIAL_RULE_BACKGROUND);
 		}
 		else
 		{
 			// テクスチャのIDの設定
-			nTextureID = pTextureManager->Register("data/TEXTURE/backgrond003.png");
+			nTextureID = pTextureManager->Register(UIWallControlConst::TUTORIAL_RULE_BACKGROUND);
 		}
 
 		// テクスチャの設定
@@ -252,8 +289,8 @@ void UIWallController::SetTutotialGameStart(entt::registry& registry)
 		}
 
 		// テクスチャのIDの設定
-		int nTextureID = pTextureManager->Register("data/TEXTURE/tutorial_gamestart.png");
-		int nTextureMTID = pTextureManager->Register("data/TEXTURE/background009.png");
+		int nTextureID = pTextureManager->Register(UIWallControlConst::TUTORIAL_GAME_START_UI);
+		int nTextureMTID = pTextureManager->Register(UIWallControlConst::TUTORIAL_GAME_START_BACKGROUND);
 
 		// テクスチャの設定
 		uiWallComp.pTexture = pTextureManager->GetAdress(nTextureID);
@@ -302,8 +339,8 @@ void UIWallController::SetGameStart(entt::registry& registry)
 		}
 
 		// テクスチャのIDの設定
-		int nTextureID = pTextureManager->Register("data/TEXTURE/backgrond003.png");
-		int nTextureMTID = pTextureManager->Register("data/TEXTURE/backgrond003.png");
+		int nTextureID = pTextureManager->Register(UIWallControlConst::GAME_START_UI);
+		int nTextureMTID = pTextureManager->Register(UIWallControlConst::GAME_START_BACKGROUND);
 
 		// 正面の壁だったら
 		if (entityNameComp.name == WallConst::FRONT_WALL)
@@ -370,12 +407,13 @@ void UIWallController::SetResultUI(entt::registry& registry)
 		else
 		{
 			// テクスチャのIDの取得
-			int nTextureID = pTextureManager->Register("data/TEXTURE/backgrond003.png");
+			int nTextureID = pTextureManager->Register(UIWallControlConst::RESULT_UI);
 
 			uiWallComp.pTexture = pTextureManager->GetAdress(nTextureID);
 		}
 
-		int nTextureMTID = pTextureManager->Register("data/TEXTURE/backgrond003.png");
+		// テクスチャのIDの取得
+		int nTextureMTID = pTextureManager->Register(UIWallControlConst::RESULT_BACKGROUND);
 
 		// テクスチャのIDの設定
 		uiWallComp.pTextureMT = pTextureManager->GetAdress(nTextureMTID);
@@ -459,12 +497,12 @@ void UIWallController::SetRanking(entt::registry& registry)
 		else
 		{
 			// テクスチャのIDの取得
-			int nTextureID = pTextureManager->Register("data/TEXTURE/tutorial_start.png");
+			int nTextureID = pTextureManager->Register(UIWallControlConst::RANKING_UI);
 
 			uiWallComp.pTexture = pTextureManager->GetAdress(nTextureID);
 		}
 
-		int nTextureMTID = pTextureManager->Register("data/TEXTURE/backgrond003.png");
+		int nTextureMTID = pTextureManager->Register(UIWallControlConst::RANKING_BACKGROUND);
 
 		// テクスチャのIDの設定
 		uiWallComp.pTextureMT = pTextureManager->GetAdress(nTextureMTID);
@@ -505,10 +543,10 @@ void UIWallController::SetTimeLimit60Second(entt::registry& registry)
 		}
 
 		// テクスチャのIDの取得
-		int nTextureID = pTextureManager->Register("data/TEXTURE/TimeLimit60.png");
+		int nTextureID = pTextureManager->Register(UIWallControlConst::TIME_LIMIT_60_UI);
 
 		// テクスチャのIDの取得
-		int nTextureMTID = pTextureManager->Register("data/TEXTURE/backgrond001.png");
+		int nTextureMTID = pTextureManager->Register(UIWallControlConst::TIME_LIMIT_60_BACKGROUND);
 
 		// テクスチャのポインタの設定
 		uiWallComp.pTexture = pTextureManager->GetAdress(nTextureID);
@@ -568,7 +606,7 @@ void UIWallController::SetSecondFaze(entt::registry& registry)
 		else
 		{
 			// テクスチャのIDの取得
-			int nTextureID = pTextureManager->Register("data/TEXTURE/backgrond001.png");
+			int nTextureID = pTextureManager->Register(UIWallControlConst::SECOND_FAZE_UI);
 
 			// テクスチャのポインタの設定
 			uiWallComp.pTexture = pTextureManager->GetAdress(nTextureID);
@@ -578,7 +616,7 @@ void UIWallController::SetSecondFaze(entt::registry& registry)
 
 
 		// テクスチャのIDの取得
-		int nTextureMTID = pTextureManager->Register("data/TEXTURE/backgrond001.png");
+		int nTextureMTID = pTextureManager->Register(UIWallControlConst::SECOND_FAZE_BACKGROUND);
 
 
 		// テクスチャのポインタの設定

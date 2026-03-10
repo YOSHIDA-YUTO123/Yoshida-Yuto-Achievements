@@ -56,7 +56,7 @@ void CharacterRenderer::Renderer(entt::registry& registry)
 		// ワールドマトリックスの設定
 		pDevice->SetTransform(D3DTS_WORLD, &transformComp.mtxWorld);
 
-		if (modelComp.nModelID == -1)
+		if (modelComp.nModelID == CModelManager::INVALID_ID)
 		{
 			continue;
 		}

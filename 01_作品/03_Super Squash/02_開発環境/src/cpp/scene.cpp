@@ -41,16 +41,26 @@
 #include "color_constants.hpp"
 #endif // _DEBUG
 
+//***************************************************
+// 定数宣言
+//***************************************************
+namespace SceneConst
+{
+	const D3DXVECTOR3 CAMERA_POS_V	= { 145.0f,139.0f,-28.0f };					// 視点の位置
+	const D3DXVECTOR3 CAMERA_POS_R	= { -168.0f,149.0f,-19.0f };				// 注視点の位置
+	const D3DXVECTOR3 CAMERA_ROT	= { D3DX_PI * 0.5f,-D3DX_PI * 0.5f,0.0f };	// 向き
+}
+
 //===================================================
 // コンストラクタ
 //===================================================
 CScene::CScene() : 
 	m_registry(),
-	m_nFps(NULL),
+	m_nFps(0),
 	m_pController(nullptr),
 	m_pState(nullptr),
 	m_pNextState(nullptr),
-	m_nNextStateTime(NULL),
+	m_nNextStateTime(0),
 	m_pSystemManager(nullptr)
 {
 }
@@ -61,11 +71,11 @@ CScene::CScene() :
 CScene::CScene(const Mode mode) :
 	m_mode(mode),
 	m_registry(),
-	m_nFps(NULL),
+	m_nFps(0),
 	m_pController(nullptr),
 	m_pState(nullptr),
 	m_pNextState(nullptr),
-	m_nNextStateTime(NULL),
+	m_nNextStateTime(0),
 	m_pSystemManager(nullptr)
 {
 }
@@ -87,7 +97,7 @@ HRESULT CScene::Init(void)
 	CCamera* pCamera = CManager::GetInstance()->GetCamera();
 
 	pCamera->Init();
-	pCamera->SetCamera({ 145.0f,139.0f,-28.0f }, { -168.0f,149.0f,-19.0f }, { D3DX_PI * 0.5f,-D3DX_PI * 0.5f,0.0f });
+	pCamera->SetCamera(SceneConst::CAMERA_POS_V, SceneConst::CAMERA_POS_R, SceneConst::CAMERA_ROT);
 
 	if (m_pSystemManager == nullptr)
 	{
@@ -217,10 +227,9 @@ void CScene::Draw(void)
 	{
 		pLine->Draw();
 	}
-#endif // _DEBUG
-
 	// デバッグ情報の描画
 	CDebugInfo::Debug(m_registry, m_nFps);
+#endif // _DEBUG
 }
 
 //===================================================

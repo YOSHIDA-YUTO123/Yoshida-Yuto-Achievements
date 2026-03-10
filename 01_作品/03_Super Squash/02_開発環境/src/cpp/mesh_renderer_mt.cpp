@@ -21,7 +21,6 @@
 #include "texture_mt_component.hpp"
 #include "renderer_component.hpp"
 #include "texture_mt_manager.h"
-#include "renderer_mt_key_component.hpp"
 #include "texture_id_component.hpp"
 
 //===================================================

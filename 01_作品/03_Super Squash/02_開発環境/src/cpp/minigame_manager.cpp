@@ -24,14 +24,27 @@
 #include "color_constants.hpp"
 #include "scene.h"
 #include "ui_wall_controller.h" 
+#include "scene_change_constants.hpp"
+#include "loader_constants.hpp"
+
+
+//***************************************************
+// 定数宣言
+//***************************************************
+namespace MinigameGameManagerConst
+{
+	constexpr int TIME_LIMIT_60 = 60;			// 残り60秒
+	constexpr int DELETE_TIME_LIMIT_UI = 57;	// タイムリミットのUIを消す時間
+	constexpr int TIME_LIMIT_10 = 10;			// 残り10秒
+}
 
 //===================================================
 // コンストラクタ
 //===================================================
 CMiniGameManager::CMiniGameManager(entt::registry& registry) :
 	m_registry(registry),
-	m_nScore(NULL),
-	m_nComb(NULL),
+	m_nScore(0),
+	m_nComb(0),
 	m_state(State::Normal),
 	m_bChangeScene(false)
 {
@@ -101,6 +114,7 @@ void CMiniGameManager::Update(void)
 		// コンボ数の取得
 		m_nComb = minigamePlayerComp.nCombo;
 	}
+
 	// タイマーが見つからないなら処理しない
 	if (nTime == TIMER_NO_FIND) return;
 
@@ -116,22 +130,25 @@ void CMiniGameManager::Update(void)
 
 		CSceneController* pSceneController = pScene->GetController();
 
-		pSceneController->ChangeScene(std::make_shared<CMinigameResultState>(), CCameraAnimationSystem::TYPE_GAME_TO_RESULT, 120);
+		pSceneController->ChangeScene(std::make_shared<CMinigameResultState>(), CCameraAnimationSystem::TYPE_GAME_TO_RESULT, SceneChangeConst::GAME_TO_RESULT);
 	}
 
+	// 名前空間の使用
+	using namespace MinigameGameManagerConst;
+
 	// 残り60秒なら
-	if (nTime == 60)
+	if (nTime == TIME_LIMIT_60)
 	{
 		// 残り60秒
 		UIWallController::SetTimeLimit60Second(m_registry);
 	}
 
-	if (nTime == 57)
+	if (nTime == DELETE_TIME_LIMIT_UI)
 	{
 		// 残り60秒
 		UIWallController::SetSecondFaze(m_registry);
 	}
-	if (nTime <= 10)
+	if (nTime <= TIME_LIMIT_10)
 	{
 		// ライトの取得
 		CLight* pLight = pManager->GetLight();
@@ -173,7 +190,7 @@ void CMiniGameManager::SaveInfo(void)
 void CMiniGameManager::SaveRanking(void)
 {
 	// バイナリファイルを開く
-	std::fstream in_file("data/SYSTEM/ranking.bin", std::ios::binary | std::ios::in);
+	std::fstream in_file(LoaderConst::SCORE_PATH, std::ios::binary | std::ios::in);
 
 	// ファイルが開けないなら
 	if (!in_file.is_open())
@@ -206,7 +223,7 @@ void CMiniGameManager::SaveRanking(void)
 	std::sort(nRanking, nRanking + RankingComponent::MAX_RANK,std::greater<int>());
 
 	// バイナリファイルを開く
-	std::ofstream out_file("data/SYSTEM/ranking.bin", std::ios::binary);
+	std::ofstream out_file(LoaderConst::RANKING_PATH, std::ios::binary);
 
 	// ファイルが開けないなら
 	if (!out_file.is_open())

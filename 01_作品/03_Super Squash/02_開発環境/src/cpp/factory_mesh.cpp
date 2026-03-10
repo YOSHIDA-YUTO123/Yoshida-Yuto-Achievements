@@ -42,7 +42,6 @@
 #include "factory_mesh_quad.h"
 #include "shadow_component.hpp"
 #include "texture_mt_component.hpp"
-#include "renderer_mt_key_component.hpp"
 #include "outline_shader_component.hpp"
 #include "color_constants.hpp"
 #include "texture_mt_manager.h"
@@ -51,6 +50,21 @@
 #include "result_ball_component.hpp"
 #include "sphere_collider_component.hpp"
 #include "init_mesh_field.h"
+#include "factory_system_entity.h"
+#include "motion_blur_component.hpp"
+
+//***************************************************
+// 定数宣言
+//***************************************************
+namespace FactoryMeshConst
+{
+	constexpr float SHADOW_MAX_HEIGHT = 500.0f;	// 影を表示する最大の高さ
+	constexpr float BALL_INERTIA = 0.0f;		// ボールの慣性
+	constexpr float BALL_GRAVITY = 0.15f;		// ボールの重力
+	constexpr float BALL_OUTLINE_SIZE = 0.3f;	// ボールのアウトラインの大きさ
+	constexpr int NUM_BLUR = 5;				// ブラーの総数
+
+}
 
 //===================================================
 // メッシュフィールドの生成
@@ -60,7 +74,7 @@ entt::entity FactoryMesh::Create::Field(entt::registry& registry, const D3DXVECT
 	// テクスチャのマネージャークラスの取得
 	CTextureManager* pTextureManager = CManager::GetInstance()->GetTextureManager();
 
-	int nTextureID = -1;
+	int nTextureID = CTextureManager::INVALID_ID;
 
 	if (pTextureManager != nullptr)
 	{
@@ -90,7 +104,7 @@ entt::entity FactoryMesh::Create::FieldMT(entt::registry& registry, const D3DXVE
 	// テクスチャのマネージャークラスの取得
 	CTextureManager* pTextureManager = CManager::GetInstance()->GetTextureManager();
 
-	int nTextureID = -1;
+	int nTextureID = CTextureManager::INVALID_ID;
 
 	if (pTextureManager != nullptr)
 	{
@@ -132,7 +146,6 @@ void FactoryMesh::Build::Field(entt::registry& registry, entt::entity entity, co
 void FactoryMesh::Build::FieldMT(entt::registry& registry, entt::entity entity, const int nSegmentU, const int nSegmentV)
 {
 	registry.emplace<MeshVtxComponent>(entity, nSegmentU, nSegmentV);
-	registry.emplace<RendererMTKeyComponent>(entity,-1);
 
 	// メッシュフィールドの初期化処理
 	if (FAILED(InitMeshField::FieldMT(registry, entity)))
@@ -149,7 +162,7 @@ entt::entity FactoryMesh::Create::Cylinder(entt::registry& registry, const D3DXV
 	// テクスチャのマネージャークラスの取得
 	CTextureManager* pTextureManager = CManager::GetInstance()->GetTextureManager();
 
-	int nTextureID = -1;
+	int nTextureID = CTextureManager::INVALID_ID;
 
 	if (pTextureManager != nullptr)
 	{
@@ -194,7 +207,7 @@ entt::entity FactoryMesh::Create::Wall(entt::registry& registry, const D3DXVECTO
 	// テクスチャのマネージャークラスの取得
 	CTextureManager* pTextureManager = CManager::GetInstance()->GetTextureManager();
 
-	int nTextureID = -1;
+	int nTextureID = CTextureManager::INVALID_ID;
 
 	if (pTextureManager != nullptr)
 	{
@@ -226,7 +239,7 @@ entt::entity FactoryMesh::Create::EffectWall(entt::registry& registry, const D3D
 	// テクスチャのマネージャークラスの取得
 	CTextureManager* pTextureManager = CManager::GetInstance()->GetTextureManager();
 
-	int nTextureID = -1;
+	int nTextureID = CTextureManager::INVALID_ID;
 
 	if (pTextureManager != nullptr)
 	{
@@ -247,7 +260,6 @@ entt::entity FactoryMesh::Create::EffectWall(entt::registry& registry, const D3D
 	registry.emplace<RendererComponent>(entity, RendererComponent::TYPE_ALPHA_BLEND | RendererComponent::TYPE_LIGHT_OFF);
 	registry.emplace<MeshVtxComponent>(entity, nSegmentUV, nSegmentUV, D3DXCOLOR(Color::AQUA.r, Color::AQUA.g, Color::AQUA.b,0.005f));
 	
-
 	// メッシュウォールの初期化処理
 	if (FAILED(InitMesh::Wall(registry, entity)))
 	{
@@ -267,8 +279,8 @@ entt::entity FactoryMesh::Create::WallMT(
 	// テクスチャのマネージャークラスの取得
 	CTextureManager* pTextureManager = CManager::GetInstance()->GetTextureManager();
 
-	int nTextureID = -1;
-	int nTextureIDMT = -1;
+	int nTextureID = CTextureManager::INVALID_ID;
+	int nTextureIDMT = CTextureManager::INVALID_ID;
 
 	if (pTextureManager != nullptr)
 	{
@@ -330,7 +342,7 @@ entt::entity FactoryMesh::Create::Dome(entt::registry& registry, const D3DXVECTO
 	// テクスチャのマネージャークラスの取得
 	CTextureManager* pTextureManager = CManager::GetInstance()->GetTextureManager();
 
-	int nTextureID = -1;
+	int nTextureID = CTextureManager::INVALID_ID;
 
 	if (pTextureManager != nullptr)
 	{
@@ -391,7 +403,7 @@ entt::entity FactoryMesh::Create::Circle(entt::registry& registry, const D3DXVEC
 	// テクスチャのマネージャークラスの取得
 	CTextureManager* pTextureManager = CManager::GetInstance()->GetTextureManager();
 
-	int nTextureID = -1;
+	int nTextureID = CTextureManager::INVALID_ID;
 
 	if (pTextureManager != nullptr)
 	{
@@ -457,40 +469,41 @@ void FactoryMesh::Build::Ball(entt::registry& registry, const entt::entity entit
 //===================================================
 // メッシュボールの生成処理
 //===================================================
-entt::entity FactoryMesh::Create::Ball(entt::registry& registry, const D3DXVECTOR3& pos, const float fRadius, const char* pTexturePath, const int nSegmentUV)
+entt::entity FactoryMesh::Create::Ball(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& move, const float fRadius, const char* pTexturePath, const int nSegmentUV)
 {
 	// entityの生成
 	const entt::entity entity = registry.create();
 
-	D3DXCOLOR col = D3DCOLOR_RGBA(255, 250, 205, 255);
-
 	// ボールの設定
 	auto& ballComp = registry.emplace<BallComponent>(entity);
 	
-
 	// 影の生成
-	ballComp.shadowID = FactoryMeshQuad::Shadow(registry, entity, pos, { fRadius * 2.0f ,fRadius * 2.0f }, 500.0f);
+	ballComp.shadowID = FactoryMeshQuad::Shadow(registry, entity, pos, { fRadius * 2.0f ,fRadius * 2.0f }, FactoryMeshConst::SHADOW_MAX_HEIGHT);
 
 	// 一周の大きさを求める
 	float fCircumference = D3DX_PI * 2.0f * fRadius;
 
 	registry.emplace<MoveToRotationComponent>(entity, fCircumference);
 	registry.emplace<Transform3DComponent>(entity, pos);
-	registry.emplace<VelocityComponent>(entity, 0.0f,0.15f);
+	registry.emplace<VelocityComponent>(entity, FactoryMeshConst::BALL_INERTIA, FactoryMeshConst::BALL_GRAVITY, move);
 	registry.emplace<BallFieldCollisionComponent>(entity, entity);
 	registry.emplace<MeshWallCollisionComponent>(entity, entity);
 	registry.emplace<SphereComponent>(entity, fRadius);
-	registry.emplace<SphereColliderComponent>(entity, fRadius, entity);
 	registry.emplace<Tag::BallTag>(entity);
 	registry.emplace<Tag::HitStopTag>(entity);
-	registry.emplace<OutLineShaderComponent>(entity,Color::AQUA,0.3f);
+	registry.emplace<OutLineShaderComponent>(entity,Color::AQUA, FactoryMeshConst::BALL_OUTLINE_SIZE);
 	registry.emplace<RendererTag::OutLineSphereTag>(entity);
 	registry.emplace<CollisionEffectWallComponent>(entity);
+	registry.emplace<MotionBlurComponent>(entity, FactoryMeshConst::NUM_BLUR);
 
+	auto sphereID = FactorySystemEntity::CreateSphereCollider(registry, entity, fRadius, Const::VEC3_NULL);
+	registry.emplace<ColliderTag::Wall>(sphereID);
+	registry.emplace<ColliderTag::BallSphere>(sphereID);
 
 	// 球体の生成
 	FactoryMesh::Create::Sphere(registry, entity, fRadius, fRadius, nSegmentUV, pTexturePath);
 
+	// 軌跡の生成
 	ballComp.orbitID = FactoryMesh::Create::Orbit(registry, entity, D3DXVECTOR3(fRadius, 0.0f, 0.0f), D3DXVECTOR3(-fRadius, 0.0f, 0.0f), Const::WHITE, "");
 
 	return entity;
@@ -504,18 +517,19 @@ entt::entity FactoryMesh::Create::ResultBall(entt::registry& registry, const D3D
 	// entityの生成
 	const entt::entity entity = registry.create();
 
-	D3DXCOLOR col = D3DCOLOR_RGBA(255, 250, 205, 255);
-
 	// ボールの設定
 	registry.emplace<BallComponent>(entity);
 
 	registry.emplace<Transform3DComponent>(entity, pos);
-	registry.emplace<VelocityComponent>(entity, 0.0f, 0.15f, move);
+	registry.emplace<VelocityComponent>(entity, FactoryMeshConst::BALL_INERTIA, FactoryMeshConst::BALL_GRAVITY, move);
 	registry.emplace<MeshWallCollisionComponent>(entity, entity);
 	registry.emplace<SphereComponent>(entity, fRadius);
 	registry.emplace<SphereColliderComponent>(entity, fRadius, entity);
 	registry.emplace<Tag::BallTag>(entity);
-	registry.emplace<OutLineShaderComponent>(entity, Color::AQUA, 0.3f);
+	registry.emplace<ColliderTag::BallSphere>(entity);
+	registry.emplace<ColliderTag::Wall>(entity);
+
+	registry.emplace<OutLineShaderComponent>(entity, Color::AQUA, FactoryMeshConst::BALL_OUTLINE_SIZE);
 	registry.emplace<RendererTag::OutLineSphereTag>(entity);
 	registry.emplace<CollisionEffectWallComponent>(entity);
 	registry.emplace<ResultBallComponent>(entity, nLife);
@@ -534,7 +548,7 @@ entt::entity FactoryMesh::Create::Orbit(entt::registry& registry, const entt::en
 	// テクスチャのマネージャークラスの取得
 	CTextureManager* pTextureManager = CManager::GetInstance()->GetTextureManager();
 
-	int nTextureID = -1;
+	int nTextureID = CTextureManager::INVALID_ID;
 
 	if (pTextureManager != nullptr)
 	{
@@ -579,7 +593,7 @@ entt::entity FactoryMesh::Create::Sphere(
 	// テクスチャのマネージャークラスの取得
 	CTextureManager* pTextureManager = CManager::GetInstance()->GetTextureManager();
 
-	int nTextureID = -1;
+	int nTextureID = CTextureManager::INVALID_ID;
 
 	if (pTextureManager != nullptr)
 	{
@@ -617,7 +631,7 @@ entt::entity FactoryMesh::Create::Sphere(entt::registry& registry, entt::entity 
 	// テクスチャのマネージャークラスの取得
 	CTextureManager* pTextureManager = CManager::GetInstance()->GetTextureManager();
 
-	int nTextureID = -1;
+	int nTextureID = CTextureManager::INVALID_ID;
 
 	if (pTextureManager != nullptr)
 	{
@@ -651,7 +665,7 @@ entt::entity FactoryMesh::Create::SphereMRT(entt::registry& registry, const D3DX
 	// テクスチャのマネージャークラスの取得
 	CTextureManager* pTextureManager = CManager::GetInstance()->GetTextureManager();
 
-	int nTextureID = -1;
+	int nTextureID = CTextureManager::INVALID_ID;
 
 	if (pTextureManager != nullptr)
 	{

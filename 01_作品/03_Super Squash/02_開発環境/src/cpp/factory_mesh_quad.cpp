@@ -105,62 +105,6 @@ entt::entity FactoryMeshQuad::Shadow(entt::registry& registry, const entt::entit
 }
 
 //===================================================
-// タイマーの生成
-//===================================================
-entt::entity FactoryMeshQuad::Timer(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& size, const int nTime, const char* pTexturePath)
-{
-	// entityの生成
-	const entt::entity entity = registry.create();
-
-	auto& timerComp = registry.emplace<TimerComponent>(entity, nTime);
-	registry.emplace<MRTTargetComponent>(entity,MRTType::TYPE_TIMER);
-	registry.emplace<Tag::TimerTag>(entity);
-	
-
-	int nCount = 0;
-
-	// 横幅の割合を求める
-	float fRateWidth = size.x / TimerComponent::MAX_DIGIT;
-
-	// 秒数分回す
-	for (auto& second : timerComp.aSecondID)
-	{
-		// 計算用の位置
-		D3DXVECTOR3 posWk = pos;
-
-		// 位置のオフセット
-		float fOffsetX = fRateWidth * 2.0f * nCount;
-
-		// 位置を計算
-		posWk.x = pos.x - fOffsetX;
-
-		// シートの生成
-		second = Sheet(registry, posWk, { fRateWidth ,size.y,size.z }, pTexturePath, 9, 1, true);
-		nCount++;
-	}
-
-	// 秒数分回す
-	for (auto& minute : timerComp.aMinuteID)
-	{
-		// 計算用の位置
-		D3DXVECTOR3 posWk = pos;
-
-		// 位置のオフセット
-		float fOffsetX = fRateWidth * 2.0f * nCount;
-
-		// 位置を計算
-		posWk.x = pos.x - fOffsetX;
-
-		// シートの生成
-		minute = Sheet(registry, posWk, { fRateWidth ,size.y,size.z }, pTexturePath, 9, 1, true);
-
-		nCount++;
-	}
-
-	return entity;
-}
-
-//===================================================
 // 分割3Dポリゴンの初期化処理
 //===================================================
 entt::entity FactoryMeshQuad::Sheet(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& size, const char* pTexturePath, const int nSegmentU, const int nSegmentV, const bool bRendererMT)
@@ -199,47 +143,6 @@ entt::entity FactoryMeshQuad::Sheet(entt::registry& registry, const D3DXVECTOR3&
 	if (FAILED(InitMeshQuad::Init(registry, entity, nSegmentU, nSegmentV)))
 	{
 		registry.destroy(entity);
-		assert(false);
-	}
-
-	return entity;
-}
-
-//===================================================
-// UIの壁の生成処理
-//===================================================
-entt::entity FactoryMeshQuad::UIWall(
-	entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& size, 
-	const char* pTexturePath, const char* pTexturePath2, 
-	const D3DXVECTOR2& offPosUVLeft, const D3DXVECTOR2& offPosUVRight, const D3DXVECTOR3& rot)
-{
-	// テクスチャのマネージャークラスの取得
-	CTextureManager* pTextureManager = CManager::GetInstance()->GetTextureManager();
-
-	int nTextureID = -1;
-	int nTextureID2 = -1;
-
-	if (pTextureManager != nullptr)
-	{
-		// テクスチャのIDの設定
-		nTextureID = pTextureManager->Register(pTexturePath);
-		nTextureID2 = pTextureManager->Register(pTexturePath2);
-	}
-
-	// entityの生成
-	const entt::entity entity = registry.create();
-
-	registry.emplace<Transform3DComponent>(entity, pos, rot);
-	registry.emplace<VertexBufferComponent>(entity);
-	registry.emplace<Size3DComponent>(entity, size);
-	registry.emplace<LayerComponent>(entity);
-	registry.emplace<TextureMTComponent>(entity, nTextureID, nTextureID2);
-	registry.emplace<RendererTag::MeshQuadTag>(entity);
-	registry.emplace<UIWallComponent>(entity, D3DXVECTOR2(0.001f, 0.0f));
-
-	// 初期化処理
-	if (FAILED(InitMeshQuad::InitUIWall(registry, entity, offPosUVLeft, offPosUVRight)))
-	{
 		assert(false);
 	}
 

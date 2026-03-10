@@ -1,91 +1,16 @@
 {
     "MODEL_INFO": [
         {
-            "file_path": "data/MODEL/testmodel.x"
+            "file_path": "data/MODEL/title_logo.x"
         },
         {
-            "file_path": "data/MODEL/ranningman/00_waist.x"
+            "file_path": "data/MODEL/title_start.x"
         },
         {
-            "file_path": "data/MODEL/ranningman/01_chest.x"
-        },
-        {
-            "file_path": "data/MODEL/ranningman/02_head.x"
-        },
-        {
-            "file_path": "data/MODEL/ranningman/03_armUR.x"
-        },
-        {
-            "file_path": "data/MODEL/ranningman/04_armFR.x"
-        },
-        {
-            "file_path": "data/MODEL/ranningman/05_handR.x"
-        },
-        {
-            "file_path": "data/MODEL/ranningman/06_armUL.x"
-        },
-        {
-            "file_path": "data/MODEL/ranningman/07_armFL.x"
-        },
-        {
-            "file_path": "data/MODEL/ranningman/08_handL.x"
-        },
-        {
-            "file_path": "data/MODEL/ranningman/09_legUR.x"
-        },
-        {
-            "file_path": "data/MODEL/ranningman/10_legDR.x"
-        },
-        {
-            "file_path": "data/MODEL/ranningman/11_footR.x"
-        },
-        {
-            "file_path": "data/MODEL/ranningman/12_legUL.x"
-        },
-        {
-            "file_path": "data/MODEL/ranningman/13_legDL.x"
-        },
-        {
-            "file_path": "data/MODEL/ranningman/14_footL.x"
-        },
-        {
-            "file_path": "data/MODEL/ranningman/15_racket.x"
-        },
-        {
-            "file_path": "data/MODEL/AKRmodel/00_body.x"
-        },
-        {
-            "file_path": "data/MODEL/AKRmodel/01_head.x"
-        },
-        {
-            "file_path": "data/MODEL/AKRmodel/02_armR.x"
-        },
-        {
-            "file_path": "data/MODEL/AKRmodel/03_handR.x"
-        },
-        {
-            "file_path": "data/MODEL/AKRmodel/04_armL.x"
-        },
-        {
-            "file_path": "data/MODEL/AKRmodel/05_handL.x"
-        },
-        {
-            "file_path": "data/MODEL/AKRmodel/06_legR.x"
-        },
-        {
-            "file_path": "data/MODEL/AKRmodel/07_footR.x"
-        },
-        {
-            "file_path": "data/MODEL/AKRmodel/08_legL.x"
-        },
-        {
-            "file_path": "data/MODEL/AKRmodel/09_footL.x"
+            "file_path": "data/MODEL/title_quit.x"
         },
         {
             "file_path": "data/MODEL/ShadowS.x"
-        },
-        {
-            "file_path": "data/MODEL/target/target000.x"
         },
         {
             "file_path": "data/MODEL/player/00_waist.x"
@@ -137,24 +62,6 @@
         },
         {
             "file_path": "data/MODEL/JetPack.x"
-        },
-        {
-            "file_path": "data/MODEL/planet000.x"
-        },
-        {
-            "file_path": "data/MODEL/planet001.x"
-        },
-        {
-            "file_path": "data/MODEL/planet002.x"
-        },
-        {
-            "file_path": "data/MODEL/title_logo.x"
-        },
-        {
-            "file_path": "data/MODEL/title_start.x"
-        },
-        {
-            "file_path": "data/MODEL/title_quit.x"
         }
     ]
 }

@@ -63,7 +63,7 @@ void OutLineCharacterRenderer::Renderer(entt::registry& registry)
 	{
 		auto& modelComp = registry.get<CharacterModelComponent>(entity);
 
-		if (modelComp.nModelID == -1)
+		if (modelComp.nModelID == CModelManager::INVALID_ID)
 		{
 			continue;
 		}

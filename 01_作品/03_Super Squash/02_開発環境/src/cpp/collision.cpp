@@ -281,7 +281,7 @@ bool Collision::FOV::Collision(const D3DXVECTOR3& targetPos, const Transform3DCo
 }
 
 //===================================================
-// ‹…‚Æ‹…‚Ì”»’è
+// ‹…‚Æ‹…‚Ì”»’è ***
 //===================================================
 bool Collision::Sphere::Collision(const entt::registry& registry, const SphereComp& self, const SphereComp& target)
 {

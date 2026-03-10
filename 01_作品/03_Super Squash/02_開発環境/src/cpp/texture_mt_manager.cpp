@@ -91,7 +91,7 @@ HRESULT CTextureMTManager::Init(void)
 		pDevice->Clear(0,
 			NULL,
 			(D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL),
-			D3DCOLOR_RGBA(100, 100, 100, 255), 1.0f, 0);
+			Const::BACK_BUFFER_COLOR, 1.0f, 0);
 
 		// レンダーターゲットをもとに戻す
 		pDevice->SetRenderTarget(0, pRenderDef);
@@ -171,110 +171,6 @@ void CTextureMTManager::Release(const int nIdx)
 		m_aInfo[nIdx].pZBuffMT = nullptr;
 	}
 }
-
-////===================================================
-//// 登録処理
-////===================================================
-//int CTextureMTManager::Register(const char* pKeyName)
-//{
-//	if (pKeyName == nullptr)
-//	{
-//		return -1;
-//	}
-//
-//	// 現在のインデックス
-//	int nIdx = m_Info.size();
-//	
-//	int nCnt = 0;
-//
-//	// 情報分回す
-//	for (auto& info : m_Info)
-//	{
-//		// すでに存在するなら
-//		if (info.key == pKeyName)
-//		{
-//			return nCnt;
-//		}
-//		nCnt++;
-//	}
-//	// マネージャーの取得
-//	CManager* pManager = CManager::GetInstance();
-//
-//	// デバイスの取得
-//	LPDIRECT3DDEVICE9 pDevice = pManager->GetRenderer()->GetDevice();
-//
-//	LPDIRECT3DSURFACE9 pRenderDef, pZBufferDef;
-//
-//	// 情報
-//	CTextureMTManager::Info info = {};
-//
-//	// レンダラーターゲット用テクスチャの生成
-//	pDevice->CreateTexture(
-//		SCREEN_WIDTH,
-//		SCREEN_HEIGHT,
-//		1,
-//		D3DUSAGE_RENDERTARGET,
-//		D3DFMT_X8R8G8B8,
-//		D3DPOOL_DEFAULT,
-//		&info.pTextureMT,
-//		NULL);
-//
-//	// テクスチャのレンダリングターゲット用インターフェースの生成
-//	info.pTextureMT->GetSurfaceLevel(0, &info.pRenderMT);
-//
-//	// テクスチャレンダリング用Zバッファの生成
-//	pDevice->CreateDepthStencilSurface(
-//		SCREEN_WIDTH,
-//		SCREEN_HEIGHT,
-//		D3DFMT_D24S8,
-//		D3DMULTISAMPLE_NONE,
-//		0,
-//		TRUE,
-//		&info.pZBuffMT,
-//		NULL);
-//
-//	// 現在のレンダリングターゲットを取得(保存)
-//	pDevice->GetRenderTarget(0, &pRenderDef);
-//
-//	// 現在のZバッファの取得(保存)
-//	pDevice->GetDepthStencilSurface(&pZBufferDef);
-//
-//	// レンダリングターゲットを生成したテクスチャに設定
-//	pDevice->SetRenderTarget(0, info.pRenderMT);
-//
-//	// Zバッファを生成したZバッファの設定
-//	pDevice->SetDepthStencilSurface(info.pZBuffMT);
-//
-//	// レンダリングターゲット用テクスチャのクリア
-//	pDevice->Clear(0,
-//		NULL,
-//		(D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL),
-//		D3DCOLOR_RGBA(100, 100, 100, 255), 1.0f, 0);
-//
-//	// レンダーターゲットをもとに戻す
-//	pDevice->SetRenderTarget(0, pRenderDef);
-//
-//	// Zバッファをもとに戻す
-//	pDevice->SetDepthStencilSurface(pZBufferDef);
-//
-//	// テクスチャレンダリング用ビューポートの生成
-//	info.viewport.X = 0;
-//	info.viewport.Y = 0;
-//	info.viewport.Width = SCREEN_WIDTH;
-//	info.viewport.Height = SCREEN_HEIGHT;
-//	info.viewport.MinZ = 0.0f;
-//	info.viewport.MaxZ = 1.0f;
-//	info.key = pKeyName;
-//
-//	m_Info.push_back(info);
-//
-//	// 使い終わったので破棄
-//	info.pTextureMT->Release();
-//	pRenderDef->Release();
-//	pZBufferDef->Release();
-//
-//	return nIdx;
-//}
 
 //===================================================
 // アドレスの取得

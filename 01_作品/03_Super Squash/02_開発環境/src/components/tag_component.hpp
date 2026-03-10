@@ -61,6 +61,9 @@ namespace Tag
 namespace ColliderTag
 {
 	struct BallShotRange {};
+	struct Wall {};
+	struct Field {};
+	struct BallSphere {};
 }
 
 //***************************************************

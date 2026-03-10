@@ -36,7 +36,7 @@ void MeshCircleSystem::Update(entt::registry& registry)
 		// 計算用の位置
 		D3DXVECTOR3 posWk;
 
-		VERTEX_3D* pVtx = NULL;
+		VERTEX_3D* pVtx = nullptr;
 
 		// 頂点バッファをロック
 		vertexBufferComp.pVtxBuffer->Lock(0, 0, (void**)&pVtx, 0);

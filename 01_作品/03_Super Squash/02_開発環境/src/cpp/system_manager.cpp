@@ -12,7 +12,7 @@
 #include "renderer_system_base.h"
 #include "system_base.h"
 #include "renderer_system_base.h"
-#include <algorithm>
+#include "algorithm"
 #include "layer_component.hpp"
 #include "billboard_renderer.h"
 #include "character_renderer.h"

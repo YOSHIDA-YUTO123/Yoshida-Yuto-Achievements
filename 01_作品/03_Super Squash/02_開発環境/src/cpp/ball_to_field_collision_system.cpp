@@ -31,22 +31,22 @@ void BallToCollisionSystem::Update(entt::registry& registry)
 	auto CollisionEntity = registry.view<BallComponent>();
 
 	// 地面のコンポーネントを持つエンティティの取得(front())
-	auto FieldEntity = registry.view<Tag::MeshFieldTag>().front();
+	auto fieldEntity = registry.view<Tag::MeshFieldTag>().front();
 
 	// 当たり判定
 	for (auto ballEntity : CollisionEntity)
 	{
 		// コンポーネントの取得
 		auto& balltransformComp = registry.get<Transform3DComponent>(ballEntity);
-		auto& ball = registry.get<BallFieldCollisionComponent>(ballEntity);
+		auto& ballComp = registry.get<BallFieldCollisionComponent>(ballEntity);
 		auto& sphereColliderComp = registry.get<SphereComponent>(ballEntity);
 
 		// 着地したら
 		if ((balltransformComp.pos.y - sphereColliderComp.fRadius) <= 0.0f)
 		{
-			ball.bLanding = true;
-			ball.entity = FieldEntity;
-			ball.normal = Const::VEC_U;
+			ballComp.bLanding = true;
+			ballComp.entity = fieldEntity;
+			ballComp.normal = Const::VEC_U;
 
 			// 押し戻す
 			balltransformComp.pos.y = sphereColliderComp.fRadius;

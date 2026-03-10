@@ -21,6 +21,7 @@
 //***************************************************
 struct BoxColliderComponent;		// 矩形コライダー
 struct CapsuleColliderComponent;	// 矩カプセルコライダー
+struct SphereColliderComponent;		// 球のコライダー
 
 //***************************************************
 // デバッグ表示用コライダーの描画処理の定義
@@ -35,5 +36,6 @@ private:
 	void Draw(std::vector<LINE_LIST>& lineList);
 	void SetBoxVertex(entt::registry& registry, BoxColliderComponent& box);
 	void SetCapsuleVertex(entt::registry& registry, CapsuleColliderComponent& capsuleComp);
+	void SetSphereVertex(entt::registry& registry, SphereColliderComponent& sphereComp, const entt::entity sphereID);
 };
 #endif

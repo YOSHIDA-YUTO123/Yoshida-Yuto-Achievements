@@ -32,11 +32,11 @@ struct MotionSystem : public SystemBase
 	void Update(entt::registry & registry) override;
 
 private:
-	void UpdateCurrent(entt::registry& registry, const entt::entity model, const int nCntModel, MotionComponent* pMotionComp);
-	void UpdateBlend(entt::registry& registry, const entt::entity model, const int nCntModel, MotionComponent* pMotionComp);
+	void UpdateCurrent(entt::registry& registry, const entt::entity model, const int nCntModel, MotionComponent& motionComp);
+	void UpdateBlend(entt::registry& registry, const entt::entity model, const int nCntModel, MotionComponent& motionComp);
 
-	bool IsEnd(MotionComponent* pMotionComp);
-	bool IsEndBlend(MotionComponent* pMotionComp);
-	void FinishFirstBlend(MotionComponent* pMotionComp);
+	bool IsEnd(MotionComponent& motionComp);
+	bool IsEndBlend(MotionComponent& motionComp);
+	void FinishFirstBlend(MotionComponent& motionComp);
 };
 #endif

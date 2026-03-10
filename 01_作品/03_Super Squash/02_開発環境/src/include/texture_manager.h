@@ -23,7 +23,8 @@ class CTextureManager
 {
 public:
 
-	static constexpr int INVALID_ID = -1;	// 使えないID
+	static constexpr int INVALID_ID = -1;						// 使えないID
+	static constexpr auto TEXTURE_ROOT_PATH = "data/TEXTURE/";	// 省略用テクスチャパス
 
 	CTextureManager();
 	~CTextureManager();

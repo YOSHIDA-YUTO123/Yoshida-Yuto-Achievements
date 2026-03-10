@@ -22,6 +22,7 @@ namespace PlayerConstants
 	constexpr float CHAGE_POWER_OFFSET		= 2.0f;					// 最低保障power
 	constexpr float KEY_W_PITCH_ANGLE		= D3DXToRadian(15);		// Wキーを押しているときの発射角度
 	constexpr float KEY_S_PITCH_ANGLE		= D3DXToRadian(25);		// Sキーを押しているときの発射角度
+	constexpr float NO_INPUT_ANGLE			= D3DXToRadian(100);	// キーを押していないときの発射角度
 	constexpr float JET_PACK_MOVE_UP		= 3.0f;					// ジェットパック移動量(上昇時)
 	constexpr float JET_PACK_MOVE_DOWN		= -4.0f;				// ジェットパック移動量(下降時)
 	constexpr float JET_PACK_MOVE_LEFT		= -4.0f;				// ジェットパック移動量(左移動)

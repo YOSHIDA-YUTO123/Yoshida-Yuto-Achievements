@@ -25,10 +25,10 @@
 void MotionSystem::Update(entt::registry& registry)
 {
 	// モーションのコンポーネントをもつentityの取得
-	auto view = registry.view<MotionComponent,ChildrenComponent>();
+	auto view = registry.view<MotionComponent, ChildrenComponent>();
 
 	// entity分調べる
-	for (auto [entity, MotionComp, childens] : view.each())
+	for (auto [entity, motionComp, childens] : view.each())
 	{
 		// ゲームを操作するクラスの取得
 		auto pGameController = CGameController::GetInstance();
@@ -44,47 +44,47 @@ void MotionSystem::Update(entt::registry& registry)
 		}
 
 		// 現在のモーションのデータのアドレスの取得
-		MotionComponent::CurrentInfo *pCurrent = &MotionComp.current;
+		MotionComponent::CurrentInfo *pCurrent = &motionComp.current;
 
 		// ブレンドのモーションのデータのアドレスの取得
-		MotionComponent::BlendInfo* pBlend = &MotionComp.blend;
+		MotionComponent::BlendInfo* pBlend = &motionComp.blend;
 
 		// キーの総数の取得
-		pCurrent->nNumKey = MotionComp.aInfo[pCurrent->nType].nNumkey;
-		pBlend->nNumKeyBlend = MotionComp.aInfo[pBlend->nTypeBlend].nNumkey;
+		pCurrent->nNumKey = motionComp.aInfo[pCurrent->nType].nNumkey;
+		pBlend->nNumKeyBlend = motionComp.aInfo[pBlend->nTypeBlend].nNumkey;
 
 		// ループするかどうかの取得
-		pCurrent->bLoopMotion = MotionComp.aInfo[pCurrent->nType].bLoop;
+		pCurrent->bLoopMotion = motionComp.aInfo[pCurrent->nType].bLoop;
 
 		// キーが無いなら処理しない
-		if (MotionComp.aInfo[pCurrent->nType].nNumkey == 0 || pBlend->nNumKeyBlend == 0) return;
+		if (motionComp.aInfo[pCurrent->nType].nNumkey == 0 || pBlend->nNumKeyBlend == 0) return;
 
 		// 次のキーを増やす
-		pCurrent->nNextKey = (pCurrent->nKey + 1) % MotionComp.aInfo[pCurrent->nType].nNumkey;
+		pCurrent->nNextKey = (pCurrent->nKey + 1) % motionComp.aInfo[pCurrent->nType].nNumkey;
 
 		// 次のブレンドキーを増やす
 		pBlend->nNextKeyBlend = (pBlend->nKeyBlend + 1) % pBlend->nNumKeyBlend;
 
 		// モデルの総数分回す
-		for (int nCntModel = 0; nCntModel < MotionComp.nNumModel; nCntModel++)
+		for (int nCntModel = 0; nCntModel < motionComp.nNumModel; nCntModel++)
 		{
 			if (pBlend->bFinish == false && pBlend->bFirst == false)
 			{
 				// 現在のモーションの更新処理
-				UpdateCurrent(registry,childens.aChildrenID[nCntModel], nCntModel, &MotionComp);
+				UpdateCurrent(registry,childens.aChildrenID[nCntModel], nCntModel, motionComp);
 			}
 			if ((pBlend->bFinish == true || pBlend->bFirst == true) && pBlend->bBlend == true)
 			{
 				// ブレンドのモーションの更新処理
-				UpdateBlend(registry, childens.aChildrenID[nCntModel], nCntModel, &MotionComp);
+				UpdateBlend(registry, childens.aChildrenID[nCntModel], nCntModel, motionComp);
 			}
 		}
 
 		// モーションが終了したら
-		if (IsEnd(&MotionComp))
+		if (IsEnd(motionComp))
 		{
 			// ブレンドのフレームを計算
-			int nBlendFrame = MotionComp.aInfo[pCurrent->nType].aKeyInfo[pCurrent->nNumKey - 1].nFrame;
+			int nBlendFrame = motionComp.aInfo[pCurrent->nType].aKeyInfo[pCurrent->nNumKey - 1].nFrame;
 
 			pBlend->nCounterMotionBlend = 0;		// ブレンドモーションのカウンターをリセット
 			pBlend->nKeyBlend = 0;				// ブレンドキーをリセット
@@ -95,22 +95,22 @@ void MotionSystem::Update(entt::registry& registry)
 		}
 
 		// モーションの出だしのブレンドが終了した
-		FinishFirstBlend(&MotionComp);
+		FinishFirstBlend(motionComp);
 
 		// キーが最大かつブレンドのカウントが最大になった
-		if (IsEndBlend(&MotionComp) == true)
+		if (IsEndBlend(motionComp) == true)
 		{
 			pBlend->bFinish = false;								// もとに戻す
 			pBlend->bBlend = false;									// もとに戻す
 			pCurrent->nCount = pBlend->nCounterMotionBlend;			// フレームをブレンドした先のフレームに合わせる
-			MotionComp.nAllCounter = pBlend->nCounterMotionBlend;	// フレームカウンターを設定
+			motionComp.nAllCounter = pBlend->nCounterMotionBlend;	// フレームカウンターを設定
 			pCurrent->nType = pBlend->nEndBlendMotion;				// モーションタイプをニュートラルにする
 			pBlend->nCounterBlend = 0;
 			pCurrent->nKey = pBlend->nKeyBlend;
 		}
 
 		// フレームを計算
-		int nFrame = MotionComp.aInfo[pCurrent->nType].aKeyInfo[pCurrent->nKey].nFrame;
+		int nFrame = motionComp.aInfo[pCurrent->nType].aKeyInfo[pCurrent->nKey].nFrame;
 
 		// フレームが最大フレームを超えたら
 		if (pCurrent->nCount >= nFrame)
@@ -119,14 +119,14 @@ void MotionSystem::Update(entt::registry& registry)
 			pCurrent->nKey++;
 
 			// 範囲内にラップする
-			pCurrent->nKey = math::Wrap(pCurrent->nKey, 0, MotionComp.aInfo[pCurrent->nType].nNumkey - 1);
+			pCurrent->nKey = math::Wrap(pCurrent->nKey, 0, motionComp.aInfo[pCurrent->nType].nNumkey - 1);
 
 			// カウンターをリセット
 			pCurrent->nCount = 0;
 		}
 
 		// ブレンドフレームを計算
-		nFrame = MotionComp.aInfo[pBlend->nTypeBlend].aKeyInfo[pBlend->nKeyBlend].nFrame;
+		nFrame = motionComp.aInfo[pBlend->nTypeBlend].aKeyInfo[pBlend->nKeyBlend].nFrame;
 
 		// ブレンドキーを進める
 		if (pBlend->nCounterMotionBlend >= nFrame && (pBlend->bFinish == true || pBlend->bFirst == true))
@@ -135,7 +135,7 @@ void MotionSystem::Update(entt::registry& registry)
 			pBlend->nKeyBlend++;
 
 			// 範囲内にラップする
-			pBlend->nKeyBlend = math::Wrap(pBlend->nKeyBlend, 0, MotionComp.aInfo[pBlend->nTypeBlend].nNumkey - 1);
+			pBlend->nKeyBlend = math::Wrap(pBlend->nKeyBlend, 0, motionComp.aInfo[pBlend->nTypeBlend].nNumkey - 1);
 
 			pBlend->nCounterMotionBlend = 0;
 		}
@@ -143,7 +143,7 @@ void MotionSystem::Update(entt::registry& registry)
 		// 最初のブレンドじゃないなら
 		if (pBlend->bFirst == false)
 		{
-			MotionComp.nAllCounter++;
+			motionComp.nAllCounter++;
 			pCurrent->nCount++;
 		}
 
@@ -152,26 +152,26 @@ void MotionSystem::Update(entt::registry& registry)
 		{
 			pBlend->nCounterBlend++;
 			pBlend->nCounterMotionBlend++;
-			MotionComp.nAllCounter++;
+			motionComp.nAllCounter++;
 		}
 
 		// 計算用ALLフレーム
 		int nAllFrame = 0;
 
-		for (int nCnt = 0; nCnt < MotionComp.aInfo[pCurrent->nType].nNumkey; nCnt++)
+		for (int nCnt = 0; nCnt < motionComp.aInfo[pCurrent->nType].nNumkey; nCnt++)
 		{
-			nAllFrame += MotionComp.aInfo[pCurrent->nType].aKeyInfo[nCnt].nFrame;
+			nAllFrame += motionComp.aInfo[pCurrent->nType].aKeyInfo[nCnt].nFrame;
 		}
 
-		MotionComp.nAllFrame = nAllFrame;
+		motionComp.nAllFrame = nAllFrame;
 
 		// ブレンドフレームを計算
-		nFrame = MotionComp.nAllFrame;
+		nFrame = motionComp.nAllFrame;
 
 		// 最大を超えたら
-		if (MotionComp.nAllCounter >= nFrame)
+		if (motionComp.nAllCounter >= nFrame)
 		{
-			MotionComp.nAllCounter = 0;
+			motionComp.nAllCounter = 0;
 		}
 	}
 }
@@ -179,23 +179,23 @@ void MotionSystem::Update(entt::registry& registry)
 //===================================================
 // 現在のモーションの更新処理
 //===================================================
-void MotionSystem::UpdateCurrent(entt::registry& registry, const entt::entity model, const int nCntModel, MotionComponent* pMotionComp)
+void MotionSystem::UpdateCurrent(entt::registry& registry, const entt::entity model, const int nCntModel, MotionComponent& motionComp)
 {
 	// 現在のモーションのデータのアドレスの取得
-	MotionComponent::CurrentInfo* pCurrent = &pMotionComp->current;
+	MotionComponent::CurrentInfo* pCurrent = &motionComp.current;
 
 	int nType = pCurrent->nType;		// 現在のモーションの種類
 	int nKey = pCurrent->nKey;			// 現在のキー
 	int nNextKey = pCurrent->nNextKey;	// 次のキー
 
 	// 次のキーのアドレスの取得
-	MotionComponent::Key* pKeyNext = &pMotionComp->aInfo[nType].aKeyInfo[nNextKey].aKey[nCntModel];
+	MotionComponent::Key* pKeyNext = &motionComp.aInfo[nType].aKeyInfo[nNextKey].aKey[nCntModel];
 
 	// 現在のキーのアドレスの取得
-	MotionComponent::Key* pKey = &pMotionComp->aInfo[nType].aKeyInfo[nKey].aKey[nCntModel];
+	MotionComponent::Key* pKey = &motionComp.aInfo[nType].aKeyInfo[nKey].aKey[nCntModel];
 
 	// キー情報のアドレスの取得
-	MotionComponent::KeyInfo* pKeyInfo = &pMotionComp->aInfo[nType].aKeyInfo[nKey];
+	MotionComponent::KeyInfo* pKeyInfo = &motionComp.aInfo[nType].aKeyInfo[nKey];
 
 	// 次のキーまでの距離を求める
 	float fDiffPosX = pKeyNext->fPosX - pKey->fPosX;
@@ -239,13 +239,13 @@ void MotionSystem::UpdateCurrent(entt::registry& registry, const entt::entity mo
 //===================================================
 // ブレンドモーションの更新処理
 //===================================================
-void MotionSystem::UpdateBlend(entt::registry& registry, const entt::entity model, const int nCntModel, MotionComponent* pMotionComp)
+void MotionSystem::UpdateBlend(entt::registry& registry, const entt::entity model, const int nCntModel, MotionComponent& motionComp)
 {
 	// 現在のモーションのデータのアドレスの取得
-	MotionComponent::CurrentInfo* pCurrent = &pMotionComp->current;
+	MotionComponent::CurrentInfo* pCurrent = &motionComp.current;
 
 	// ブレンドのモーションのデータのアドレスの取得
-	MotionComponent::BlendInfo* pBlend = &pMotionComp->blend;
+	MotionComponent::BlendInfo* pBlend = &motionComp.blend;
 
 	// モーションの種類の取得
 	int nType = pCurrent->nType;
@@ -258,25 +258,25 @@ void MotionSystem::UpdateBlend(entt::registry& registry, const entt::entity mode
 	int nBlendNextKey = pBlend->nNextKeyBlend;
 
 	// 現在のキーのアドレスを取得
-	MotionComponent::Key* pCurrentKey = &pMotionComp->aInfo[nType].aKeyInfo[nKey].aKey[nCntModel];
+	MotionComponent::Key* pCurrentKey = &motionComp.aInfo[nType].aKeyInfo[nKey].aKey[nCntModel];
 
 	// 次のキーのアドレスを取得
-	MotionComponent::Key* pNextKey = &pMotionComp->aInfo[nType].aKeyInfo[nNextKey].aKey[nCntModel];
+	MotionComponent::Key* pNextKey = &motionComp.aInfo[nType].aKeyInfo[nNextKey].aKey[nCntModel];
 
 	// キー情報のアドレスの取得
-	MotionComponent::KeyInfo* pKeyInfo = &pMotionComp->aInfo[nType].aKeyInfo[nKey];
+	MotionComponent::KeyInfo* pKeyInfo = &motionComp.aInfo[nType].aKeyInfo[nKey];
 
 	// ブレンドのキーのアドレスを取得
-	MotionComponent::Key* pCurrentBlendKey = &pMotionComp->aInfo[nBlendType].aKeyInfo[nBlendKey].aKey[nCntModel];
+	MotionComponent::Key* pCurrentBlendKey = &motionComp.aInfo[nBlendType].aKeyInfo[nBlendKey].aKey[nCntModel];
 
 	// ブレンドの次のキーのアドレスを取得
-	MotionComponent::Key* pNextBlendKey = &pMotionComp->aInfo[nBlendType].aKeyInfo[nBlendNextKey].aKey[nCntModel];
+	MotionComponent::Key* pNextBlendKey = &motionComp.aInfo[nBlendType].aKeyInfo[nBlendNextKey].aKey[nCntModel];
 
 	// 現在のフレームを計算
 	float fCurrentFrame = (float)pKeyInfo->nFrame;
 
 	// ブレンドフレームを計算
-	float fBlendFrame = (float)pMotionComp->aInfo[nBlendType].aKeyInfo[nBlendNextKey].nFrame;
+	float fBlendFrame = (float)motionComp.aInfo[nBlendType].aKeyInfo[nBlendNextKey].nFrame;
 
 	float fRateMotion = pCurrent->nCount / fCurrentFrame; // 相対値
 
@@ -365,13 +365,13 @@ void MotionSystem::UpdateBlend(entt::registry& registry, const entt::entity mode
 //===================================================
 // モーションが終わったかどうか
 //===================================================
-bool MotionSystem::IsEnd(MotionComponent *pMotionComp)
+bool MotionSystem::IsEnd(MotionComponent& motionComp)
 {
 	// 現在のモーションのデータのアドレスの取得
-	MotionComponent::CurrentInfo* pCurrent = &pMotionComp->current;
+	MotionComponent::CurrentInfo* pCurrent = &motionComp.current;
 
 	// ブレンドのモーションのデータのアドレスの取得
-	MotionComponent::BlendInfo* pBlend = &pMotionComp->blend;
+	MotionComponent::BlendInfo* pBlend = &motionComp.blend;
 
 	// モーションが終了したら
 	if (pBlend->bFinish == false &&
@@ -388,10 +388,10 @@ bool MotionSystem::IsEnd(MotionComponent *pMotionComp)
 //===================================================
 // ブレンドモーションが終了したらどうか
 //===================================================
-bool MotionSystem::IsEndBlend(MotionComponent* pMotionComp)
+bool MotionSystem::IsEndBlend(MotionComponent& motionComp)
 {
 	// ブレンドのモーションのデータのアドレスの取得
-	MotionComponent::BlendInfo* pBlend = &pMotionComp->blend;
+	MotionComponent::BlendInfo* pBlend = &motionComp.blend;
 
 	// ブレンドが終わったら
 	if (pBlend->bFinish == true && pBlend->nFrameBlend <= pBlend->nCounterBlend && pBlend->bFirst == false)
@@ -405,13 +405,13 @@ bool MotionSystem::IsEndBlend(MotionComponent* pMotionComp)
 //===================================================
 // 最初のブレンドの処理
 //===================================================
-void MotionSystem::FinishFirstBlend(MotionComponent* pMotionComp)
+void MotionSystem::FinishFirstBlend(MotionComponent& motionComp)
 {
 	// 現在のモーションのデータのアドレスの取得
-	MotionComponent::CurrentInfo* pCurrent = &pMotionComp->current;
+	MotionComponent::CurrentInfo* pCurrent = &motionComp.current;
 
 	// ブレンドのモーションのデータのアドレスの取得
-	MotionComponent::BlendInfo* pBlend = &pMotionComp->blend;
+	MotionComponent::BlendInfo* pBlend = &motionComp.blend;
 
 	// モーションの出だしのブレンドが終了した
 	if (pBlend->bFirst == true && pBlend->nCounterBlend >= pBlend->nFrameBlend && pBlend->bFinish == false)

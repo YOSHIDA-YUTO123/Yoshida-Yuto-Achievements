@@ -71,7 +71,7 @@ void OutLineModelRenderer::Renderer(entt::registry& registry)
 		auto& modelComp = registry.get<ModelComponent>(entity);
 
 		// æ“¾‚Å‚«‚È‚©‚Á‚½‚çˆ—‚µ‚È‚¢
-		if (modelComp.nModelID == -1)
+		if (modelComp.nModelID == CModelManager::INVALID_ID)
 		{
 			continue;
 		}
@@ -84,7 +84,6 @@ void OutLineModelRenderer::Renderer(entt::registry& registry)
 
 		for (int nCntMat = 0; nCntMat < (int)modelInfo.dwNumMat; nCntMat++)
 		{
-			// “K‰ˆ—
 			pShader->Apply(registry, entity);
 
 			pShader->BeginPass();

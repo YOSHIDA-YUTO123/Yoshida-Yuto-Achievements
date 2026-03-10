@@ -18,6 +18,16 @@
 #include "renderer.h"
 #include "input.h"
 
+//***************************************************
+// 定数宣言
+//***************************************************
+namespace ColliderConst
+{
+	constexpr int SPHERE_SEGMENT	= 24;		// 球のコライダーの分割数
+	constexpr int BOX_VERTEX		= 24;		// 矩形のコライダーの頂点数
+	constexpr int CAPSULE_SEGMENT	= 16;		// カプセルのコライダーの分割数
+}
+
 //===================================================
 // 描画処理
 //===================================================
@@ -39,10 +49,10 @@ void ColliderRenderer::Renderer(entt::registry& registry)
 		return;
 	}
 	// 矩形コライダーの取得
-	auto aabb_view = registry.view<BoxColliderComponent>();
+	auto aabbView = registry.view<BoxColliderComponent>();
 
 	// 取得した分回す
-	for (auto entity : aabb_view)
+	for (auto entity : aabbView)
 	{
 		auto& aabbComp = registry.get<BoxColliderComponent>(entity);
 
@@ -51,14 +61,25 @@ void ColliderRenderer::Renderer(entt::registry& registry)
 	}
 
 	// カプセルコライダーの取得
-	auto capsule_view = registry.view<CapsuleColliderComponent>();
+	auto capsuleView = registry.view<CapsuleColliderComponent>();
 
 	// 取得した分回す
-	for (auto entity : capsule_view)
+	for (auto entity : capsuleView)
 	{
 		auto& capsuleComp = registry.get<CapsuleColliderComponent>(entity);
 
 		SetCapsuleVertex(registry, capsuleComp);
+	}
+
+	// 球コライダーの取得
+	auto sphereView = registry.view<SphereColliderComponent>();
+
+	// 取得した分回す
+	for (auto entity : sphereView)
+	{
+		auto& sphereComp = registry.get<SphereColliderComponent>(entity);
+
+		SetSphereVertex(registry, sphereComp, entity);
 	}
 }
 
@@ -143,130 +164,235 @@ void ColliderRenderer::SetBoxVertex(entt::registry& registry, BoxColliderCompone
 //===================================================
 void ColliderRenderer::SetCapsuleVertex(entt::registry& registry, CapsuleColliderComponent& capsuleComp)
 {
-	std::vector<LINE_LIST> line_vertex;
-
-	D3DXCOLOR col = Color::CRIMSON;
+	std::vector<LINE_LIST> lineVertex;
 
 	// 空間情報の取得
 	auto& transformComp = registry.get<Transform3DComponent>(capsuleComp.ownerID);
 
+	D3DXCOLOR col = Color::RED;
+
 	// 高さを求める
 	float fHeight = capsuleComp.endPosLocal.y - capsuleComp.startPosLocal.y;
 
-	// 分割数
-	const int nSegment = 16;
-
-	// 分割数分回す
-	for (int nCntVtx = 0; nCntVtx < nSegment; nCntVtx++)
+	// 上円の生成
+	for (int nCntVtx = 0; nCntVtx < ColliderConst::CAPSULE_SEGMENT; nCntVtx++)
 	{
-		float fTheta = (Const::TWO_PI / nSegment) * nCntVtx;
-		float fNextTheta = (Const::TWO_PI / nSegment) * (nCntVtx + 1);
+		// 次のカウント
+		int nNextCnt = nCntVtx + 1;
 
-		// 下の円
-		D3DXVECTOR3 currentPos0 = D3DXVECTOR3(cosf(fTheta) * capsuleComp.fRadius, 0.0f, sinf(fTheta) * capsuleComp.fRadius);
-		D3DXVECTOR3 nextPos0 = D3DXVECTOR3(cosf(fNextTheta) * capsuleComp.fRadius, 0.0f, sinf(fNextTheta) * capsuleComp.fRadius);
+		// 現在の角度・次の角度の割合を求める
+		float fCurrentAngle = Const::TWO_PI * nCntVtx / ColliderConst::CAPSULE_SEGMENT;
+		float fNextAngle = Const::TWO_PI * nNextCnt / ColliderConst::CAPSULE_SEGMENT;
 
-		D3DXVec3TransformCoord(&currentPos0, &currentPos0, &transformComp.mtxWorld);
-		D3DXVec3TransformCoord(&nextPos0, &nextPos0, &transformComp.mtxWorld);
+		D3DXVECTOR3 startPos(
+			cosf(fCurrentAngle) * capsuleComp.fRadius,
+			fHeight,
+			sinf(fCurrentAngle) * capsuleComp.fRadius);
 
-		// 要素の追加
-		line_vertex.push_back({ currentPos0 ,col });
-		line_vertex.push_back({ nextPos0 ,col });
+		D3DXVECTOR3 endPos(
+			cosf(fNextAngle) * capsuleComp.fRadius,
+			fHeight,
+			sinf(fNextAngle) * capsuleComp.fRadius);
 
-		// 上の円
-		D3DXVECTOR3 currentPos1 = D3DXVECTOR3(cosf(fTheta) * capsuleComp.fRadius, fHeight, sinf(fTheta) * capsuleComp.fRadius);
-		D3DXVECTOR3 nextPos1 = D3DXVECTOR3(cosf(fNextTheta) * capsuleComp.fRadius, fHeight, sinf(fNextTheta) * capsuleComp.fRadius);
+		// ワールド変換
+		D3DXVec3TransformCoord(&startPos, &startPos, &transformComp.mtxWorld);
+		D3DXVec3TransformCoord(&endPos, &endPos, &transformComp.mtxWorld);
 
-		D3DXVec3TransformCoord(&currentPos1, &currentPos1, &transformComp.mtxWorld);
-		D3DXVec3TransformCoord(&nextPos1, &nextPos1, &transformComp.mtxWorld);
-
-		// 要素の追加
-		line_vertex.push_back({ currentPos1 ,col });
-		line_vertex.push_back({ nextPos1 ,col });
-
-		// 側面線
-		line_vertex.push_back({ currentPos0, col });
-		line_vertex.push_back({ nextPos1, col });
+		lineVertex.push_back({ startPos, col });
+		lineVertex.push_back({ endPos, col });
 	}
 
-	const int nSphereSeg = 4; // 半球の分割数
-
-	// 上の半球の作成
-	
-	// 縦の分割数
-	for (int nCntV = 0; nCntV < nSphereSeg; nCntV++)
+	// 下円の生成
+	for (int nCntVtx = 0; nCntVtx < ColliderConst::CAPSULE_SEGMENT; nCntVtx++)
 	{
-		float fThetaV = static_cast<float>(nCntV) / nSphereSeg;
-		float fNextThetaV = static_cast<float>(nCntV + 1) / nSphereSeg;
+		// 次のカウント
+		int nNextCnt = nCntVtx + 1;
 
-		float fPosY = fHeight + sinf(fThetaV * D3DX_PI * 0.5f) * capsuleComp.fRadius;
-		float fNextPosY = fHeight + sinf(fNextThetaV * D3DX_PI * 0.5f) * capsuleComp.fRadius;
+		// 現在の角度・次の角度の割合を求める
+		float fCurrentAngle = Const::TWO_PI * nCntVtx / ColliderConst::CAPSULE_SEGMENT;
+		float fNextAngle = Const::TWO_PI * nNextCnt / ColliderConst::CAPSULE_SEGMENT;
 
-		float fRadius = cosf(fThetaV * D3DX_PI * 0.5f) * capsuleComp.fRadius;
-		float fNextRadius = cosf(fNextThetaV * D3DX_PI * 0.5f) * capsuleComp.fRadius;
+		D3DXVECTOR3 startPos(
+			cosf(fCurrentAngle) * capsuleComp.fRadius,
+			0.0f,
+			sinf(fCurrentAngle) * capsuleComp.fRadius);
 
-		// 横の分割数分回す
-		for (int nCntU = 0; nCntU < nSegment; nCntU++)
-		{
-			float fThetaU = (Const::TWO_PI / nSegment) * nCntU;
-			float fNextThetaU = (Const::TWO_PI / nSegment) * (nCntU + 1);
+		D3DXVECTOR3 endPos(
+			cosf(fNextAngle) * capsuleComp.fRadius,
+			0.0f,
+			sinf(fNextAngle) * capsuleComp.fRadius);
 
-			D3DXVECTOR3 p0(cosf(fThetaU) * fRadius, fPosY, sinf(fThetaU) * fRadius);
-			D3DXVECTOR3 p1(cosf(fNextThetaU) * fRadius, fPosY, sinf(fNextThetaU) * fRadius);
-			D3DXVECTOR3 p2(cosf(fThetaU) * fNextRadius, fNextPosY, sinf(fThetaU) * fNextRadius);
+		// ワールド変換
+		D3DXVec3TransformCoord(&startPos, &startPos, &transformComp.mtxWorld);
+		D3DXVec3TransformCoord(&endPos, &endPos, &transformComp.mtxWorld);
 
-			D3DXVec3TransformCoord(&p0, &p0, &transformComp.mtxWorld);
-			D3DXVec3TransformCoord(&p1, &p1, &transformComp.mtxWorld);
-			D3DXVec3TransformCoord(&p2, &p2, &transformComp.mtxWorld);
-
-			// 水平円弧ライン
-			line_vertex.push_back({ p0, col });
-			line_vertex.push_back({ p1, col });
-
-			// 縦ライン
-			line_vertex.push_back({ p0, col });
-			line_vertex.push_back({ p2, col });
-		}
+		lineVertex.push_back({ startPos, col });
+		lineVertex.push_back({ endPos, col });
 	}
 
-	// 下の半球の作成
-	
-	// 縦の分割数
-	for (int nCntV = 0; nCntV < nSphereSeg; nCntV++)
+	// yzの縦の円の生成
+	for (int nCntVtx = 0; nCntVtx < ColliderConst::CAPSULE_SEGMENT; nCntVtx++)
 	{
-		float fThetaV = static_cast<float>(nCntV) / nSphereSeg;
-		float fNextThetaV = static_cast<float>(nCntV + 1) / nSphereSeg;
+		// 次のカウント
+		int nNextCnt = nCntVtx + 1;
 
-		float fPosY = -sinf(fThetaV * D3DX_PI * 0.5f) * capsuleComp.fRadius;
-		float fNextPosY = -sinf(fNextThetaV * D3DX_PI * 0.5f) * capsuleComp.fRadius;
+		// 現在の角度・次の角度の割合を求める
+		float fCurrentAngle = Const::TWO_PI * nCntVtx / ColliderConst::CAPSULE_SEGMENT;
+		float fNextAngle = Const::TWO_PI * nNextCnt / ColliderConst::CAPSULE_SEGMENT;
 
-		float fRadius = cosf(fThetaV * D3DX_PI * 0.5f) * capsuleComp.fRadius;
-		float fNextRadius = cosf(fNextThetaV * D3DX_PI * 0.5f) * capsuleComp.fRadius;
+		D3DXVECTOR3 startPos(
+			0.0f,
+			fHeight * 0.5f + sinf(fCurrentAngle) * fHeight,
+			cosf(fCurrentAngle) * capsuleComp.fRadius
+		);
+		D3DXVECTOR3 endPos(
+			0.0f,
+			fHeight * 0.5f + sinf(fNextAngle) * fHeight,
+			cosf(fNextAngle) * capsuleComp.fRadius
+		);
 
-		// 横の分割数分回す
-		for (int nCntU = 0; nCntU < nSegment; nCntU++)
-		{
-			float fThetaU = (Const::TWO_PI / nSegment) * nCntU;
-			float fNextThetaU = (Const::TWO_PI / nSegment) * (nCntU + 1);
+		// ワールド変換
+		D3DXVec3TransformCoord(&startPos, &startPos, &transformComp.mtxWorld);
+		D3DXVec3TransformCoord(&endPos, &endPos, &transformComp.mtxWorld);
 
-			D3DXVECTOR3 p0(cosf(fThetaU) * fRadius, fPosY, sinf(fThetaU) * fRadius);
-			D3DXVECTOR3 p1(cosf(fNextThetaU) * fRadius, fPosY, sinf(fNextThetaU) * fRadius);
-			D3DXVECTOR3 p2(cosf(fThetaU) * fNextRadius, fNextPosY, sinf(fThetaU) * fNextRadius);
+		lineVertex.push_back({ startPos, col });
+		lineVertex.push_back({ endPos, col });
+	}
 
-			D3DXVec3TransformCoord(&p0, &p0, &transformComp.mtxWorld);
-			D3DXVec3TransformCoord(&p1, &p1, &transformComp.mtxWorld);
-			D3DXVec3TransformCoord(&p2, &p2, &transformComp.mtxWorld);
+	// xyの縦の円の生成
+	for (int nCntVtx = 0; nCntVtx < ColliderConst::CAPSULE_SEGMENT; nCntVtx++)
+	{
+		// 次のカウント
+		int nNextCnt = nCntVtx + 1;
 
-			// 水平円弧ライン
-			line_vertex.push_back({ p0, col });
-			line_vertex.push_back({ p1, col });
+		// 現在の角度・次の角度の割合を求める
+		float fCurrentAngle = Const::TWO_PI * nCntVtx / ColliderConst::CAPSULE_SEGMENT;
+		float fNextAngle = Const::TWO_PI * nNextCnt / ColliderConst::CAPSULE_SEGMENT;
 
-			// 縦ライン
-			line_vertex.push_back({ p0, col });
-			line_vertex.push_back({ p2, col });
-		}
+		D3DXVECTOR3 startPos(
+			cosf(fCurrentAngle) * capsuleComp.fRadius,
+			fHeight * 0.5f + sinf(fCurrentAngle) * fHeight,
+			0.0f
+		);
+		D3DXVECTOR3 endPos(
+			cosf(fNextAngle) * capsuleComp.fRadius,
+			fHeight * 0.5f + sinf(fNextAngle) * fHeight,
+			0.0f
+		);
+
+		// ワールド変換
+		D3DXVec3TransformCoord(&startPos, &startPos, &transformComp.mtxWorld);
+		D3DXVec3TransformCoord(&endPos, &endPos, &transformComp.mtxWorld);
+
+		lineVertex.push_back({ startPos, col });
+		lineVertex.push_back({ endPos, col });
 	}
 
 	// 描画処理
-	Draw(line_vertex);
+	Draw(lineVertex);
+}
+
+//===================================================
+// 球のコライダーの頂点の設定
+//===================================================
+void ColliderRenderer::SetSphereVertex(entt::registry& registry, SphereColliderComponent& sphereComp, const entt::entity sphereID)
+{
+	std::vector<LINE_LIST> lineVertex;
+
+	// 空間情報の取得
+	auto& ownerTransformComp = registry.get<Transform3DComponent>(sphereComp.ownerID);
+	auto& sphereTransformComp = registry.get<Transform3DComponent>(sphereID);
+
+	D3DXCOLOR col = Color::AQUA;
+
+	// 円の生成
+	for (int nCntVtx = 0; nCntVtx < ColliderConst::SPHERE_SEGMENT; nCntVtx++)
+	{
+		// 次のカウント
+		int nNextCnt = nCntVtx + 1;
+
+		// 現在の角度・次の角度の割合を求める
+		float fCurrentAngle = Const::TWO_PI * nCntVtx / ColliderConst::SPHERE_SEGMENT;
+		float fNextAngle = Const::TWO_PI * nNextCnt / ColliderConst::SPHERE_SEGMENT;
+
+		D3DXVECTOR3 startPos(
+			cosf(fCurrentAngle) * sphereComp.fRadius,
+			sphereTransformComp.pos.y,
+			sinf(fCurrentAngle) * sphereComp.fRadius);
+
+		D3DXVECTOR3 endPos(
+			cosf(fNextAngle) * sphereComp.fRadius,
+			sphereTransformComp.pos.y,
+			sinf(fNextAngle) * sphereComp.fRadius);
+
+		// ワールド変換
+		D3DXVec3TransformCoord(&startPos, &startPos, &ownerTransformComp.mtxWorld);
+		D3DXVec3TransformCoord(&endPos, &endPos, &ownerTransformComp.mtxWorld);
+
+		lineVertex.push_back({ startPos, col });
+		lineVertex.push_back({ endPos, col });
+	}
+
+	// yzの縦の円の生成
+	for (int nCntVtx = 0; nCntVtx < ColliderConst::SPHERE_SEGMENT; nCntVtx++)
+	{
+		// 次のカウント
+		int nNextCnt = nCntVtx + 1;
+
+		// 現在の角度・次の角度の割合を求める
+		float fCurrentAngle = Const::TWO_PI * nCntVtx / ColliderConst::SPHERE_SEGMENT;
+		float fNextAngle = Const::TWO_PI * nNextCnt / ColliderConst::SPHERE_SEGMENT;
+
+		D3DXVECTOR3 startPos(
+			0.0f,
+			sphereTransformComp.pos.y + sinf(fCurrentAngle) * sphereComp.fRadius,
+			cosf(fCurrentAngle) * sphereComp.fRadius
+		);
+
+		D3DXVECTOR3 endPos(
+			0.0f,
+			sphereTransformComp.pos.y + sinf(fNextAngle) * sphereComp.fRadius,
+			cosf(fNextAngle) * sphereComp.fRadius
+		);
+
+		// ワールド変換
+		D3DXVec3TransformCoord(&startPos, &startPos, &ownerTransformComp.mtxWorld);
+		D3DXVec3TransformCoord(&endPos, &endPos, &ownerTransformComp.mtxWorld);
+
+		lineVertex.push_back({ startPos, col });
+		lineVertex.push_back({ endPos, col });
+	}
+
+	// xyの縦の円の生成
+	for (int nCntVtx = 0; nCntVtx < ColliderConst::SPHERE_SEGMENT; nCntVtx++)
+	{
+		// 次のカウント
+		int nNextCnt = nCntVtx + 1;
+
+		// 現在の角度・次の角度の割合を求める
+		float fCurrentAngle = Const::TWO_PI * nCntVtx / ColliderConst::SPHERE_SEGMENT;
+		float fNextAngle = Const::TWO_PI * nNextCnt / ColliderConst::SPHERE_SEGMENT;
+
+		D3DXVECTOR3 startPos(
+			cosf(fCurrentAngle) * sphereComp.fRadius,
+			sphereTransformComp.pos.y + sinf(fCurrentAngle) * sphereComp.fRadius,
+			0.0f
+		);
+
+		D3DXVECTOR3 endPos(
+			cosf(fNextAngle) * sphereComp.fRadius,
+			sphereTransformComp.pos.y + sinf(fNextAngle) * sphereComp.fRadius,
+			0.0f
+		);
+
+		// ワールド変換
+		D3DXVec3TransformCoord(&startPos, &startPos, &ownerTransformComp.mtxWorld);
+		D3DXVec3TransformCoord(&endPos, &endPos, &ownerTransformComp.mtxWorld);
+
+		lineVertex.push_back({ startPos, col });
+		lineVertex.push_back({ endPos, col });
+	}
+
+	// 描画処理
+	Draw(lineVertex);
 }

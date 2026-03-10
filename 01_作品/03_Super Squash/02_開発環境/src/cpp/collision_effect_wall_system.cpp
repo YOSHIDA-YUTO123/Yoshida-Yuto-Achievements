@@ -48,7 +48,7 @@ bool CollisionEffectWallSystem::Collision(entt::registry& registry, const entt::
 	VERTEX_3D* pVtx = nullptr;
 
 	// エフェクトの壁の当たり判定の取得
-	auto view = registry.view<CollisionEffectWallComponent>();
+	auto view = registry.view<ColliderTag::Wall>();
 
 	// 頂点バッファのコンポーネント
 	auto& vertexBufferComp = registry.get<VertexBufferComponent>(wall);
@@ -63,9 +63,9 @@ bool CollisionEffectWallSystem::Collision(entt::registry& registry, const entt::
 	for (auto entity : view)
 	{
 		// コンポーネントの取得
-		auto& collisionComp = registry.get<CollisionEffectWallComponent>(entity);
-		auto& otherTransformComp = registry.get<Transform3DComponent>(entity);
 		auto& sphereColliderComp = registry.get<SphereColliderComponent>(entity);
+		auto& collisionComp = registry.get<CollisionEffectWallComponent>(sphereColliderComp.ownerID);
+		auto& otherTransformComp = registry.get<Transform3DComponent>(sphereColliderComp.ownerID);
 
 		// 頂点バッファをロック
 		vertexBufferComp.pVtxBuffer->Lock(0, 0, (void**)&pVtx, 0);
