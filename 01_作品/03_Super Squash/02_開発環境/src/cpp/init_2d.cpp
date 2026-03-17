@@ -9,11 +9,11 @@
 // インクルードファイル
 //***************************************************
 #include "init_2d.h"
-#include "vertex_manager.h"
+#include "vertex_build.h"
 #include "size_component.hpp"
 #include "transform_component.hpp"
 #include "color_component.hpp"
-#include "vertex_manager.h"
+#include "vertex_build.h"
 #include "vertex_buffer_component.hpp"
 
 //===================================================

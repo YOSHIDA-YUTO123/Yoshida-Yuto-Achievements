@@ -20,7 +20,7 @@
 #include "mesh_vtx_component.hpp"
 #include "sphere_component.hpp"
 #include "mesh_cylinder_component.hpp"
-#include "vertex_manager.h"
+#include "vertex_build.h"
 #include "vertex_buffer_component.hpp"
 #include "tag_component.hpp"
 #include "mesh_dome_component.hpp"
@@ -44,7 +44,7 @@
 #include "texture_mt_component.hpp"
 #include "outline_shader_component.hpp"
 #include "color_constants.hpp"
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 #include "collision_effect_wall_component.hpp"
 #include "ui_wall_component.hpp"
 #include "result_ball_component.hpp"
@@ -85,8 +85,8 @@ entt::entity FactoryMesh::Create::Field(entt::registry& registry, const D3DXVECT
 	// entityの生成
 	const entt::entity entity = registry.create();
 
-	registry.emplace<Tag::MeshTag>(entity);
-	registry.emplace<LayerComponent>(entity, MeshLayer::LAYER_FIELD);
+	registry.emplace<RendererTag::ShadowMapRecieveField>(entity);
+	registry.emplace<LayerComponent>(entity);
 	registry.emplace<Transform3DComponent>(entity, pos);
 	registry.emplace<Size3DComponent>(entity, Size);
 	registry.emplace<TextureIDComponent>(entity, nTextureID);
@@ -219,14 +219,11 @@ entt::entity FactoryMesh::Create::Wall(entt::registry& registry, const D3DXVECTO
 	const entt::entity entity = registry.create();
 
 	registry.emplace<Tag::MeshTag>(entity);
-	registry.emplace<Tag::MeshWallTag>(entity);
-	registry.emplace<LayerComponent>(entity, MeshLayer::LAYER_WALL);
 	registry.emplace<Transform3DComponent>(entity, pos, rot);
 	registry.emplace<TextureIDComponent>(entity, nTextureID);
 	registry.emplace<Size3DComponent>(entity, Size);
 	registry.emplace<VertexBufferComponent>(entity);
 	registry.emplace<RendererComponent>(entity, RendererComponent::TYPE_NONE);
-	
 
 	return entity;
 }
@@ -293,7 +290,6 @@ entt::entity FactoryMesh::Create::WallMT(
 	const entt::entity entity = registry.create();
 
 	registry.emplace<Tag::MeshWallTag>(entity);
-	registry.emplace<LayerComponent>(entity, MeshLayer::LAYER_WALL);
 	registry.emplace<Transform3DComponent>(entity, pos, rot);
 	registry.emplace<Size3DComponent>(entity, Size);
 	registry.emplace<VertexBufferComponent>(entity);
@@ -477,34 +473,50 @@ entt::entity FactoryMesh::Create::Ball(entt::registry& registry, const D3DXVECTO
 	// ボールの設定
 	auto& ballComp = registry.emplace<BallComponent>(entity);
 	
-	// 影の生成
-	ballComp.shadowID = FactoryMeshQuad::Shadow(registry, entity, pos, { fRadius * 2.0f ,fRadius * 2.0f }, FactoryMeshConst::SHADOW_MAX_HEIGHT);
-
 	// 一周の大きさを求める
 	float fCircumference = D3DX_PI * 2.0f * fRadius;
 
-	registry.emplace<MoveToRotationComponent>(entity, fCircumference);
-	registry.emplace<Transform3DComponent>(entity, pos);
-	registry.emplace<VelocityComponent>(entity, FactoryMeshConst::BALL_INERTIA, FactoryMeshConst::BALL_GRAVITY, move);
-	registry.emplace<BallFieldCollisionComponent>(entity, entity);
-	registry.emplace<MeshWallCollisionComponent>(entity, entity);
-	registry.emplace<SphereComponent>(entity, fRadius);
-	registry.emplace<Tag::BallTag>(entity);
-	registry.emplace<Tag::HitStopTag>(entity);
-	registry.emplace<OutLineShaderComponent>(entity,Color::AQUA, FactoryMeshConst::BALL_OUTLINE_SIZE);
-	registry.emplace<RendererTag::OutLineSphereTag>(entity);
-	registry.emplace<CollisionEffectWallComponent>(entity);
-	registry.emplace<MotionBlurComponent>(entity, FactoryMeshConst::NUM_BLUR);
+	registry.emplace<MoveToRotationComponent>		(entity, fCircumference);
+	registry.emplace<Transform3DComponent>			(entity, pos);
+	registry.emplace<VelocityComponent>				(entity, FactoryMeshConst::BALL_INERTIA, FactoryMeshConst::BALL_GRAVITY, move);
+	registry.emplace<BallFieldCollisionComponent>	(entity, entity);
+	registry.emplace<MeshWallCollisionComponent>	(entity, entity);
+	registry.emplace<SphereComponent>				(entity, fRadius);
+	registry.emplace<Tag::BallTag>					(entity);
+	registry.emplace<Tag::HitStopTag>				(entity);
+	registry.emplace<RendererTag::OutLineSphereTag>	(entity);
+	registry.emplace<RendererTag::ShadowMapSphere>	(entity);
+	registry.emplace<OutLineShaderComponent>		(entity,Color::AQUA, FactoryMeshConst::BALL_OUTLINE_SIZE);
+	registry.emplace<CollisionEffectWallComponent>	(entity);
+	registry.emplace<MotionBlurComponent>			(entity, FactoryMeshConst::NUM_BLUR);
 
-	auto sphereID = FactorySystemEntity::CreateSphereCollider(registry, entity, fRadius, Const::VEC3_NULL);
-	registry.emplace<ColliderTag::Wall>(sphereID);
-	registry.emplace<ColliderTag::BallSphere>(sphereID);
+	// 球のコライダーの生成
+	auto sphereID = FactorySystemEntity::CreateSphereCollider(
+		registry,
+		entity,
+		fRadius,
+		Const::VEC3_NULL);
+
+	registry.emplace<ColliderTag::Wall>			(sphereID);
+	registry.emplace<ColliderTag::BallSphere>	(sphereID);
 
 	// 球体の生成
-	FactoryMesh::Create::Sphere(registry, entity, fRadius, fRadius, nSegmentUV, pTexturePath);
+	FactoryMesh::Create::Sphere(
+		registry,
+		entity,
+		fRadius,
+		fRadius,
+		nSegmentUV,
+		pTexturePath);
 
 	// 軌跡の生成
-	ballComp.orbitID = FactoryMesh::Create::Orbit(registry, entity, D3DXVECTOR3(fRadius, 0.0f, 0.0f), D3DXVECTOR3(-fRadius, 0.0f, 0.0f), Const::WHITE, "");
+	ballComp.orbitID = FactoryMesh::Create::Orbit(
+		registry, 
+		entity, 
+		D3DXVECTOR3(fRadius * 0.5f, 0.0f, 0.0f), 
+		D3DXVECTOR3(-fRadius * 0.5f, 0.0f, 0.0f), 
+		Const::WHITE,
+		"");
 
 	return entity;
 }
@@ -518,24 +530,30 @@ entt::entity FactoryMesh::Create::ResultBall(entt::registry& registry, const D3D
 	const entt::entity entity = registry.create();
 
 	// ボールの設定
-	registry.emplace<BallComponent>(entity);
+	registry.emplace<BallComponent>					(entity);
 
-	registry.emplace<Transform3DComponent>(entity, pos);
-	registry.emplace<VelocityComponent>(entity, FactoryMeshConst::BALL_INERTIA, FactoryMeshConst::BALL_GRAVITY, move);
-	registry.emplace<MeshWallCollisionComponent>(entity, entity);
-	registry.emplace<SphereComponent>(entity, fRadius);
-	registry.emplace<SphereColliderComponent>(entity, fRadius, entity);
-	registry.emplace<Tag::BallTag>(entity);
-	registry.emplace<ColliderTag::BallSphere>(entity);
-	registry.emplace<ColliderTag::Wall>(entity);
+	registry.emplace<Transform3DComponent>			(entity, pos);
+	registry.emplace<VelocityComponent>				(entity, FactoryMeshConst::BALL_INERTIA, FactoryMeshConst::BALL_GRAVITY, move);
+	registry.emplace<MeshWallCollisionComponent>	(entity, entity);
+	registry.emplace<SphereComponent>				(entity, fRadius);
+	registry.emplace<SphereColliderComponent>		(entity, fRadius, entity);
+	registry.emplace<Tag::BallTag>					(entity);
+	registry.emplace<ColliderTag::BallSphere>		(entity);
+	registry.emplace<ColliderTag::Wall>				(entity);
 
-	registry.emplace<OutLineShaderComponent>(entity, Color::AQUA, FactoryMeshConst::BALL_OUTLINE_SIZE);
-	registry.emplace<RendererTag::OutLineSphereTag>(entity);
-	registry.emplace<CollisionEffectWallComponent>(entity);
-	registry.emplace<ResultBallComponent>(entity, nLife);
+	registry.emplace<OutLineShaderComponent>		(entity, Color::AQUA, FactoryMeshConst::BALL_OUTLINE_SIZE);
+	registry.emplace<RendererTag::OutLineSphereTag>	(entity);
+	registry.emplace<CollisionEffectWallComponent>	(entity);
+	registry.emplace<ResultBallComponent>			(entity, nLife);
 
 	// 球体の生成
-	FactoryMesh::Create::Sphere(registry, entity, fRadius, fRadius, nSegmentUV, pTexturePath);
+	FactoryMesh::Create::Sphere(
+		registry, 
+		entity, 
+		fRadius,
+		fRadius,
+		nSegmentUV, 
+		pTexturePath);
 
 	return entity;
 }
@@ -605,6 +623,7 @@ entt::entity FactoryMesh::Create::Sphere(
 	const entt::entity entity = registry.create();
 
 	registry.emplace<Tag::MeshSphereTag>(entity);
+	registry.emplace<RendererTag::ShadowMapSphere>(entity);
 	registry.emplace<LayerComponent>(entity);
 	registry.emplace<TextureIDComponent>(entity, nTextureID);
 	registry.emplace<VertexBufferComponent>(entity);

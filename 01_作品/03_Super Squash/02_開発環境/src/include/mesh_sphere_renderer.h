@@ -25,5 +25,7 @@ struct MeshSphereRenderer : RendererSystemBase
 	~MeshSphereRenderer() = default;
 
 	void Renderer(entt::registry& registry) override;
+private:
+	void DrawMotionBlur(entt::registry& registry, const entt::entity entity);
 };
 #endif

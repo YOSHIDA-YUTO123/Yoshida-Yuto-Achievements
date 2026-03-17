@@ -8,7 +8,7 @@
 //***************************************************
 // 頂点のマネージャー名前空間の定義
 //***************************************************
-#include "vertex_manager.h"
+#include "vertex_build.h"
 #include "mesh_vtx_component.hpp"
 #include "renderer.h"
 #include "manager.h"

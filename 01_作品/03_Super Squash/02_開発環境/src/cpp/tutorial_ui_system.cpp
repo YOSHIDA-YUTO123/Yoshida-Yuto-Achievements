@@ -35,7 +35,7 @@
 #include "manager.h"
 #include "input.h"
 #include "minigame_player_component.hpp"
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 #include "mrt_target_component.hpp"
 #include "entity_name_component.hpp"
 #include "ui_wall_controller.h"
@@ -436,7 +436,7 @@ void TutorialUISystem::SetGameStartTask(entt::registry& registry, TutorialSystem
 	param.nPriority = -1;
 
 	// 背景の生成
-	Factory2D::Create::SpriteMRT(registry, param, MRTType::TYPE_TIMER);
+	Factory2D::Create::SpriteMRT(registry, param, CTextureMRTManager::TYPE_TIMER);
 
 	// スコアのエリアの生成
 	FactorySystemEntity::CreateScoreArea(registry, TutorialUIConst::SCORE_AREA_POS);

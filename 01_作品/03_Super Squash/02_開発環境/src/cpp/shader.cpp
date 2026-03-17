@@ -18,7 +18,8 @@
 //===================================================
 CShader::CShader() : 
     m_pEffect(nullptr),
-    m_Param()
+    m_Param(),
+    m_nNumPass(0)
 {
 }
 
@@ -86,6 +87,11 @@ HRESULT CShader::Init(const char* pShaderFile, const char* pTech)
             MessageBox(NULL, "テクニック宣言が見つかりません", pShaderFile, NULL);
             return E_FAIL;
         }
+
+        D3DXTECHNIQUE_DESC techDesc;
+        m_pEffect->GetTechniqueDesc(pTech, &techDesc);
+
+        m_nNumPass = techDesc.Passes;   // パスの数の取得
     }
 
 	return S_OK;
@@ -94,12 +100,12 @@ HRESULT CShader::Init(const char* pShaderFile, const char* pTech)
 //===================================================
 // シェーダーのパスの開始
 //===================================================
-void CShader::BeginPass(void)
+void CShader::BeginPass(const int nPass)
 {
     // シェーダーの描画パス開始
     if (m_pEffect != nullptr)
     {
-        m_pEffect->BeginPass(0);
+        m_pEffect->BeginPass(nPass);
     }
 }
 
@@ -149,6 +155,18 @@ void CShader::SetFloatArray(const D3DXHANDLE& hHandle, const FLOAT* pParam, cons
 
     // パラメータの設定
     m_pEffect->SetFloatArray(hHandle, pParam, count);
+}
+
+//===================================================
+// 配列のfloat4の値の設定
+//===================================================
+void CShader::SetVectorFloatArray(const D3DXHANDLE& hHandle, const D3DXVECTOR4* pVector4, const UINT count)
+{
+    // nullなら処理しない
+    if (m_pEffect == nullptr) return;
+
+    // パラメータの設定
+    m_pEffect->SetVectorArray(hHandle, pVector4, count);
 }
 
 //===================================================
@@ -226,6 +244,21 @@ D3DXHANDLE CShader::GetHandle(const char* pKey) const
 }
 
 //===================================================
+// ブールの設定
+//===================================================
+void CShader::SetBool(const char* pKey, const bool bEnable)
+{
+    // nullなら処理しない
+    if (m_pEffect == nullptr) return;
+
+    // テクスチャの設定
+    if (FAILED(m_pEffect->SetBool(pKey, bEnable)))
+    {
+        assert(false);
+    }
+}
+
+//===================================================
 // コミットチェンジ
 //===================================================
 void CShader::CommitChange(void)
@@ -244,7 +277,7 @@ void CShader::Begin(void)
     // シェーダーの描画開始
     if (m_pEffect != nullptr)
     {
-        m_pEffect->Begin(0, 0);
+        m_pEffect->Begin(&m_nNumPass, 0);
         return;
     }
 

@@ -381,49 +381,9 @@ D3DXVECTOR3 UpdateBallSystem::SetShotAngle(entt::registry& registry, const entt:
 	// 計算後の角度を返すための変数
 	D3DXVECTOR3 outAngle = Const::VEC3_NULL;
 
-	// キャラクターの向いている方向を取得
-	D3DXVECTOR3 characterforward = math::GetForward(characterTransform.quaternion);
-
-	// 向きの正規化
-	D3DXVec3Normalize(&characterforward, &characterforward);
-
-	// yの回転(forwardを求める)を求める
-	float fForwardAngle = atan2f(characterforward.x, characterforward.z);
-
-	// ショットの範囲
-	float fShotAngleRate = CharacterConstants::SHOT_ANGLE_RANGE;
-
-	// 最大の左側の角度
-	float fAngleLeft = fForwardAngle - fShotAngleRate;
-
-	// 最大の右側の角度
-	float fAngleRight = fForwardAngle + fShotAngleRate;
-
-	// モーションの判定の取得
-	CharacterSpec::Motion::CQuickShot		is_quickShot;
-	CharacterSpec::Motion::CLeftQuickShot	is_quickShotLeft;
-
 	// 上下の発射角度の設定
-	outAngle.x = characterComp.fShotPitchAngle;
-
-	// 素早いショットだったら
-	if (is_quickShot.IsSatisfiedBy(registry, character))
-	{
-		// モーションの割合を求める
-		float fRate = MotionManager::Helper::GetEventFrameRatio(motionComp, MotionComponent::MOTIONTYPE_QUICK_SHOT, 0);
-
-		// 右側から左側までの割合を設定
-		outAngle.y = math::LerpDiff(fAngleRight, fAngleLeft - fAngleRight, fRate);
-	}
-	// 素早い左ショットだったら
-	else if (is_quickShotLeft.IsSatisfiedBy(registry, character))
-	{
-		// モーションの割合を求める
-		float fRate = MotionManager::Helper::GetEventFrameRatio(motionComp, MotionComponent::MOTIONTYPE_QUICK_SHOT_LEFT, 0);
-
-		// 左側から右側までの割合を設定
-		outAngle.y = math::LerpDiff(fAngleLeft, fAngleRight - fAngleLeft, fRate);
-	}
+	outAngle.x = characterComp.shotAngle.x;
+	outAngle.y = characterComp.shotAngle.y;
 
 	return outAngle;
 }
@@ -596,6 +556,7 @@ void UpdateBallSystem::SetHitStopEffect(entt::registry& registry, const entt::en
 			// メッシュのサークルの生成
 			auto circle = FactoryMesh::Create::Circle(registry, transformComp.pos, { D3DX_PI * 0.5f,0.0f ,0.0f },
 				D3DXCOLOR(Color::WHITE.r, Color::WHITE.g, Color::WHITE.b, 0.5f), "");
+
 			FactoryMesh::Build::Circle(registry, circle, 8.0f, 0.0f, 40.0f, 20);
 			FactoryMesh::Build::Circle(registry, circle, 25.0f);
 		};

@@ -18,7 +18,7 @@
 #include "fstream"
 #include "result_loader.h"
 #include "sound.h"
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 #include "scene_loader.h"
 #include "ui_wall_controller.h"
 
@@ -153,7 +153,7 @@ HRESULT CMinigameResultState::Init(void)
 	param.texturePath = UI_000_TEXTURE;
 
 	// スコアの描画
-	auto resultUI = Factory2D::Create::SpriteMRT(registry, param, MRTType::TYPE_RESULT);
+	auto resultUI = Factory2D::Create::SpriteMRT(registry, param, CTextureMRTManager::TYPE_RESULT);
 	registry.emplace<UISlideComponent>(resultUI, UI_DEST_POS, UI_DEST_POS, UI_SLIDE_TIME, UI_POS);
 
 	// パラメータの設定
@@ -163,7 +163,7 @@ HRESULT CMinigameResultState::Init(void)
 	param.nPriority = -1;
 
 	// スプライトの生成
-	Factory2D::Create::SpriteMRT(registry, param, MRTType::TYPE_RESULT);
+	Factory2D::Create::SpriteMRT(registry, param, CTextureMRTManager::TYPE_RESULT);
 
 	// スコアの生成
 	Factory2D::Create::ScoreMRTResult(registry, nScore);
@@ -183,7 +183,7 @@ HRESULT CMinigameResultState::Init(void)
 	param.nPriority = -1;
 
 	// 背景の生成
-	Factory2D::Create::SpriteMRT(registry, param, MRTType::TYPE_RANKING);
+	Factory2D::Create::SpriteMRT(registry, param, CTextureMRTManager::TYPE_RANKING);
 
 	// ランキングの順位数分回す
 	for (int nCnt = 0; nCnt < MAX_RANK; nCnt++)
@@ -198,7 +198,7 @@ HRESULT CMinigameResultState::Init(void)
 		param.nPriority = 0;
 
 		// 順位の生成
-		Factory2D::Create::SpriteMRT(registry, param, MRTType::TYPE_RANKING);
+		Factory2D::Create::SpriteMRT(registry, param, CTextureMRTManager::TYPE_RANKING);
 	}
 
 	// パラメータの設定
@@ -207,8 +207,8 @@ HRESULT CMinigameResultState::Init(void)
 	param.texturePath = SUPPORT_TEXTURE;
 
 	// リザルトのサポートUIの生成
-	Factory2D::Create::SpriteMRT(registry, param, MRTType::TYPE_RESULT);
-	Factory2D::Create::SpriteMRT(registry, param, MRTType::TYPE_RANKING);
+	Factory2D::Create::SpriteMRT(registry, param, CTextureMRTManager::TYPE_RESULT);
+	Factory2D::Create::SpriteMRT(registry, param, CTextureMRTManager::TYPE_RANKING);
 
 	// リザルトのコンポーネントの生成
 	auto resultSystemID = registry.create();
@@ -312,8 +312,8 @@ void CMinigameResultState::CreateRendererSystem(CSystemManager* pSystemManager)
 	pSystemManager->AddRendererSystem(std::make_unique<MeshRenderer>());
 
 	// リザルトのマルチレンダーターゲットのスプライトの描画処理
-	pSystemManager->AddRendererMRTSystem(std::make_unique<SpriteMRTRenderer>(), MRTType::TYPE_RESULT);
+	pSystemManager->AddRendererMRTSystem(std::make_unique<SpriteMRTRenderer>(), CTextureMRTManager::TYPE_RESULT);
 
 	// ランキングのマルチレンダーターゲットのスプライトの描画処理
-	pSystemManager->AddRendererMRTSystem(std::make_unique<SpriteMRTRenderer>(), MRTType::TYPE_RANKING);
+	pSystemManager->AddRendererMRTSystem(std::make_unique<SpriteMRTRenderer>(), CTextureMRTManager::TYPE_RANKING);
 }

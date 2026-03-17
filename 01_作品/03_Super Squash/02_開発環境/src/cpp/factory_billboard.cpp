@@ -17,7 +17,7 @@
 #include "manager.h"
 #include "texture_manager.h"
 #include "vertex_buffer_component.hpp"
-#include "vertex_manager.h"
+#include "vertex_build.h"
 #include "sphere_component.hpp"
 #include "effect_component.hpp"
 #include "renderer_component.hpp"

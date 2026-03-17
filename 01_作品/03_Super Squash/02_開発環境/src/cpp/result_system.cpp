@@ -13,7 +13,6 @@
 #include "mesh_wall_collision_component.hpp"
 #include "factory_2d.h"
 #include "score_component.hpp"
-#include "mrt_type.hpp"
 #include "result_system_component.hpp"
 #include "factory_mesh.h"
 #include "entity_name_component.hpp"
@@ -31,6 +30,7 @@
 #include "manager.h"
 #include "sound.h"
 #include "result_system.h"
+#include "texture_mrt_manager.h"
 
 //***************************************************
 // 定数宣言
@@ -215,7 +215,7 @@ void ResultSystem::CreateSpriteSheet(entt::registry& registry, ScoreComponent& s
 	param.texturePath = SCORE_TEXTURE;
 
 	// スプライトの生成
-	scoreComp.aNumberID[nDigit] = Factory2D::Create::SpriteSheetMRT(registry, param, MRTType::TYPE_RESULT, SCORE_SEGMENT_U, SCORE_SEGMENT_V);
+	scoreComp.aNumberID[nDigit] = Factory2D::Create::SpriteSheetMRT(registry, param, CTextureMRTManager::TYPE_RESULT, SCORE_SEGMENT_U, SCORE_SEGMENT_V);
 	registry.emplace<UISlideComponent>(scoreComp.aNumberID[nDigit], posWk, SCORE_DEST_POSOUT, SCORE_SLIDE_TIME, posWk);
 
 	resultSystemComp.nDigit++;

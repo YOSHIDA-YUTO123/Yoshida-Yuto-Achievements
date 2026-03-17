@@ -88,5 +88,10 @@ namespace RendererTag
 	struct TitleMRTTag {};
 	struct MeshSphereMRT {};
 	struct ModelMRT {};
+	struct ShadowMap {};
+	struct ShadowMapModel {};
+	struct ShadowMapSphere {};
+	struct ShadowMapRecieveField {};
+
 }
 #endif

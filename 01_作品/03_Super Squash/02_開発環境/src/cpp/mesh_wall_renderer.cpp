@@ -22,14 +22,22 @@
 #include "renderer_component.hpp"
 #include "tag_component.hpp"
 #include "ui_wall_component.hpp"
+#include "shader.h"
+#include "shader_manager.h"
+#include "texture_mrt_manager.h"
+#include "wall_constants.hpp"
+#include "entity_name_component.hpp"
 
 //===================================================
 // 描画処理
 //===================================================
 void MeshWallRenderer::Renderer(entt::registry& registry)
 {
+	// マネージャーの取得
+	CManager* pManager = CManager::GetInstance();
+
 	// レンダラーの取得
-	CRenderer* pRenderer = CManager::GetInstance()->GetRenderer();
+	CRenderer* pRenderer = pManager->GetRenderer();
 
 #ifdef _DEBUG
 	assert(pRenderer != nullptr && "MeshRenderer_GetRenderer");
@@ -41,11 +49,21 @@ void MeshWallRenderer::Renderer(entt::registry& registry)
 	//計算用のマトリックス
 	D3DXMATRIX mtxRot, mtxTrans;
 
-	// 指定したコンポーネントを持ってるエンティティのリストの取得
-	auto view = registry.view<Tag::MeshWallTag>();
+	auto view = EntityManager::GetSortLayerEntity<Tag::MeshWallTag>(registry);
 
-	// マルチテクスチャのレンダーステーとの設定
-	RendererManager::SetRendererStateTextureMT(pDevice);
+	//// マルチテクスチャのレンダーステーとの設定
+	//RendererManager::SetRendererStateTextureMT(pDevice);
+
+	// MRTテクスチャの取得
+	CTextureMRTManager* pTextureMRTManager = pManager->GetTextureMRTManager();
+
+	// シェーダーのマネージャーの取得
+	CShaderManager* pShaderManager = pManager->GetShaderManager();
+
+	// シェーダーの取得
+	CShader* pShader = pShaderManager->Get(CShaderManager::TYPE_SHADOW_MAP_RECIEVE_MT);
+
+	pShader->Begin();
 
 	// エンティティ分回す
 	for (auto entity : view)
@@ -55,7 +73,8 @@ void MeshWallRenderer::Renderer(entt::registry& registry)
 		auto& meshVtxComp = registry.get<MeshVtxComponent>(entity);
 		auto& vertexBufferComp = registry.get<VertexBufferComponent>(entity);
 		auto& uiWallComp = registry.get<UIWallComponent>(entity);
-		auto pRendererComp = registry.try_get<RendererComponent>(entity);
+		auto& rendererComp = registry.get<RendererComponent>(entity);
+		auto& nameComp = registry.get<EntityNameComponent>(entity);
 
 		// ワールドマトリックスの設定
 		pDevice->SetTransform(D3DTS_WORLD, &transformComp.mtxWorld);
@@ -69,20 +88,33 @@ void MeshWallRenderer::Renderer(entt::registry& registry)
 		// テクスチャフォーマットの設定
 		pDevice->SetFVF(FVF_VERTEX_3DMT);
 
+		pShader->BeginPass();
+
+		pShader->Apply(&registry,entity);
+
 		// テクスチャの設定
 		pDevice->SetTexture(0, uiWallComp.pTexture);
 		pDevice->SetTexture(1, uiWallComp.pTextureMT);
 
+		if (nameComp.name != WallConst::TOP_WALL)
+		{
+			pDevice->SetTexture(2, pTextureMRTManager->GetAdress(CTextureMRTManager::TYPE_SHADOW_MAP));
+		}
+
 		// レンダーステーとの設定
-		RendererManager::SetRenderState(pDevice, pRendererComp);
+		RendererManager::SetRenderState(pDevice, &rendererComp);
 
 		// ポリゴンの描画
 		pDevice->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, meshVtxComp.nNumVertex, 0, meshVtxComp.nNumPolygon);
 
+		pShader->EndPass();
+
 		// レンダーステートのリセット
-		RendererManager::ResetRenderState(pDevice, pRendererComp);
+		RendererManager::ResetRenderState(pDevice, &rendererComp);
 	}
 
-	// マルチテクスチャのリセット
-	RendererManager::ResetRendererStateTextureMT(pDevice);
+	pShader->End();
+
+	//// マルチテクスチャのリセット
+	//RendererManager::ResetRendererStateTextureMT(pDevice);
 }

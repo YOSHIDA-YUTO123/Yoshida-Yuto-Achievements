@@ -17,7 +17,7 @@
 #include "light.h"
 #include "world_system_manager.h"
 #include "camera.h"
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 #include "particle_helper.h"
 #include "shader_manager.h"
 #include "sound.h"
@@ -28,7 +28,7 @@
 //***************************************************
 namespace ManagerConst
 {
-	const D3DXVECTOR3 LIGHT_DIR_000 = { 1.000f, -0.637f, -0.495f };	// ライトの方向0
+	const D3DXVECTOR3 LIGHT_DIR_000 = { 0.000f, -0.637f, -0.495f };	// ライトの方向0
 	const D3DXVECTOR3 LIGHT_DIR_001 = { -0.403f, -0.47f, -0.401f };	// ライトの方向1
 	const D3DXVECTOR3 LIGHT_DIR_002 = { 0.515f, -0.616f, 1.0f };	// ライトの方向2
 	constexpr const char* PARTICLE_LOAD_PATH = "data/SYSTEM/particle_param.json";	// パーティクルの情報のファイルパス
@@ -173,10 +173,12 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWind)
 	// ライトの生成
 	m_pLight = std::make_unique<CLight>();
 
+	D3DXCOLOR col = { 1.1f, 1.1f, 1.1f,1.0f };
+
 	m_pLight->Init();
-	m_pLight->SetDirectional(Const::WHITE, ManagerConst::LIGHT_DIR_000, Const::VEC3_NULL);
-	m_pLight->SetDirectional(Const::WHITE, ManagerConst::LIGHT_DIR_001, Const::VEC3_NULL);
-	m_pLight->SetDirectional(Const::WHITE, ManagerConst::LIGHT_DIR_002, Const::VEC3_NULL);
+	//m_pLight->SetDirectional(col, ManagerConst::LIGHT_DIR_000, Const::VEC3_NULL);
+	m_pLight->SetDirectional(col, ManagerConst::LIGHT_DIR_001, Const::VEC3_NULL);
+	m_pLight->SetDirectional(col, ManagerConst::LIGHT_DIR_002, Const::VEC3_NULL);
 
 	// テクスチャマネージャーの生成
 	m_pTextureManager = std::make_unique<CTextureManager>();
@@ -187,7 +189,7 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWind)
 	m_pModelManager->Load();
 
 	// マルチレンダーターゲットのテクスチャのマネージャーの生成
-	m_pTextureMTManager = std::make_unique<CTextureMTManager>();
+	m_pTextureMTManager = std::make_unique<CTextureMRTManager>();
 	m_pTextureMTManager->Init();
 
 	// 初期モードの設定

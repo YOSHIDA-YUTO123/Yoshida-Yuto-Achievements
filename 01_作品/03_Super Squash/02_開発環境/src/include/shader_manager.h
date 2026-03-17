@@ -22,10 +22,18 @@ class CShader;	// シェーダーのクラスの取得
 class CShaderManager
 {
 public:
+	static constexpr int INVALID = -1;	// 無効なID
+
 	// シェーダーの種類
 	typedef enum
 	{
-		TYPE_OUTLINE = 0,	// アウトラインシェーダー
+		TYPE_OUTLINE = 0,			// アウトラインシェーダー
+		TYPE_GAUS_BLUR,				// ガウシアンブラー
+		TYPE_LUMINANCE,				// 輝度抽出
+		TYPE_BLOOM,					// ブルーム
+		TYPE_SHADOW_MAP,			// シャドウマップ
+		TYPE_SHADOW_MAP_RECIEVE,	// 影を受けるオブジェクトシェーダー
+		TYPE_SHADOW_MAP_RECIEVE_MT,	// 影を受けるマルチテクスチャオブジェクトシェーダー
 		TYPE_MAX
 	}TYPE;
 

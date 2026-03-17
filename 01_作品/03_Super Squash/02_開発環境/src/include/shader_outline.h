@@ -26,7 +26,7 @@ public:
 	~CShaderOutLine();
 
 	HRESULT Init(const char* pShaderFile, const char* pTech) override;
-	void Apply(const entt::registry& registry, const entt::entity entity) override;
+	void Apply(const entt::registry* pRegistry, const entt::entity entity) override;
 private:
 };
 #endif

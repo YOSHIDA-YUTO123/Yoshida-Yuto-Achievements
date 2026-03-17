@@ -169,13 +169,54 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <FxCompile Include="data\SHADER\bloom.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">3.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\gausblur.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PSBlurX</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">3.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PSBlurX</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\luminance.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PSLuminance</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">3.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PSLuminance</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+    </FxCompile>
     <FxCompile Include="data\SHADER\outline.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">3.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
     </FxCompile>
+    <FxCompile Include="data\SHADER\shadow_map.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">3.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PSMain</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PSMain</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\shadow_map_reciever.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">3.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PSMain</EntryPointName>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PSMain</EntryPointName>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\shadow_map_reciever_mt.hlsl">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PSMain</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">3.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PSMain</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\SHADER\shader_const.hlsli" />
     <None Include="data\SYSTEM\FIELD\first_scene_field.json" />
     <None Include="data\SYSTEM\FIELD\scenebase_field.json" />
     <None Include="data\SYSTEM\model_list.json" />
@@ -193,6 +234,7 @@
     <ClCompile Include="src\cpp\ball_spec.cpp" />
     <ClCompile Include="src\cpp\ball_to_field_collision_system.cpp" />
     <ClCompile Include="src\cpp\billboard_renderer.cpp" />
+    <ClCompile Include="src\cpp\bloom_shader.cpp" />
     <ClCompile Include="src\cpp\calcu_world_matrix.cpp" />
     <ClCompile Include="src\cpp\camera.cpp" />
     <ClCompile Include="src\cpp\camera_aimation_system.cpp" />
@@ -225,6 +267,7 @@
     <ClCompile Include="src\cpp\field_collision_system.cpp" />
     <ClCompile Include="src\cpp\follow_camera.cpp" />
     <ClCompile Include="src\cpp\game_controller.cpp" />
+    <ClCompile Include="src\cpp\gaus_blur_shader.cpp" />
     <ClCompile Include="src\cpp\hitstop.cpp" />
     <ClCompile Include="src\cpp\hitstop_controller.cpp" />
     <ClCompile Include="src\cpp\init_2d.cpp" />
@@ -237,6 +280,7 @@
     <ClCompile Include="src\cpp\light.cpp" />
     <ClCompile Include="src\cpp\line.cpp" />
     <ClCompile Include="src\cpp\locator_system.cpp" />
+    <ClCompile Include="src\cpp\luminance_shader.cpp" />
     <ClCompile Include="src\cpp\main.cpp" />
     <ClCompile Include="src\cpp\manager.cpp" />
     <ClCompile Include="src\cpp\menu_select_system.cpp" />
@@ -300,9 +344,17 @@
     <ClCompile Include="src\cpp\score_area_system.cpp" />
     <ClCompile Include="src\cpp\score_manager.cpp" />
     <ClCompile Include="src\cpp\score_system.cpp" />
+    <ClCompile Include="src\cpp\screen_polygon.cpp" />
     <ClCompile Include="src\cpp\shader.cpp" />
     <ClCompile Include="src\cpp\shader_manager.cpp" />
     <ClCompile Include="src\cpp\shader_outline.cpp" />
+    <ClCompile Include="src\cpp\shadowmap_recieve_model_renderer.cpp" />
+    <ClCompile Include="src\cpp\shadow_map_mesh_sphere_renderer.cpp" />
+    <ClCompile Include="src\cpp\shadow_map_reciever_mt_shader.cpp" />
+    <ClCompile Include="src\cpp\shadow_map_reciever_shader.cpp" />
+    <ClCompile Include="src\cpp\shadow_map_shader.cpp" />
+    <ClCompile Include="src\cpp\shadow_charactermodel_renderer.cpp" />
+    <ClCompile Include="src\cpp\shadow_model_renderer.cpp" />
     <ClCompile Include="src\cpp\shadow_system.cpp" />
     <ClCompile Include="src\cpp\sound.cpp" />
     <ClCompile Include="src\cpp\spec_combinators.cpp" />
@@ -315,7 +367,7 @@
     <ClCompile Include="src\cpp\texture_scrol_system.cpp" />
     <ClCompile Include="src\cpp\texture_animation_system.cpp" />
     <ClCompile Include="src\cpp\texture_manager.cpp" />
-    <ClCompile Include="src\cpp\texture_mt_manager.cpp" />
+    <ClCompile Include="src\cpp\texture_mrt_manager.cpp" />
     <ClCompile Include="src\cpp\timer_renderer_mt.cpp" />
     <ClCompile Include="src\cpp\titlemenu_animation_system.cpp" />
     <ClCompile Include="src\cpp\title_menu_system.cpp" />
@@ -335,9 +387,10 @@
     <ClCompile Include="src\cpp\update_sprite_system.cpp" />
     <ClCompile Include="src\cpp\update_timer_system.cpp" />
     <ClCompile Include="src\cpp\utility_math.cpp" />
-    <ClCompile Include="src\cpp\vertex_manager.cpp" />
+    <ClCompile Include="src\cpp\vertex_build.cpp" />
     <ClCompile Include="src\cpp\wall_effect_system.cpp" />
     <ClCompile Include="src\cpp\world_system_manager.cpp" />
+    <ClCompile Include="src\include\shadowmap_recieve_field_renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\components\animation_particle_component.hpp" />
@@ -415,6 +468,7 @@
     <ClInclude Include="src\include\ball_spec.h" />
     <ClInclude Include="src\include\ball_to_field_collision_system.h" />
     <ClInclude Include="src\include\billboard_renderer.h" />
+    <ClInclude Include="src\include\bloom_shader.h" />
     <ClInclude Include="src\include\calcu_world_matrix.h" />
     <ClInclude Include="src\include\camera.h" />
     <ClInclude Include="src\include\camera_animation_system.h" />
@@ -454,6 +508,7 @@
     <ClInclude Include="src\include\field_effect_renderer.h" />
     <ClInclude Include="src\include\follow_camera.h" />
     <ClInclude Include="src\include\game_controller.h" />
+    <ClInclude Include="src\include\gaus_blur_shader.h" />
     <ClInclude Include="src\include\hitstop.h" />
     <ClInclude Include="src\include\hitstop_controller.h" />
     <ClInclude Include="src\include\init_2d.h" />
@@ -468,6 +523,7 @@
     <ClInclude Include="src\include\line.h" />
     <ClInclude Include="src\include\loader_constants.hpp" />
     <ClInclude Include="src\include\locator_system.h" />
+    <ClInclude Include="src\include\luminance_shader.h" />
     <ClInclude Include="src\include\main.h" />
     <ClInclude Include="src\include\manager.h" />
     <ClInclude Include="src\include\menu_select_system.h" />
@@ -501,7 +557,6 @@
     <ClInclude Include="src\include\motion_manager.h" />
     <ClInclude Include="src\include\motion_system.h" />
     <ClInclude Include="src\include\move_to_rotation_system.h" />
-    <ClInclude Include="src\include\mrt_type.hpp" />
     <ClInclude Include="src\include\outline_character_renderer.h" />
     <ClInclude Include="src\include\outline_mesh_sphere_renderer.h" />
     <ClInclude Include="src\include\outline_model_renderer.h" />
@@ -532,9 +587,18 @@
     <ClInclude Include="src\include\score_area_system.h" />
     <ClInclude Include="src\include\score_manager.h" />
     <ClInclude Include="src\include\score_system.h" />
+    <ClInclude Include="src\include\screen_polygon.h" />
     <ClInclude Include="src\include\shader.h" />
     <ClInclude Include="src\include\shader_manager.h" />
     <ClInclude Include="src\include\shader_outline.h" />
+    <ClInclude Include="src\include\shadowmap_recieve_field_renderer.h" />
+    <ClInclude Include="src\include\shadowmap_recieve_model_renderer.h" />
+    <ClInclude Include="src\include\shadow_map_mesh_sphere_renderer.h" />
+    <ClInclude Include="src\include\shadow_map_reciever_mt_shader.h" />
+    <ClInclude Include="src\include\shadow_map_recieve_shader.h" />
+    <ClInclude Include="src\include\shadow_map_shader.h" />
+    <ClInclude Include="src\include\shadow_charactermodel_renderer.h" />
+    <ClInclude Include="src\include\shadow_model_renderer.h" />
     <ClInclude Include="src\include\shadow_system.h" />
     <ClInclude Include="src\include\sound.h" />
     <ClInclude Include="src\include\specification_base.hpp" />
@@ -549,7 +613,7 @@
     <ClInclude Include="src\include\texture_scrol_system.h" />
     <ClInclude Include="src\include\texture_animation_system.h" />
     <ClInclude Include="src\include\texture_manager.h" />
-    <ClInclude Include="src\include\texture_mt_manager.h" />
+    <ClInclude Include="src\include\texture_mrt_manager.h" />
     <ClInclude Include="src\include\timer_renderer_mt.h" />
     <ClInclude Include="src\include\titlemenu_animation_system.h" />
     <ClInclude Include="src\include\tItle_menu.hpp" />
@@ -570,7 +634,7 @@
     <ClInclude Include="src\include\update_sprite_system.h" />
     <ClInclude Include="src\include\update_timer_system.h" />
     <ClInclude Include="src\include\utility_math.h" />
-    <ClInclude Include="src\include\vertex_manager.h" />
+    <ClInclude Include="src\include\vertex_build.h" />
     <ClInclude Include="src\include\wall_constants.hpp" />
     <ClInclude Include="src\include\wall_effect_system.h" />
     <ClInclude Include="src\include\wall_ui_type.hpp" />

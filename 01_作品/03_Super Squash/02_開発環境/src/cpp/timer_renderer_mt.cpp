@@ -37,7 +37,7 @@ void TimerRendererMT::Renderer(entt::registry& registry, const int nType)
 		auto pMRTTargetComp = registry.try_get<MRTTargetComponent>(entity);
 
 		// ターゲットが違うなら処理を飛ばす
-		if (pMRTTargetComp != nullptr && pMRTTargetComp->target != nType)
+		if (pMRTTargetComp != nullptr && pMRTTargetComp->nTarget != nType)
 		{
 			continue;
 		}

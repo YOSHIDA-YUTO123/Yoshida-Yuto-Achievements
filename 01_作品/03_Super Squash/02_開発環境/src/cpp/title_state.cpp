@@ -17,7 +17,7 @@
 #include "color_constants.hpp"
 #include "sound.h"
 #include "scene.h"
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 #include "wall_constants.hpp"
 #include "camera.h"
 #include "ui_wall_controller.h"
@@ -55,6 +55,8 @@
 #include "mesh_renderer.h"
 #include "mesh_wall_renderer.h"
 #include "outline_model_renderer.h"
+#include "shadow_model_renderer.h"
+#include "shadowmap_recieve_field_renderer.h"
 
 // ファクトリー
 #include "factory_2d.h"
@@ -213,12 +215,14 @@ void CTitleState::CreateTitleMenu(entt::registry& registry)
 	// タイトルの選択肢の生成
 	auto titleMenu = FactoryModel::CreateModel(registry, TITLE_START_POS, Const::VEC3_NULL, TITLE_START_PATH);
 	registry.emplace<Tag::TitleMenuTag>(titleMenu);
+	registry.emplace<RendererTag::ShadowMapModel>(titleMenu);
 	registry.emplace<TitleMenuAnimationComponent>(titleMenu);
 	registry.emplace<MenuComponent>(titleMenu, menuSelectID, TItleMenu::TYPE_MINIGAME);
 
 	// タイトルの選択肢の生成
 	titleMenu = FactoryModel::CreateModel(registry, TITLE_QUIT_POS, Const::VEC3_NULL, TITLE_QUIT_PATH);
 	registry.emplace<Tag::TitleMenuTag>(titleMenu);
+	registry.emplace<RendererTag::ShadowMapModel>(titleMenu);
 	registry.emplace<TitleMenuAnimationComponent>(titleMenu);
 	registry.emplace<MenuComponent>(titleMenu, menuSelectID, TItleMenu::TYPE_QUIT);
 }
@@ -264,6 +268,9 @@ void CTitleState::CreateSystem(CSystemManager* pSystemManager)
 void CTitleState::CreateRendererSystem(CSystemManager* pSystemManager)
 {
 	// メッシュの描画処理
+	pSystemManager->AddRendererSystem(std::make_unique<ShadowMapRecieveFIeldRenderer>());
+
+	// メッシュの描画処理
 	pSystemManager->AddRendererSystem(std::make_unique<MeshRenderer>());
 
 	// MRTのメッシュの描画処理
@@ -283,6 +290,9 @@ void CTitleState::CreateRendererSystem(CSystemManager* pSystemManager)
 
 	// メッシュの球体の描画
 	pSystemManager->AddRendererSystem(std::make_unique<MeshSphereRenderer>());
+
+	// シャドウマップのモデルの描画
+	pSystemManager->AddRendererMRTSystem(std::make_unique<ShadowModelRenderer>(), CTextureMRTManager::TYPE_SHADOW_MAP);
 }
 
 //===================================================

@@ -130,7 +130,6 @@ void MinigamePlayerSystem::SetJetPack(entt::registry& registry, const entt::enti
 	if (pKeyboard == nullptr || pJoyPad == nullptr) return;
 
 	auto& characterComp = registry.get<CharacterComponent>(player);
-	//auto& commandComp = registry.get<PlayerCommandComponent>(player);
 	auto& fieldCollisionComp = registry.get<FieldCollisionComponent>(player);
 	auto& minigameComp = registry.get<MinigamePlayerComponent>(player);
 
@@ -331,13 +330,12 @@ void MinigamePlayerSystem::SetComboEffect(entt::registry& registry, const entt::
 	auto& childrenComp = registry.get<ChildrenComponent>(player);
 	auto& minigameComp = registry.get<MinigamePlayerComponent>(player);
 
-
 	// モデルの数分回す
 	for (const auto& children : childrenComp.aChildrenID)
 	{
 		// アウトラインシェーダーの取得
 		auto& outLineShaderComp = registry.get<OutLineShaderComponent>(children);
-		
+
 		// コンボ数が0だったら
 		if (minigameComp.nCombo <= COMBO_LEVEL)
 		{

@@ -1,6 +1,6 @@
 //===================================================
 //
-// マルチレンダーターゲットのテクスチャのキーのデータ [renderer_mt_key_component.hpp]
+// 輝度抽出のシェーダー [luminance_shader.h]
 // Author:YUTO YOSHIDA
 //
 //===================================================
@@ -8,22 +8,25 @@
 //***************************************************
 // 多重インクルード防止
 //***************************************************
-#ifndef _RENDERER_MT_KEY_COMPONENT_HPP_
-#define _RENDERER_MT_KEY_COMPONENT_HPP_
+#ifndef _LUMINANCE_SHADER_H_
+#define _LUMINANCE_SHADER_H_
 
 //***************************************************
 // インクルードファイル
 //***************************************************
+#include "shader.h"
 
 //***************************************************
-// マルチレンダーターゲットのテクスチャのキーのデータの定義
+// 輝度抽出のシェーダーのクラスの定義
 //***************************************************
-struct RendererMTKeyComponent
+class CLuminanceShader : public CShader
 {
-	RendererMTKeyComponent(const int _nType) : 
-		nType(_nType)
-	{}
+public:
+	CLuminanceShader();
+	~CLuminanceShader();
 
-	int nType; // キー
+	HRESULT Init(const char* pShaderFile, const char* pTech) override;
+	void Apply(const entt::registry* pRegistry, const entt::entity entity) override;
+private:
 };
 #endif

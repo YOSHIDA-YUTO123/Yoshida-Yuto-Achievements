@@ -30,7 +30,7 @@ class CFade;				// フェード
 class CLight;				// ライト
 class CWorldSystemManager;	// ゲームの補助のシステムのマネージャ
 class CCamera;				// カメラの取得
-class CTextureMTManager;	// マルチレンダーターゲットのテクスチャのマネージャー
+class CTextureMRTManager;	// マルチレンダーターゲットのテクスチャのマネージャー
 class CParticleHelper;		// パーティクルのヘルパークラス
 class CShaderManager;		// シェーダーのマネージャークラス
 class CSound;				// 音のクラス
@@ -62,7 +62,7 @@ public:
 	CLight* GetLight(void)								{ return m_pLight.get(); }
 	CWorldSystemManager* GetWorldSystemManager(void)	{ return m_pWorldSystem.get(); }
 	CCamera* GetCamera(void)							{ return m_pCamera.get(); }
-	CTextureMTManager* GetTextureMTManager(void)		{ return m_pTextureMTManager.get(); }
+	CTextureMRTManager* GetTextureMRTManager(void)		{ return m_pTextureMTManager.get(); }
 	CParticleHelper* GetParticleHelper(void)			{ return m_pParticleHelper.get(); }
 	CShaderManager* GetShaderManager(void)				{ return m_pShaderManager.get(); }
 	CSound* GetSound(void)								{ return m_pSound.get(); }
@@ -82,7 +82,7 @@ private:
 	std::unique_ptr<CLight>					m_pLight;				// ライトクラスへのポインタ
 	std::unique_ptr<CWorldSystemManager>	m_pWorldSystem;			// ゲームの補助のシステムのマネージャ
 	std::unique_ptr<CCamera>				m_pCamera;				// カメラクラスへのポインタ
-	std::unique_ptr<CTextureMTManager>		m_pTextureMTManager;	// マルチレンダーターゲットのテクスチャのマネージャーへのポインタ
+	std::unique_ptr<CTextureMRTManager>		m_pTextureMTManager;	// マルチレンダーターゲットのテクスチャのマネージャーへのポインタ
 	std::unique_ptr<CParticleHelper>		m_pParticleHelper;		// パーティクルの補助クラス
 	std::unique_ptr<CShaderManager>			m_pShaderManager;		// シェーダーのマネージャークラス
 	std::unique_ptr<CSound>					m_pSound;				// 音クラスへポインタ

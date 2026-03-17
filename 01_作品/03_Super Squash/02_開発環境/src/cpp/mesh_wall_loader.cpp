@@ -15,6 +15,9 @@
 #include "factory_mesh.h"
 #include "entity_name_component.hpp"
 #include "title_wall_component.hpp"
+#include "mesh_vtx_component.hpp"
+#include "layer_component.hpp"
+#include "mesh_wall_component.hpp"
 
 //***************************************************
 // 定数宣言
@@ -73,6 +76,8 @@ HRESULT CMeshWallLoader::FirstSceneLoad(entt::registry& registry)
         // y軸回転だけ設定
         destRot.y = rot.y;
 
+        int nLayer = 0;
+
         // テクスチャパス
         std::string texturePath = walls["texture"];
 
@@ -90,6 +95,8 @@ HRESULT CMeshWallLoader::FirstSceneLoad(entt::registry& registry)
         FactoryMesh::Build::WallMT(registry, entity, nSegmentU, nSegmentV, D3DXVECTOR2(OFFPOS_TEX_U * nCnt, 0.0f), D3DXVECTOR2(OFFPOS_TEX_U * (nCnt + 1), 1.0f));
         registry.emplace<EntityNameComponent>(entity, name);
         registry.emplace<TitleWallComponent>(entity, destPos, destRot);
+        registry.emplace<LayerComponent>(entity, nLayer);
+
 
         nCnt++;
     }
@@ -148,6 +155,9 @@ HRESULT CMeshWallLoader::GameSceneLoad(entt::registry& registry)
         // 天井だったら
         const bool bTopWall = name == WallConst::TOP_WALL;
 
+        int nLayer = 0;
+        bool bMult = false;
+
         // メッシュウォールの生成処理
         entt::entity entity = entt::null;
 
@@ -155,9 +165,12 @@ HRESULT CMeshWallLoader::GameSceneLoad(entt::registry& registry)
         {
             // 天井の生成処理
             entity = FactoryMesh::Create::WallMT(registry, pos, size, texturePath.c_str(), nullptr, rot);
+
+            nLayer = 1;
         }
         else
         {
+            bMult = true;
             // 壁の生成処理
             entity = FactoryMesh::Create::WallMT(registry, pos, size, texturePath.c_str(), TEXTURE_BG_PATH, rot);
         }
@@ -165,6 +178,7 @@ HRESULT CMeshWallLoader::GameSceneLoad(entt::registry& registry)
         // 壁の構築処理
         FactoryMesh::Build::WallMT(registry, entity, nSegmentU, nSegmentV, D3DXVECTOR2(OFFPOS_TEX_U * nCnt, 0.0f), D3DXVECTOR2(OFFPOS_TEX_U * (nCnt + 1), 1.0f));
         registry.emplace<EntityNameComponent>(entity, name);
+        registry.emplace<LayerComponent>(entity, nLayer);
 
         nCnt++;
     }

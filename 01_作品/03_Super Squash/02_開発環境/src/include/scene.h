@@ -48,16 +48,18 @@ public:
 	void Uninit(void);
 	void Update(void);
 	void Draw(void);
+	void DrawMRT(void);
 	void UnPauseUpdate(void);
+	void DrawPostProcessExcluded(void);
 
-	CSystemManager* GetSystemManager(void) { return m_pSystemManager.get(); }
-	CSceneController* GetController(void) { return m_pController.get(); }
-	const Mode GetMode(void) const { return m_mode; }
+	inline CSystemManager* GetSystemManager(void) { return m_pSystemManager.get(); }
+	inline CSceneController* GetController(void) { return m_pController.get(); }
+	inline const Mode GetMode(void) const { return m_mode; }
 
 	void ChangeState(std::shared_ptr<CSceneState> pNewState, const int nTime = 0);
 
-	void SetFps(const int nFps) { m_nFps = nFps; }
-	entt::registry& GetRegistry(void) { return m_registry; }
+	inline void SetFps(const int nFps) { m_nFps = nFps; }
+	inline entt::registry& GetRegistry(void) { return m_registry; }
 
 private:
 	entt::entity CreateEntity(void);

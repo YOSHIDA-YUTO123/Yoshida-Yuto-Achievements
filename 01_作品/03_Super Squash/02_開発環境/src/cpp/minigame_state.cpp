@@ -65,7 +65,7 @@
 #include "collision_effect_wall_system.h"
 #include "wall_effect_system.h"
 #include "ui_flash_system.h"
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 #include "ui_wall_controller.h"
 #include "ui_fadeout_system.h"
 #include "tutorial_ui_system.h"
@@ -96,6 +96,9 @@
 #include "sprite_mrt_renderer.h"
 #include "mesh_sphere_renderer_mrt.h"
 #include "mesh_wall_renderer.h"
+#include "shadow_charactermodel_renderer.h"
+#include "shadowmap_recieve_field_renderer.h"
+#include "shadow_map_mesh_sphere_renderer.h"
 
 // ファクトリー
 #include "factory_mesh_quad.h"
@@ -467,6 +470,12 @@ void CMinigameState::CreateRendererSysytem(CScene* pScene)
 	// 処理のマネージャークラスの取得
 	CSystemManager* pSystemManager = pScene->GetSystemManager();
 
+	// メッシュの描画(マルチテクスチャ)処理
+	pSystemManager->AddRendererSystem(std::make_unique<MeshWallRenderer>());
+
+	// キャラクターの描画処理
+	pSystemManager->AddRendererSystem(std::make_unique<CharacterRenderer>());
+
 #ifdef _DEBUG
 	// コライダーの描画処理
 	pSystemManager ->AddRendererSystem(std::make_unique<ColliderRenderer>());
@@ -475,9 +484,6 @@ void CMinigameState::CreateRendererSysytem(CScene* pScene)
 
 	// 描画システムの追加
 	{
-		// キャラクターの描画処理
-		pSystemManager->AddRendererSystem(std::make_unique<CharacterRenderer>());
-
 #if !_DEBUG
 
 		// アウトラインシェーダーをキャラクターに適応する描画処理
@@ -496,8 +502,8 @@ void CMinigameState::CreateRendererSysytem(CScene* pScene)
 		// メッシュの描画(マルチテクスチャ)処理
 		pSystemManager->AddRendererSystem(std::make_unique<MeshRendererMT>());
 
-		// メッシュの描画(マルチテクスチャ)処理
-		pSystemManager->AddRendererSystem(std::make_unique<MeshWallRenderer>());
+		// メッシュの描画処理
+		pSystemManager->AddRendererSystem(std::make_unique<ShadowMapRecieveFIeldRenderer>());
 
 		// メッシュの描画処理
 		pSystemManager->AddRendererSystem(std::make_unique<MeshRenderer>());
@@ -520,16 +526,22 @@ void CMinigameState::CreateRendererSysytem(CScene* pScene)
 		// ビルボードの描画処理
 		pSystemManager->AddRendererSystem(std::make_unique<BillboardRenderer>());
 
-		// ステンシルシャドウの描画処理
-		pSystemManager->AddRendererSystem(std::make_unique<StencilShadowRenderer>());
+		//// ステンシルシャドウの描画処理
+		//pSystemManager->AddRendererSystem(std::make_unique<StencilShadowRenderer>());
 
-		// ステンシルのポリゴンの描画処理
-		pSystemManager->AddRendererSystem(std::make_unique<StencilPolygonRenderer>());
+		//// ステンシルのポリゴンの描画処理
+		//pSystemManager->AddRendererSystem(std::make_unique<StencilPolygonRenderer>());
 
 		// スプライトの描画処理
-		pSystemManager->AddRendererSystem(std::make_unique<SpriteRenderer>());
+		pSystemManager->AddPostProcessExcludedRendererSystem(std::make_unique<SpriteRenderer>());
 	}
 
 	// MRTのスプライトの描画処理
-	pSystemManager->AddRendererMRTSystem(std::make_unique<SpriteMRTRenderer>(), MRTType::TYPE_TIMER);
+	pSystemManager->AddRendererMRTSystem(std::make_unique<SpriteMRTRenderer>(), CTextureMRTManager::TYPE_TIMER);
+
+	// MRTのキャラクターモデルの描画処理
+	pSystemManager->AddRendererMRTSystem(std::make_unique<ShadowModelCharacterRenderer>(), CTextureMRTManager::TYPE_SHADOW_MAP);
+
+	// MRTのメッシュの球体の描画処理
+	pSystemManager->AddRendererMRTSystem(std::make_unique<ShadowMapMeshSphereRenderer>(), CTextureMRTManager::TYPE_SHADOW_MAP);
 }

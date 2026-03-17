@@ -90,5 +90,4 @@ void CharacterRenderer::Renderer(entt::registry& registry)
 		//•Û‘¶‚µ‚Ä‚¢‚½ƒ}ƒeƒŠƒAƒ‹‚ðŒ³‚É–ß‚·
 		pDevice->SetMaterial(&matDef);
 	}
-
 }

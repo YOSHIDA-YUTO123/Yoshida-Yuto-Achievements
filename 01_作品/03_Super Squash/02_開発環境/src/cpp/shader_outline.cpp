@@ -46,8 +46,13 @@ HRESULT CShaderOutLine::Init(const char* pShaderFile, const char* pTech)
 //===================================================
 // 適応処理
 //===================================================
-void CShaderOutLine::Apply(const entt::registry& registry, const entt::entity entity)
+void CShaderOutLine::Apply(const entt::registry* pRegistry, const entt::entity entity)
 {
+    if (pRegistry == nullptr)
+    {
+        return;
+    }
+
     // マネージャーの取得
     CManager* pManager = CManager::GetInstance();
 
@@ -68,8 +73,8 @@ void CShaderOutLine::Apply(const entt::registry& registry, const entt::entity en
     pDevice->GetTransform(D3DTS_PROJECTION, &mtxProj);
 
     // コンポーネントの取得
-    auto& transformComp = registry.get<Transform3DComponent>(entity);
-    auto& shaderComp = registry.get<OutLineShaderComponent>(entity);
+    auto& transformComp = pRegistry->get<Transform3DComponent>(entity);
+    auto& shaderComp = pRegistry->get<OutLineShaderComponent>(entity);
 
     // ワールドマトリックス
     D3DXMATRIX worldViewProjMatrix;

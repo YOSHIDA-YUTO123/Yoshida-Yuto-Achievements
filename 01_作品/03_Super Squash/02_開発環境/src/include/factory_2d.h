@@ -28,17 +28,17 @@ namespace Factory2D
 	// ê∂ê¨
 	namespace Create
 	{
-		entt::entity Sprite(entt::registry& registry, const Param& param);
-		entt::entity SpriteMRT(entt::registry& registry, const Param& param,const int nMRTType);
-		entt::entity SpriteSheet(entt::registry& registry, const Param& param, const int nSegmentU, const int nSegmentV);
-		entt::entity SpriteSheetMRT(entt::registry& registry, const Param& param, const int nMRTType, const int nSegmentU, const int nSegmentV);
-		entt::entity Timer(entt::registry& registry, const Param& param, const int nTime);
-		entt::entity Menu(entt::registry& registry, const Param& param, const entt::entity selectMenu, const int nMenuID);
-		entt::entity Score(entt::registry& registry, const Param& param, const int nScore);
-		entt::entity ScoreMRTResult(entt::registry& registry, const int nScore);
-		entt::entity ScoreMRTRanking(entt::registry& registry, const Param& param, const int nScore);
-		entt::entity RankingMRT(entt::registry& registry, const Param& param, const int nScore);
-		entt::entity StencilPolygon(entt::registry& registry);
+		entt::entity Sprite				(entt::registry& registry, const Param& param);
+		entt::entity SpriteMRT			(entt::registry& registry, const Param& param,const int nMRTType);
+		entt::entity SpriteSheet		(entt::registry& registry, const Param& param, const int nSegmentU, const int nSegmentV);
+		entt::entity SpriteSheetMRT		(entt::registry& registry, const Param& param, const int nMRTType, const int nSegmentU, const int nSegmentV);
+		entt::entity Timer				(entt::registry& registry, const Param& param, const int nTime);
+		entt::entity Menu				(entt::registry& registry, const Param& param, const entt::entity selectMenu, const int nMenuID);
+		entt::entity Score				(entt::registry& registry, const Param& param, const int nScore);
+		entt::entity ScoreMRTResult		(entt::registry& registry, const int nScore);
+		entt::entity ScoreMRTRanking	(entt::registry& registry, const Param& param, const int nScore);
+		entt::entity RankingMRT			(entt::registry& registry, const Param& param, const int nScore);
+		entt::entity StencilPolygon		(entt::registry& registry);
 	}
 
 	namespace Build

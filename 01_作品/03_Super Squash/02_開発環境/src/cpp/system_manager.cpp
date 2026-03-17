@@ -31,7 +31,12 @@
 //===================================================
 // コンストラクタ
 //===================================================
-CSystemManager::CSystemManager()
+CSystemManager::CSystemManager() : 
+	m_apRendererSystems(),
+	m_apSystems(),
+	m_apUnPauseSystem(),
+	m_apPostProcessExcludedRendererSystem(),
+	m_apRendererMRTSystem()
 {
 }
 
@@ -64,6 +69,13 @@ void CSystemManager::ReleaseAll(void)
 	}
 
 	m_apUnPauseSystem.clear();
+
+	// 要素分調べる
+	for (auto& list : m_apPostProcessExcludedRendererSystem)
+	{
+		// 破棄
+		list.reset();
+	}
 
 	// 要素分調べる
 	for (auto& list : m_apRendererSystems)
@@ -130,10 +142,20 @@ void CSystemManager::DrawAll(entt::registry& registry)
 		// 描画処理
 		(*renderer)->Renderer(registry);
 	}
+}
 
+//===================================================
+// MRT描画処理
+//===================================================
+void CSystemManager::DrawMRTAll(entt::registry& registry)
+{
 	// MRTの種類分回す
-	for (int nCnt = 0; nCnt < MRTType::TYPE_MAX; nCnt++)
+	for (int nCnt = 0; nCnt < CTextureMRTManager::TYPE_MAX; nCnt++)
 	{
+		if (nCnt == CTextureMRTManager::TYPE_SCENE)
+		{
+			continue;
+		}
 		// レンダーターゲットを変更
 		RendererManager::ChangeRenderTarget(nCnt);
 
@@ -149,5 +171,21 @@ void CSystemManager::DrawAll(entt::registry& registry)
 
 		// レンダーターゲットのリセット
 		RendererManager::ResetRenderTarget();
+	}
+}
+
+//===================================================
+// ポストプロセスを適応しない描画処理
+//===================================================
+void CSystemManager::DrawPostProcessExcluded(entt::registry& registry)
+{
+	// 要素分調べる
+	for (auto renderer = m_apPostProcessExcludedRendererSystem.begin(); renderer != m_apPostProcessExcludedRendererSystem.end(); renderer++)
+	{
+		// nullなら処理を飛ばす
+		if ((*renderer) == nullptr) continue;
+
+		// 描画処理
+		(*renderer)->Renderer(registry);
 	}
 }

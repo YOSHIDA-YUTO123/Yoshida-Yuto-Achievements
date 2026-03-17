@@ -22,7 +22,7 @@
 #include "tag_component.hpp"
 #include "menu_select_component.hpp"
 #include "renderer.h"
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 #include "manager.h"
 #include "tag_component.hpp"
 #include "tutorial_system_component.hpp"

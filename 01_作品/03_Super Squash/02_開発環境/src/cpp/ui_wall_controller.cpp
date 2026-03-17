@@ -16,7 +16,7 @@
 #include "wall_constants.hpp"
 #include "vertex_buffer_component.hpp"
 #include "mesh_vtx_component.hpp"
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 
 //***************************************************
 // 定数宣言
@@ -317,7 +317,7 @@ void UIWallController::SetGameStart(entt::registry& registry)
 	CTextureManager* pTextureManager = pManager->GetTextureManager();
 
 	// マルチレンダーターゲットのテクスチャのマネージャーの取得
-	CTextureMTManager* pTextureMTManager = pManager->GetTextureMTManager();
+	CTextureMRTManager* pTextureMTManager = pManager->GetTextureMRTManager();
 
 	// 取得できないなら処理しない
 	if (pTextureManager == nullptr || pTextureMTManager == nullptr) return;
@@ -346,7 +346,7 @@ void UIWallController::SetGameStart(entt::registry& registry)
 		if (entityNameComp.name == WallConst::FRONT_WALL)
 		{
 			// テクスチャの設定
-			uiWallComp.pTexture = pTextureMTManager->GetAdress(MRTType::TYPE_TIMER);
+			uiWallComp.pTexture = pTextureMTManager->GetAdress(CTextureMRTManager::TYPE_TIMER);
 			uiWallComp.bScrol = false;
 		}
 		else
@@ -378,7 +378,7 @@ void UIWallController::SetResultUI(entt::registry& registry)
 	CTextureManager* pTextureManager = pManager->GetTextureManager();
 
 	// マルチレンダーターゲットのマネージャークラスの取得
-	CTextureMTManager* pTextureMTManager = pManager->GetTextureMTManager();
+	CTextureMRTManager* pTextureMTManager = pManager->GetTextureMRTManager();
 
 	// 取得できないなら処理しない
 	if (pTextureManager == nullptr || pTextureMTManager == nullptr) return;
@@ -402,7 +402,7 @@ void UIWallController::SetResultUI(entt::registry& registry)
 		// 正面の壁
 		if (entityNameComp.name == WallConst::FRONT_WALL)
 		{
-			uiWallComp.pTexture = pTextureMTManager->GetAdress(MRTType::TYPE_RESULT);
+			uiWallComp.pTexture = pTextureMTManager->GetAdress(CTextureMRTManager::TYPE_RESULT);
 		}
 		else
 		{
@@ -468,7 +468,7 @@ void UIWallController::SetRanking(entt::registry& registry)
 	CTextureManager* pTextureManager = pManager->GetTextureManager();
 
 	// マルチレンダーターゲットのテクスチャのマネージャーの取得
-	CTextureMTManager* pTextureMTManager = pManager->GetTextureMTManager();
+	CTextureMRTManager* pTextureMTManager = pManager->GetTextureMRTManager();
 
 	// 取得できないなら処理しない
 	if (pTextureManager == nullptr || pTextureMTManager == nullptr) return;
@@ -492,7 +492,7 @@ void UIWallController::SetRanking(entt::registry& registry)
 		// 正面の壁だったら
 		if (entityNameComp.name == WallConst::FRONT_WALL)
 		{
-			uiWallComp.pTexture = pTextureMTManager->GetAdress(MRTType::TYPE_RANKING);
+			uiWallComp.pTexture = pTextureMTManager->GetAdress(CTextureMRTManager::TYPE_RANKING);
 		}
 		else
 		{
@@ -521,7 +521,7 @@ void UIWallController::SetTimeLimit60Second(entt::registry& registry)
 	CTextureManager* pTextureManager = pManager->GetTextureManager();
 
 	// マルチレンダーターゲットのテクスチャのマネージャーの取得
-	CTextureMTManager* pTextureMTManager = pManager->GetTextureMTManager();
+	CTextureMRTManager* pTextureMTManager = pManager->GetTextureMRTManager();
 
 	// 取得できないなら処理しない
 	if (pTextureManager == nullptr || pTextureMTManager == nullptr) return;
@@ -573,7 +573,7 @@ void UIWallController::SetSecondFaze(entt::registry& registry)
 	CTextureManager* pTextureManager = pManager->GetTextureManager();
 
 	// マルチレンダーターゲットのテクスチャのマネージャーの取得
-	CTextureMTManager* pTextureMTManager = pManager->GetTextureMTManager();
+	CTextureMRTManager* pTextureMTManager = pManager->GetTextureMRTManager();
 
 	// 取得できないなら処理しない
 	if (pTextureManager == nullptr || pTextureMTManager == nullptr) return;
@@ -600,7 +600,7 @@ void UIWallController::SetSecondFaze(entt::registry& registry)
 			uiWallComp.bScrol = false;
 
 			// テクスチャのポインタの設定
-			uiWallComp.pTexture = pTextureMTManager->GetAdress(MRTType::TYPE_TIMER);
+			uiWallComp.pTexture = pTextureMTManager->GetAdress(CTextureMRTManager::TYPE_TIMER);
 
 		}
 		else

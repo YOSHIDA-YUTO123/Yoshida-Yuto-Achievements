@@ -84,7 +84,7 @@ void OutLineModelRenderer::Renderer(entt::registry& registry)
 
 		for (int nCntMat = 0; nCntMat < (int)modelInfo.dwNumMat; nCntMat++)
 		{
-			pShader->Apply(registry, entity);
+			pShader->Apply(&registry, entity);
 
 			pShader->BeginPass();
 

@@ -25,7 +25,6 @@ namespace FactoryMesh
 		entt::entity FieldMT(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& size, const char* pTexturePath);
 		entt::entity Cylinder(entt::registry& registry, const D3DXVECTOR3& pos, const float fRadius, const float fHeight, const char* pTexturePath);
 		entt::entity Wall(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& size, const char* pTexturePath, const D3DXVECTOR3& rot);
-		entt::entity ShaderWall(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& size, const int nMRTType, const D3DXVECTOR3& rot);
 		entt::entity EffectWall(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& size,const D3DXVECTOR3& rot, const char* pTexturePath, const int nSegmentUV);
 		entt::entity WallMT(entt::registry& registry, const D3DXVECTOR3& pos, const D3DXVECTOR3& size, const char* pTexturePath, const char* pTexturePath2, const D3DXVECTOR3& rot = Const::VEC3_NULL);
 		entt::entity Dome(entt::registry& registry, const D3DXVECTOR3& pos, const float fRadius, const char* pTexturePath, const bool bReverse = false);

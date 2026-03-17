@@ -20,6 +20,9 @@
 //***************************************************
 struct MeshWallComponent
 {
-	MeshWallComponent() = default;
+	MeshWallComponent(const bool _bMult) :
+		bMult(_bMult) {}
+
+	bool bMult;	// マルチテクスチャかどうか
 };
 #endif

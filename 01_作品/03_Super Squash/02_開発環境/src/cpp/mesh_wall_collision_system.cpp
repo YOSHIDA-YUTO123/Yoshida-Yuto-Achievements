@@ -21,6 +21,7 @@
 #include "factory_billboard.h"
 #include "utility_math.h"
 #include "collision.h"
+#include "mesh_wall_component.hpp"
 
 #ifdef _DEBUG
 #include "line.h"

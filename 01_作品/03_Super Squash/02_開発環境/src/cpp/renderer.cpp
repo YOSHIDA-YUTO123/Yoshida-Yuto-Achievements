@@ -14,11 +14,15 @@
 #include "debug_proc.h"
 #include "fade.h"
 #include "world_system_manager.h"
+#include "screen_polygon.h"
+#include "texture_mrt_manager.h"
+#include "shader_manager.h"
 
 //===================================================
 // コンストラクタ
 //===================================================
 CRenderer::CRenderer() : 
+	m_apScreenPolygon(),
 	m_pDebugProc(nullptr),
 	m_pD3D(nullptr),
 	m_pD3DDevice(nullptr)
@@ -127,6 +131,15 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 		return E_FAIL;
 	}
 
+	m_apScreenPolygon[SCREEN_POLYGON_SCENE] = CScreenPolygon::Create(CTextureMRTManager::TYPE_SCENE, CTextureMRTManager::TYPE_GAUSSIAN_Y, CShaderManager::TYPE_BLOOM);
+
+	m_apScreenPolygon[SCREEN_POLYGON_LUMINANCE] = CScreenPolygon::Create(CTextureMRTManager::TYPE_SCENE, CTextureMRTManager::INVALID, CShaderManager::TYPE_LUMINANCE);
+
+	m_apScreenPolygon[SCREEN_POLYGON_GAUSBLUR_X] = CScreenPolygon::Create(CTextureMRTManager::TYPE_LUMINANCE, CTextureMRTManager::INVALID, CShaderManager::TYPE_GAUS_BLUR);
+	m_apScreenPolygon[SCREEN_POLYGON_GAUSBLUR_Y] = CScreenPolygon::Create(CTextureMRTManager::TYPE_GAUSSIAN_X, CTextureMRTManager::INVALID, CShaderManager::TYPE_GAUS_BLUR);
+
+	m_apScreenPolygon[SCREEN_POLYGON_SHADOW_MAP] = CScreenPolygon::Create(CTextureMRTManager::TYPE_SHADOW_MAP, CTextureMRTManager::INVALID, CShaderManager::INVALID);
+
 	return S_OK;
 }
 //===================================================
@@ -134,6 +147,13 @@ HRESULT CRenderer::Init(HWND hWnd, BOOL bWindow)
 //===================================================
 void CRenderer::Uninit(void)
 {
+	// 画面のポリゴンの破棄
+	for (auto& polygon : m_apScreenPolygon)
+	{
+		polygon->Uninit();
+		polygon.reset();
+	}
+
 	// Drectxデバイスの破棄
 	if (m_pD3DDevice != nullptr)
 	{
@@ -179,10 +199,19 @@ void CRenderer::Draw(const int fps, CScene* pScene, CFade* pFade)
 		(D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL),
 		Const::BACK_BUFFER_COLOR, 1.0f, 0);
 
+	// マネージャーの取得
+	CManager* pManager = CManager::GetInstance();
+
+	// MRTテクスチャの描画処理
+	CTextureMRTManager* pTextureMTManager = pManager->GetTextureMRTManager();
+
 	// 描画開始
 	if (SUCCEEDED(m_pD3DDevice->BeginScene()))
 	{//描画開始が成功した場合
 				
+		// レンダーターゲットの変更
+		pTextureMTManager->ChangeRenderTarget(CTextureMRTManager::TYPE_SCENE);
+
 		if (pScene != nullptr)
 		{
 			// 描画処理
@@ -192,6 +221,56 @@ void CRenderer::Draw(const int fps, CScene* pScene, CFade* pFade)
 
 		// 描画処理
 		CManager::GetInstance()->GetWorldSystemManager()->Draw();
+
+		// レンダーターゲットのリセット
+		pTextureMTManager->ResetRenderTarget();
+
+		if (pScene != nullptr)
+		{
+			// MRTの描画処理
+			pScene->DrawMRT();
+		}
+
+		// レンダーターゲットの変更
+		pTextureMTManager->ChangeRenderTarget(CTextureMRTManager::TYPE_LUMINANCE);
+
+		// 描画処理
+		m_apScreenPolygon[SCREEN_POLYGON_LUMINANCE]->Draw();
+
+		// レンダーターゲットのリセット
+		pTextureMTManager->ResetRenderTarget();
+
+		{
+			// レンダーターゲットの変更
+			pTextureMTManager->ChangeRenderTarget(CTextureMRTManager::TYPE_GAUSSIAN_X);
+
+			// 描画処理
+			m_apScreenPolygon[SCREEN_POLYGON_GAUSBLUR_X]->Draw();
+
+			// レンダーターゲットのリセット
+			pTextureMTManager->ResetRenderTarget();
+
+			// レンダーターゲットの変更
+			pTextureMTManager->ChangeRenderTarget(CTextureMRTManager::TYPE_GAUSSIAN_Y);
+
+			// 描画処理
+			m_apScreenPolygon[SCREEN_POLYGON_GAUSBLUR_Y]->Draw(1);
+
+			// レンダーターゲットのリセット
+			pTextureMTManager->ResetRenderTarget();
+		}
+
+		// 画面のポリゴンの描画
+		m_apScreenPolygon[SCREEN_POLYGON_SCENE]->Draw();
+
+		// 画面のポリゴンの描画
+		//m_apScreenPolygon[SCREEN_POLYGON_SHADOW_MAP]->Draw();
+
+		if (pScene != nullptr)
+		{
+			// ポストプロセスを適応しない描画
+			pScene->DrawPostProcessExcluded();
+		}
 
 		if (pFade != nullptr)
 		{

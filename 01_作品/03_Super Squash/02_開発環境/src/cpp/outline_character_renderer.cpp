@@ -80,9 +80,11 @@ void OutLineCharacterRenderer::Renderer(entt::registry& registry)
 			pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
 
 			// シェーダーの適応処理
-			pShader->Apply(registry, entity);
+			pShader->Apply(&registry, entity);
 
 			pShader->BeginPass();
+
+			pDevice->SetTexture(0, nullptr);
 
 			// モデル(パーツ)の描画
 			modelInfo.pMesh->DrawSubset(nCntMat);
@@ -92,9 +94,6 @@ void OutLineCharacterRenderer::Renderer(entt::registry& registry)
 			// カリングを元に戻す
 			pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);		
 		}
-
-		////保存していたマテリアルを元に戻す
-		//pDevice->SetMaterial(&matDef);
 	}
 
 	// エフェクト終了

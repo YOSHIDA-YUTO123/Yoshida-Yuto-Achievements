@@ -106,7 +106,7 @@ entt::entity FactoryModel::CreateModelMRT(entt::registry& registry, const D3DXVE
     // ƒ‚ƒfƒ‹‚Ì“o˜^
     const int nModelID = Register(pModelFilePath);
 
-    registry.emplace<MRTTargetComponent>(entity,static_cast<MRTType::TYPE>(nMRTType));
+    registry.emplace<MRTTargetComponent>(entity,nMRTType);
     registry.emplace<Transform3DComponent>(entity, pos, rot);
     registry.emplace<ModelComponent>(entity, nModelID);
     registry.emplace<LayerComponent>(entity, static_cast<int>(EntityLayer::Model));
@@ -160,10 +160,7 @@ entt::entity FactoryModel::CreateJetPack(entt::registry& registry, const D3DXVEC
     registry.emplace<Tag::ModelTag>(entity);
     registry.emplace<Transform3DComponent>(entity, pos, rot);
     registry.emplace<ModelComponent>(entity, nModelID);
-    registry.emplace<LayerComponent>(entity, static_cast<int>(EntityLayer::Model));
-    registry.emplace<OutLineShaderComponent>(entity, Color::AQUA, JETPACK_OUTLINE_SIZE);
-    registry.emplace<RendererTag::OutLineModelTag>(entity);
-    
+    registry.emplace<LayerComponent>(entity, static_cast<int>(EntityLayer::Model));    
 
     return entity;
 }

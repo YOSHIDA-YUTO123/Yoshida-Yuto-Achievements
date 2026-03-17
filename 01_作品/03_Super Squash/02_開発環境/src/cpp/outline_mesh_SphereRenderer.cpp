@@ -89,7 +89,7 @@ void OutLineMeshSphereRenderer::Renderer(entt::registry& registry)
 		pDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
 
 		// アウトラインシェーダーの適応
-		pShader->Apply(registry, entity);
+		pShader->Apply(&registry, entity);
 
 		pShader->BeginPass();
 

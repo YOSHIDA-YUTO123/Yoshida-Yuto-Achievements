@@ -63,7 +63,7 @@ void MeshSphereRendererMRT::Renderer(entt::registry& registry, const int nType)
 		}
 
 		// Ží—Þ‚ªˆá‚¤‚È‚çˆ—‚ð”ò‚Î‚·
-		if (pMRTTargetComp != nullptr && pMRTTargetComp->target != nType)
+		if (pMRTTargetComp != nullptr && pMRTTargetComp->nTarget != nType)
 		{
 			continue;
 		}

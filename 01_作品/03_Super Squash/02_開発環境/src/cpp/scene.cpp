@@ -15,7 +15,7 @@
 #include "debug_info.h"
 #include "input.h"
 #include "manager.h"
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 #include "scene_controller.h"
 #include "light.h"
 #include "camera.h"
@@ -233,11 +233,40 @@ void CScene::Draw(void)
 }
 
 //===================================================
+// マルチレンダーターゲットの描画処理
+//===================================================
+void CScene::DrawMRT(void)
+{
+	// 処理できないなら
+	if (m_pSystemManager == nullptr)
+	{
+		return;
+	}
+
+	// systemの描画処理
+	m_pSystemManager->DrawMRTAll(m_registry);
+}
+
+//===================================================
 // ポーズの影響を受けない更新処理
 //===================================================
 void CScene::UnPauseUpdate(void)
 {
 
+}
+
+//===================================================
+// ポストプロセスを適応しない描画
+//===================================================
+void CScene::DrawPostProcessExcluded(void)
+{
+	if (m_pSystemManager == nullptr)
+	{
+		return;
+	}
+	
+	// ポストプロセスを適応しない描画
+	m_pSystemManager->DrawPostProcessExcluded(m_registry);
 }
 
 //===================================================

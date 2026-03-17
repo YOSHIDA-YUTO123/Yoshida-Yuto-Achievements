@@ -19,14 +19,14 @@
 #include "texture_id_component.hpp"
 #include "tag_component.hpp"
 #include "vertex_buffer_component.hpp"
-#include "vertex_manager.h"
+#include "vertex_build.h"
 #include "color_component.hpp"
 #include "sheet_component.hpp"
 #include "init_2d.h"
 #include "timer_component.hpp"
 #include "shader_manager.h"
 #include "texture_mt_component.hpp"
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 #include "menu_component.hpp"
 #include "ui_scaling_component.hpp"
 #include "renderer_component.hpp"
@@ -122,7 +122,7 @@ entt::entity Factory2D::Create::SpriteMRT(entt::registry& registry, const Param&
 	registry.emplace<ColorComponent>(entity);
 	
 	registry.emplace<TextureIDComponent>(entity, nTextureID);
-	registry.emplace<MRTTargetComponent>(entity, static_cast<MRTType::TYPE>(nMRTType));
+	registry.emplace<MRTTargetComponent>(entity, nMRTType);
 
 	// スプライトの初期化処理
 	if (FAILED(Init2D::Sprite(registry, entity)))
@@ -198,7 +198,7 @@ entt::entity Factory2D::Create::SpriteSheetMRT(entt::registry& registry, const P
 	registry.emplace<LayerComponent>(entity, param.nPriority);
 	registry.emplace<TextureIDComponent>(entity, nTextureID);
 	registry.emplace<ColorComponent>(entity);
-	registry.emplace<MRTTargetComponent>(entity, static_cast<MRTType::TYPE>(nMRTType));
+	registry.emplace<MRTTargetComponent>(entity, nMRTType);
 	registry.emplace<SheetComponent>(entity, nSegmentU, nSegmentV);
 
 	// スプライトの初期化処理
@@ -247,7 +247,7 @@ entt::entity Factory2D::Create::Timer(entt::registry& registry, const Param& par
 		sheetParam.nPriority = param.nPriority;
 
 		// スプライトシートの生成
-		second = SpriteSheetMRT(registry, sheetParam, MRTType::TYPE_TIMER, Factory2DConst::NUMBER_SEGMENT_U, Factory2DConst::NUMBER_SEGMENT_V);
+		second = SpriteSheetMRT(registry, sheetParam, CTextureMRTManager::TYPE_TIMER, Factory2DConst::NUMBER_SEGMENT_U, Factory2DConst::NUMBER_SEGMENT_V);
 
 		nCount++;
 	}
@@ -268,7 +268,7 @@ entt::entity Factory2D::Create::Timer(entt::registry& registry, const Param& par
 		sheetParam.nPriority = param.nPriority;
 
 		// スプライトシートの生成
-		minute = SpriteSheetMRT(registry, sheetParam, MRTType::TYPE_TIMER, Factory2DConst::NUMBER_SEGMENT_U, Factory2DConst::NUMBER_SEGMENT_V);
+		minute = SpriteSheetMRT(registry, sheetParam, CTextureMRTManager::TYPE_TIMER, Factory2DConst::NUMBER_SEGMENT_U, Factory2DConst::NUMBER_SEGMENT_V);
 
 		nCount++;
 	}
@@ -449,7 +449,7 @@ entt::entity Factory2D::Create::ScoreMRTRanking(entt::registry& registry, const 
 		sheetParam.nPriority = param.nPriority;
 
 		// シートの生成
-		sheetID = Factory2D::Create::SpriteSheetMRT(registry, sheetParam ,MRTType::TYPE_RANKING, Factory2DConst::NUMBER_SEGMENT_U, Factory2DConst::NUMBER_SEGMENT_V);
+		sheetID = Factory2D::Create::SpriteSheetMRT(registry, sheetParam , CTextureMRTManager::TYPE_RANKING, Factory2DConst::NUMBER_SEGMENT_U, Factory2DConst::NUMBER_SEGMENT_V);
 
 		nCnt++;
 	}

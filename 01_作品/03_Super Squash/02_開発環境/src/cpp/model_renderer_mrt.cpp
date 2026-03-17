@@ -64,7 +64,7 @@ void ModelRendererMRT::Renderer(entt::registry& registry, const int nType)
 		}
 
 		// Ží—Þ‚ªˆá‚¤‚È‚çˆ—‚ð”ò‚Î‚·
-		if (pMRTRendererComp != nullptr && pMRTRendererComp->target != nType)
+		if (pMRTRendererComp != nullptr && pMRTRendererComp->nTarget != nType)
 		{
 			continue;
 		}

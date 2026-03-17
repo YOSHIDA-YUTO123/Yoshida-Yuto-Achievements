@@ -20,7 +20,7 @@ namespace PlayerConstants
 	constexpr float SHOT_POWER				= 2.5f;					// 発射力
 	constexpr float MAX_CHAGE_POWER			= 40.0f;				// チャージできる最大power
 	constexpr float CHAGE_POWER_OFFSET		= 2.0f;					// 最低保障power
-	constexpr float KEY_W_PITCH_ANGLE		= D3DXToRadian(15);		// Wキーを押しているときの発射角度
+	constexpr float KEY_W_PITCH_ANGLE		= D3DXToRadian(5);		// Wキーを押しているときの発射角度
 	constexpr float KEY_S_PITCH_ANGLE		= D3DXToRadian(25);		// Sキーを押しているときの発射角度
 	constexpr float NO_INPUT_ANGLE			= D3DXToRadian(100);	// キーを押していないときの発射角度
 	constexpr float JET_PACK_MOVE_UP		= 3.0f;					// ジェットパック移動量(上昇時)

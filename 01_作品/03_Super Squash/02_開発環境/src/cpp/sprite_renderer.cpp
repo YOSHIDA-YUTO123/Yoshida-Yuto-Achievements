@@ -20,7 +20,7 @@
 #include "tag_component.hpp"
 #include "renderer_manager.h"
 #include "renderer_component.hpp"
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 
 //===================================================
 // •`‰æˆ—

@@ -106,21 +106,31 @@ void FactoryCharacter::BuildPlayer(entt::registry& registry, entt::entity player
     // 名前空間の使用
     using namespace FactoryCharacterConst;
 
-    registry.emplace<PlayerComponent>(player);
-    registry.emplace<VelocityComponent>(player, PLAYER_INERTIA, PLAYER_GRAVITY);
-    registry.emplace<Tag::PlayerTag>(player);
-    registry.emplace<FieldCollisionComponent>(player, player);
-    registry.emplace<PlayerCommandComponent>(player);
-    registry.emplace<MeshWallCollisionComponent>(player, player);
-    registry.emplace<CapsuleColliderComponent>(player, PLAYER_CAPSULE_START_POS, PLAYER_CAPSULE_END_POS, PLAYER_CAPSULE_RADIUS, player);
-    registry.emplace<CollisionEffectWallComponent>(player);
+    registry.emplace<PlayerComponent>               (player);
+    registry.emplace<VelocityComponent>             (player, PLAYER_INERTIA, PLAYER_GRAVITY);
+    registry.emplace<Tag::PlayerTag>                (player);
+    registry.emplace<FieldCollisionComponent>       (player, player);
+    registry.emplace<PlayerCommandComponent>        (player);
+    registry.emplace<MeshWallCollisionComponent>    (player, player);
+    registry.emplace<CapsuleColliderComponent>      (player, PLAYER_CAPSULE_START_POS, PLAYER_CAPSULE_END_POS, PLAYER_CAPSULE_RADIUS, player);
+    registry.emplace<CollisionEffectWallComponent>  (player);
 
     // 球のコライダーの生成
-    auto sphereID = FactorySystemEntity::CreateSphereCollider(registry, player, BALL_SHOT_RANGE, BALL_SHOT_RANGE_OFFSET);
+    auto sphereID = FactorySystemEntity::CreateSphereCollider(
+        registry,
+        player,
+        BALL_SHOT_RANGE,
+        BALL_SHOT_RANGE_OFFSET);
+
     registry.emplace<ColliderTag::BallShotRange>(sphereID);
 
     // 地面の判定するコライダーの生成
-    sphereID = FactorySystemEntity::CreateSphereCollider(registry, player, PLAYER_SPHERE_RADIUS, FactoryCharacterConst::PLAYER_SPHERE_OFFSET);
+    sphereID = FactorySystemEntity::CreateSphereCollider(
+        registry, 
+        player,
+        PLAYER_SPHERE_RADIUS,
+        FactoryCharacterConst::PLAYER_SPHERE_OFFSET);
+
     registry.emplace<ColliderTag::Wall>(sphereID);
     registry.emplace<ColliderTag::Field>(sphereID);
 
@@ -160,6 +170,8 @@ void FactoryCharacter::BuildPlayer(entt::registry& registry, entt::entity player
         // アウトラインシェーダーを適応
         registry.emplace<OutLineShaderComponent>(modelID, Color::AQUA, OUTLINE_SIZE);
         registry.emplace<RendererTag::OutLineCharacterTag>(modelID);
+        registry.emplace<RendererTag::ShadowMap>(modelID);
+        registry.emplace<LayerComponent>(modelID);
     }
 
     // ミニゲームのプレイヤーの構築処理

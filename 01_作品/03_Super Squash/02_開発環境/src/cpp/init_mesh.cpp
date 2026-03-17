@@ -9,7 +9,7 @@
 // インクルードファイル
 //***************************************************
 #include "init_mesh.h"
-#include "vertex_manager.h"
+#include "vertex_build.h"
 #include "vertex_buffer_component.hpp"
 #include "size_component.hpp"
 #include "mesh_vtx_component.hpp"

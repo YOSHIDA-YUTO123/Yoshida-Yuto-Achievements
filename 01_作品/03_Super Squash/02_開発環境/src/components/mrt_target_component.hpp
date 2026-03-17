@@ -12,19 +12,14 @@
 #define _MRT_TARGET_COMPONENT_HPP_
 
 //***************************************************
-// インクルードファイル
-//***************************************************
-#include "mrt_type.hpp"
-
-//***************************************************
 // マルチレンダーターゲットのIDのデータの定義
 //***************************************************
 struct MRTTargetComponent
 {
-	MRTTargetComponent(const MRTType::TYPE _target) : 
-		target(_target)
+	MRTTargetComponent(const int _nTarget) : 
+		nTarget(_nTarget)
 	{}
 
-	MRTType::TYPE target; // ターゲット
+	int nTarget; // ターゲット
 };
 #endif

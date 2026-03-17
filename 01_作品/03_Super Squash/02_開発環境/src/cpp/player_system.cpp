@@ -582,7 +582,6 @@ void PlayerSystem::SetShotPitchAngle(entt::registry& registry, const entt::entit
 	// ショット中かどうか判定
 	COrSpec is_shot = { is_quickshot, is_left_quickshot };
 
-
 	// ショット中じゃないなら
 	if (CNotSpec(is_shot).IsSatisfiedBy(registry,player))
 	{
@@ -590,18 +589,48 @@ void PlayerSystem::SetShotPitchAngle(entt::registry& registry, const entt::entit
 	}
 	
 	// 角度の設定処理
-	if (pKeyboard->GetPress(DIK_W) || is_move_forward.IsSatisfiedBy(registry, player))
+	if (pKeyboard->GetPress(DIK_A))
 	{
-		characterComp.fShotPitchAngle = KEY_W_PITCH_ANGLE;
+		if (pKeyboard->GetPress(DIK_W))
+		{
+			characterComp.shotAngle.x = KEY_W_PITCH_ANGLE;
+			characterComp.shotAngle.y = D3DX_PI * 0.9f;
+		}
+		else if (pKeyboard->GetPress(DIK_S))
+		{
+			characterComp.shotAngle.x = KEY_S_PITCH_ANGLE;
+			characterComp.shotAngle.y = -D3DX_PI * 0.9f;
+		}
 	}
-	else if (pKeyboard->GetPress(DIK_S) || pJoyPad->GetPressAnyButton())
+	else if (pKeyboard->GetPress(DIK_D))
 	{
-		characterComp.fShotPitchAngle = KEY_S_PITCH_ANGLE;
+		if (pKeyboard->GetPress(DIK_W))
+		{
+			characterComp.shotAngle.x = KEY_W_PITCH_ANGLE;
+			characterComp.shotAngle.y = -D3DX_PI * 0.9f;
+		}
+		else if (pKeyboard->GetPress(DIK_S))
+		{
+			characterComp.shotAngle.x = KEY_S_PITCH_ANGLE;
+			characterComp.shotAngle.y = -D3DX_PI * 0.9f;
+		}
+	}
+	else if (pKeyboard->GetPress(DIK_W))
+	{
+		if (is_quickshot.IsSatisfiedBy(registry, player))
+		{
+			characterComp.shotAngle.y = -D3DX_PI * 0.95f;
+		}
+		else if(is_left_quickshot.IsSatisfiedBy(registry,player))
+		{
+			characterComp.shotAngle.y = D3DX_PI * 0.95f;
+		}
 	}
 	else
 	{
 		// 正面に飛ばす
-		characterComp.fShotPitchAngle = PlayerConstants::NO_INPUT_ANGLE;
+		characterComp.shotAngle.x = PlayerConstants::NO_INPUT_ANGLE;
+		characterComp.shotAngle.y = D3DX_PI;
 	}
 }
 

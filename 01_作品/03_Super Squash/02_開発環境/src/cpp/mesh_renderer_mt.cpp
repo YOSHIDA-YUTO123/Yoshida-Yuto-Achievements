@@ -20,19 +20,23 @@
 #include "vertex_buffer_component.hpp"
 #include "texture_mt_component.hpp"
 #include "renderer_component.hpp"
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 #include "texture_id_component.hpp"
+#include "shader.h"
+#include "shader_manager.h"
 
 //===================================================
 // 描画処理
 //===================================================
 void MeshRendererMT::Renderer(entt::registry& registry)
 {
+	CManager* pManager = CManager::GetInstance();
+
 	// テクスチャマネージャの取得
-	CTextureManager* pTextureManager = CManager::GetInstance()->GetTextureManager();
+	CTextureManager* pTextureManager = pManager->GetTextureManager();
 
 	// レンダラーの取得
-	CRenderer* pRenderer = CManager::GetInstance()->GetRenderer();
+	CRenderer* pRenderer = pManager->GetRenderer();
 
 #ifdef _DEBUG
 	assert(pRenderer != nullptr && "MeshRenderer_GetRenderer");
@@ -71,7 +75,6 @@ void MeshRendererMT::Renderer(entt::registry& registry)
 		
 		// テクスチャの設定
 		pDevice->SetTexture(0, pTextureManager->GetAdress(textureMTComp.aTextureID[0]));
-		pDevice->SetTexture(1, pTextureManager->GetAdress(textureMTComp.aTextureID[1]));
 
 		// レンダーステーとの設定
 		RendererManager::SetRenderState(pDevice, pRendererComp);

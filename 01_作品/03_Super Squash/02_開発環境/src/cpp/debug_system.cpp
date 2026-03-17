@@ -25,7 +25,7 @@
 #include "texture_manager.h"
 #include "camera_shake.h"
 #include "texture_mt_component.hpp"
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 #include "timer_component.hpp"
 #include "debug_proc.h"
 #include "effect_constants.hpp"

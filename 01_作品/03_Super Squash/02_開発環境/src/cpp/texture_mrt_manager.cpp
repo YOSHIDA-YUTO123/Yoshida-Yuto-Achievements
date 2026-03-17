@@ -8,14 +8,15 @@
 //***************************************************
 // インクルードファイル
 //***************************************************
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 #include "manager.h"
 #include "renderer.h"
+#include "color_constants.hpp"
 
 //===================================================
 // コンストラクタ
 //===================================================
-CTextureMTManager::CTextureMTManager() : 
+CTextureMRTManager::CTextureMRTManager() : 
 	m_aInfo(),
 	m_defInfo(),
 	m_mtxViewDef(Const::MTX_IDENTITY),
@@ -26,14 +27,14 @@ CTextureMTManager::CTextureMTManager() :
 //===================================================
 // デストラクタ
 //===================================================
-CTextureMTManager::~CTextureMTManager()
+CTextureMRTManager::~CTextureMRTManager()
 {
 }
 
 //===================================================
 // 初期化処理
 //===================================================
-HRESULT CTextureMTManager::Init(void)
+HRESULT CTextureMRTManager::Init(void)
 {
 	// マネージャーの取得
 	CManager* pManager = CManager::GetInstance();
@@ -43,10 +44,8 @@ HRESULT CTextureMTManager::Init(void)
 
 	LPDIRECT3DSURFACE9 pRenderDef, pZBufferDef;
 
-	int nCnt = 0;
-
 	// 総数分回す
-	for (auto& dec : CreateTable)
+	for (auto& dec : CREATE_TABLE)
 	{
 		auto& info = m_aInfo[dec.type];
 
@@ -56,7 +55,7 @@ HRESULT CTextureMTManager::Init(void)
 			dec.nHeight,
 			1,
 			D3DUSAGE_RENDERTARGET,
-			D3DFMT_X8R8G8B8,
+			D3DFMT_A16B16G16R16F,
 			D3DPOOL_DEFAULT,
 			&info.pTextureMT,
 			NULL);
@@ -106,9 +105,7 @@ HRESULT CTextureMTManager::Init(void)
 		info.viewport.Height = dec.nHeight;
 		info.viewport.MinZ = 0.0f;
 		info.viewport.MaxZ = 1.0f;
-		info.nType = nCnt;
-
-		nCnt++;
+		info.nType = dec.type;
 	}
 
     return S_OK;
@@ -117,7 +114,7 @@ HRESULT CTextureMTManager::Init(void)
 //===================================================
 // すべての破棄
 //===================================================
-void CTextureMTManager::Release(void)
+void CTextureMRTManager::Release(void)
 {
     // 総数分回す
     for (auto& info : m_aInfo)
@@ -148,7 +145,7 @@ void CTextureMTManager::Release(void)
 //===================================================
 // 指定した情報の破棄
 //===================================================
-void CTextureMTManager::Release(const int nIdx)
+void CTextureMRTManager::Release(const int nIdx)
 {
 	// レンダーターゲット用のインターフェスの破棄
 	if (m_aInfo[nIdx].pRenderMT != nullptr)
@@ -175,7 +172,7 @@ void CTextureMTManager::Release(const int nIdx)
 //===================================================
 // アドレスの取得
 //===================================================
-LPDIRECT3DTEXTURE9 CTextureMTManager::GetAdress(const int nType)
+LPDIRECT3DTEXTURE9 CTextureMRTManager::GetAdress(const int nType)
 {
 	if (nType < 0)
 	{
@@ -185,39 +182,9 @@ LPDIRECT3DTEXTURE9 CTextureMTManager::GetAdress(const int nType)
 }
 
 //===================================================
-// デフォルトのレンダーターゲットの設定
-//===================================================
-void CTextureMTManager::SetDefaultTarget(void)
-{
-	// マネージャーの取得
-	CManager* pManager = CManager::GetInstance();
-
-	// デバイスの取得
-	LPDIRECT3DDEVICE9 pDevice = pManager->GetRenderer()->GetDevice();
-
-	// ライトを有効にする
-	pDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
-
-	// 現在のレンダーターゲットの取得
-	pDevice->GetRenderTarget(0, &m_defInfo.pRenderMT);
-
-	// 現在のZバッファの取得
-	pDevice->GetDepthStencilSurface(&m_defInfo.pZBuffMT);
-
-	// 現在のビューポートの取得
-	pDevice->GetViewport(&m_defInfo.viewport);
-
-	// 現在のビューマトリックスの取得
-	pDevice->GetTransform(D3DTS_VIEW, &m_mtxViewDef);
-
-	// 現在のプロジェクションマトリックスの取得
-	pDevice->GetTransform(D3DTS_PROJECTION, &m_mtxProjDef);
-}
-
-//===================================================
 // レンダーターゲットの変更処理
 //===================================================
-void CTextureMTManager::ChangeRenderTarget(const int nIdx)
+void CTextureMRTManager::ChangeRenderTarget(const int nIdx, const int nStage)
 {
 	// マネージャーの取得
 	CManager* pManager = CManager::GetInstance();
@@ -227,10 +194,10 @@ void CTextureMTManager::ChangeRenderTarget(const int nIdx)
 
 	if (m_defInfo.pRenderMT == nullptr)
 	{
-		auto Table = CreateTable[nIdx];
+		auto Table = CREATE_TABLE[nIdx];
 
 		// 現在のレンダーターゲットの取得
-		pDevice->GetRenderTarget(0, &m_defInfo.pRenderMT);
+		pDevice->GetRenderTarget(nStage, &m_defInfo.pRenderMT);
 
 		// 現在のZバッファの取得
 		pDevice->GetDepthStencilSurface(&m_defInfo.pZBuffMT);
@@ -280,7 +247,7 @@ void CTextureMTManager::ChangeRenderTarget(const int nIdx)
 			D3DXToRadian(45.0f),
 			fAspect,
 			1.0f,
-			100000.0f);
+			5000.0f);
 
 		// プロジェクションマトリックスの設定
 		pDevice->SetTransform(D3DTS_PROJECTION, &mtxProjection);
@@ -292,7 +259,7 @@ void CTextureMTManager::ChangeRenderTarget(const int nIdx)
 			pDevice->Clear(0,
 				NULL,
 				(D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL),
-				Const::BACK_BUFFER_COLOR, 1.0f, 0);
+				Color::RED, 1.0f, 0);
 		}
 	}
 }
@@ -300,7 +267,7 @@ void CTextureMTManager::ChangeRenderTarget(const int nIdx)
 //===================================================
 // レンダーターゲットのリセット処理
 //===================================================
-void CTextureMTManager::ResetRenderTarget(void)
+void CTextureMRTManager::ResetRenderTarget(const int nStage)
 {
 	// マネージャーの取得
 	CManager* pManager = CManager::GetInstance();
@@ -312,7 +279,7 @@ void CTextureMTManager::ResetRenderTarget(void)
 	if (m_defInfo.pRenderMT != nullptr)
 	{
 		// レンダーターゲットをもとに戻す
-		pDevice->SetRenderTarget(0, m_defInfo.pRenderMT);
+		pDevice->SetRenderTarget(nStage, m_defInfo.pRenderMT);
 
 		// Zバッファをもとに戻す
 		pDevice->SetDepthStencilSurface(m_defInfo.pZBuffMT);

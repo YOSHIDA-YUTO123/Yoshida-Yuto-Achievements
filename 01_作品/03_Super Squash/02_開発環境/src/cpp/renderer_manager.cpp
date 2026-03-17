@@ -11,7 +11,7 @@
 #include "renderer_manager.h"
 #include "renderer_component.hpp"
 #include "manager.h"
-#include "texture_mt_manager.h"
+#include "texture_mrt_manager.h"
 
 //===================================================
 // レンダーステートの設定
@@ -176,7 +176,7 @@ void RendererManager::ChangeRenderTarget(const int nType)
 	CManager* pManager = CManager::GetInstance();
 
 	// テクスチャMTマネージャーの取得
-	CTextureMTManager* pTextureMTManager = pManager->GetTextureMTManager();
+	CTextureMRTManager* pTextureMTManager = pManager->GetTextureMRTManager();
 
 	// 取得できなかったら処理しない
 	if (pTextureMTManager == nullptr) return;
@@ -194,7 +194,7 @@ void RendererManager::ResetRenderTarget(void)
 	CManager* pManager = CManager::GetInstance();
 
 	// テクスチャMTマネージャーの取得
-	CTextureMTManager* pTextureMTManager = pManager->GetTextureMTManager();
+	CTextureMRTManager* pTextureMTManager = pManager->GetTextureMRTManager();
 
 	// 取得できなかったら処理しない
 	if (pTextureMTManager == nullptr) return;

@@ -273,6 +273,24 @@
     <FxCompile Include="data\SHADER\outline.hlsl">
       <Filter>shader</Filter>
     </FxCompile>
+    <FxCompile Include="data\SHADER\bloom.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\gausblur.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\luminance.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\shadow_map.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\shadow_map_reciever.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\shadow_map_reciever_mt.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="data\SYSTEM\model_list.json">
@@ -310,6 +328,9 @@
     </None>
     <None Include="data\SYSTEM\WALL\effect_wall.json">
       <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="data\SHADER\shader_const.hlsli">
+      <Filter>shader</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -643,7 +664,7 @@
     <ClCompile Include="src\cpp\texture_manager.cpp">
       <Filter>ソース ファイル\manager</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\texture_mt_manager.cpp">
+    <ClCompile Include="src\cpp\texture_mrt_manager.cpp">
       <Filter>ソース ファイル\manager</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\texture_scrol_system.cpp">
@@ -703,7 +724,7 @@
     <ClCompile Include="src\cpp\update_timer_system.cpp">
       <Filter>ソース ファイル\system\update\number</Filter>
     </ClCompile>
-    <ClCompile Include="src\cpp\vertex_manager.cpp">
+    <ClCompile Include="src\cpp\vertex_build.cpp">
       <Filter>ソース ファイル\manager</Filter>
     </ClCompile>
     <ClCompile Include="src\cpp\wall_effect_system.cpp">
@@ -735,6 +756,42 @@
     </ClCompile>
     <ClCompile Include="src\cpp\input_system.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\screen_polygon.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadow_charactermodel_renderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadowmap_recieve_model_renderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\include\shadowmap_recieve_field_renderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\gaus_blur_shader.cpp">
+      <Filter>ソース ファイル\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\bloom_shader.cpp">
+      <Filter>ソース ファイル\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\luminance_shader.cpp">
+      <Filter>ソース ファイル\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadow_map_reciever_mt_shader.cpp">
+      <Filter>ソース ファイル\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadow_map_reciever_shader.cpp">
+      <Filter>ソース ファイル\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadow_map_shader.cpp">
+      <Filter>ソース ファイル\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadow_model_renderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadow_map_mesh_sphere_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer\mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1008,9 +1065,6 @@
     <ClInclude Include="src\include\move_to_rotation_system.h">
       <Filter>ヘッダー ファイル\systems\update\transform</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\mrt_type.hpp">
-      <Filter>ヘッダー ファイル\constants</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\outline_character_renderer.h">
       <Filter>ヘッダー ファイル\systems\renderer\shader</Filter>
     </ClInclude>
@@ -1080,10 +1134,10 @@
     <ClInclude Include="src\include\texture_manager.h">
       <Filter>ヘッダー ファイル\manager</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\texture_mt_manager.h">
+    <ClInclude Include="src\include\texture_mrt_manager.h">
       <Filter>ヘッダー ファイル\manager</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\vertex_manager.h">
+    <ClInclude Include="src\include\vertex_build.h">
       <Filter>ヘッダー ファイル\manager</Filter>
     </ClInclude>
     <ClInclude Include="src\include\world_system_manager.h">
@@ -1445,6 +1499,42 @@
     </ClInclude>
     <ClInclude Include="src\components\motion_blur_component.hpp">
       <Filter>ヘッダー ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\screen_polygon.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadow_charactermodel_renderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadowmap_recieve_model_renderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadowmap_recieve_field_renderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\bloom_shader.h">
+      <Filter>ヘッダー ファイル\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gaus_blur_shader.h">
+      <Filter>ヘッダー ファイル\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\luminance_shader.h">
+      <Filter>ヘッダー ファイル\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadow_map_recieve_shader.h">
+      <Filter>ヘッダー ファイル\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadow_map_reciever_mt_shader.h">
+      <Filter>ヘッダー ファイル\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadow_map_shader.h">
+      <Filter>ヘッダー ファイル\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadow_model_renderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadow_map_mesh_sphere_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer\mesh</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
