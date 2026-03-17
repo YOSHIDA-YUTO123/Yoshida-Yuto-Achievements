@@ -1,4 +1,0 @@
-関数・構造体・名前空間・クラス名はパスカルケース 		(例 : PascalCase)
-変数名はキャメルケース + ハンガリアン法					(例 : camelCase)
-cpp.hpp.hは・定数はスネークケース						(例 : snake_case : SNAKE_CASE)
-※定数は大文字のスネーク
