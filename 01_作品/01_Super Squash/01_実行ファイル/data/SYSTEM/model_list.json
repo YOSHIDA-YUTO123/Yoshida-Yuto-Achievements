@@ -1,0 +1,67 @@
+{
+    "MODEL_INFO": [
+        {
+            "file_path": "data/MODEL/title_logo.x"
+        },
+        {
+            "file_path": "data/MODEL/title_start.x"
+        },
+        {
+            "file_path": "data/MODEL/title_quit.x"
+        },
+        {
+            "file_path": "data/MODEL/ShadowS.x"
+        },
+        {
+            "file_path": "data/MODEL/player/00_waist.x"
+        },
+        {
+            "file_path": "data/MODEL/player/01_chest.x"
+        },
+        {
+            "file_path": "data/MODEL/player/02_head.x"
+        },
+        {
+            "file_path": "data/MODEL/player/03_armUR.x"
+        },
+        {
+            "file_path": "data/MODEL/player/04_armFR.x"
+        },
+        {
+            "file_path": "data/MODEL/player/05_handR.x"
+        },
+        {
+            "file_path": "data/MODEL/player/06_armUL.x"
+        },
+        {
+            "file_path": "data/MODEL/player/07_armFL.x"
+        },
+        {
+            "file_path": "data/MODEL/player/08_handL.x"
+        },
+        {
+            "file_path": "data/MODEL/player/09_legUR.x"
+        },
+        {
+            "file_path": "data/MODEL/player/10_legDR.x"
+        },
+        {
+            "file_path": "data/MODEL/player/11_footR.x"
+        },
+        {
+            "file_path": "data/MODEL/player/12_legUL.x"
+        },
+        {
+            "file_path": "data/MODEL/player/13_legDL.x"
+        },
+        {
+            "file_path": "data/MODEL/player/14_footL.x"
+        },
+        {
+            "file_path": "data/MODEL/player/15_racket.x"
+        },
+        {
+            "file_path": "data/MODEL/JetPack.x"
+        }
+    ]
+}

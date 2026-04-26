@@ -1,0 +1,1540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{4dcdec29-e16b-40af-91a4-b254b21eee1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\base">
+      <UniqueIdentifier>{371a8c74-56d3-4a84-9019-29371382eb5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\base">
+      <UniqueIdentifier>{e98dbd59-7c4d-41b6-a0c7-e2227522f1fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems">
+      <UniqueIdentifier>{367f03cc-c4b1-41a7-a74b-04c7b316c15f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component">
+      <UniqueIdentifier>{e3e20f21-a836-4908-8cd2-56eae738840a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\character">
+      <UniqueIdentifier>{a5ba3f61-cf92-42a2-a605-0619c1537afd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\mesh">
+      <UniqueIdentifier>{340c3620-c62a-429a-9124-5d69b7c3ec9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update">
+      <UniqueIdentifier>{9e552487-9a26-49b2-a053-0deeb15dfb68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\renderer">
+      <UniqueIdentifier>{b2815ae3-6e75-44bf-8e12-7a687e538e01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\ball">
+      <UniqueIdentifier>{5c8b1330-49a9-4a80-a073-d44aae1131a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\billboard">
+      <UniqueIdentifier>{6bbe1029-1c67-484c-982a-7ccfdd726263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\billboard\effect">
+      <UniqueIdentifier>{7e9466c8-65d4-4349-96e5-3577f5d34005}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\manager">
+      <UniqueIdentifier>{c6bc830d-1440-47c8-8d69-ed9decf0b920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update\collision">
+      <UniqueIdentifier>{ed3ea443-edf6-42fa-ae0d-2d867898ce64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update\mesh">
+      <UniqueIdentifier>{4df00f75-2304-41de-b744-feabad931acf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\specification">
+      <UniqueIdentifier>{1eb4b2bf-90de-4d7c-bf06-d8ba0a75f364}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scene">
+      <UniqueIdentifier>{f62ee7bb-3ebd-4c53-8acc-bb14c56618d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\factory">
+      <UniqueIdentifier>{66bbd48c-9134-4261-8ed7-e8cdca776915}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system">
+      <UniqueIdentifier>{bb3b0d68-252b-41a1-beb0-4f5935140fa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\renderer">
+      <UniqueIdentifier>{b31c0fb6-395b-4153-be55-361d06cf8d59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\update">
+      <UniqueIdentifier>{43a9d197-d13a-4a4e-8a51-03d5b8a91ba1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\update\mesh">
+      <UniqueIdentifier>{ac560537-e11c-4662-9e1e-84bc2c578efa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\specification">
+      <UniqueIdentifier>{540952fe-98b0-469e-a631-878767dd399d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\core">
+      <UniqueIdentifier>{6a01400d-4260-4484-99df-e1463acb9aa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\debug">
+      <UniqueIdentifier>{66143911-5032-4fb3-97f3-112465c35a7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\update\billboard">
+      <UniqueIdentifier>{2f187a35-73f3-4711-86c6-69c9506754dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\update\ball">
+      <UniqueIdentifier>{abb61797-9e83-4f47-8e49-e1a957f9ac94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\manager">
+      <UniqueIdentifier>{a479acb4-cc48-46b1-9241-25398482a2c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\update\character">
+      <UniqueIdentifier>{15104500-68ef-4f0d-874c-32cdebf43df9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\update\collision">
+      <UniqueIdentifier>{2ca92da7-a3c1-497c-8051-3f9146d04228}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\update\transform">
+      <UniqueIdentifier>{e4fa1574-e9fc-4cb4-b643-c4316784d2bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\update\animation">
+      <UniqueIdentifier>{cced6108-e203-404c-97aa-0c261b033ce5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\update\quad">
+      <UniqueIdentifier>{e93552b3-6ceb-4f6d-9ba9-09e7656482a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\update\model">
+      <UniqueIdentifier>{5c693070-44d4-4474-945d-7cfa87c2b5af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update\billboard">
+      <UniqueIdentifier>{42626968-e9dc-4cce-8e65-c6b09d5f01bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update\character">
+      <UniqueIdentifier>{8e6e96f1-a05a-4dc7-bb94-06d9f60e1946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update\model">
+      <UniqueIdentifier>{2533ccd5-8f3d-412a-9c7e-39443f820f40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\collision">
+      <UniqueIdentifier>{d4e81497-5cf1-4902-9c31-7bc6f350af55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\core">
+      <UniqueIdentifier>{01680cf1-f34e-42e0-8458-f12222212130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\transform">
+      <UniqueIdentifier>{e337a77f-9bc6-4194-a037-fe29b2b8344b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\factory">
+      <UniqueIdentifier>{e2ca17c0-a0dc-4814-8f8a-e2d2e19e8b95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\model">
+      <UniqueIdentifier>{3460b532-f9a7-4ceb-b46b-52263a41b146}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\quad">
+      <UniqueIdentifier>{8a0c8ffb-2a36-4589-8e54-22e51aa2b60a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\renderer">
+      <UniqueIdentifier>{3c039c4b-5ee2-43a4-b46b-1297610ce534}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\vertex">
+      <UniqueIdentifier>{512ef677-6ce0-438d-86c6-ede46c776a51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\sprite">
+      <UniqueIdentifier>{07d38bf1-7cd4-47c7-a4ef-b4b797b970e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update\transform">
+      <UniqueIdentifier>{e424c1a1-0cdd-42e9-a5b2-880e0fb86827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update\animation">
+      <UniqueIdentifier>{a078e9e4-be45-4e92-9897-44fb9518c683}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update\billboard\effect">
+      <UniqueIdentifier>{03e692d4-e993-426a-9f95-43d1989678be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update\ball">
+      <UniqueIdentifier>{6eb04a88-a635-4977-85ed-6b98e8615e39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update\quad">
+      <UniqueIdentifier>{dcc8fb50-2b31-4c00-a945-a1998e933c87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\factory\init">
+      <UniqueIdentifier>{3f6a8ee2-b660-4b8b-922b-8fa2e3ea6955}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\factory\init">
+      <UniqueIdentifier>{94f6efa8-0092-4945-b4db-0ba82331e447}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\update\sprite">
+      <UniqueIdentifier>{02fbb9cc-191b-4d47-a9b8-7667d1be9e20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\base\camera">
+      <UniqueIdentifier>{4a6a4546-a51e-4a50-b600-e46c0e73c958}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\base\camera">
+      <UniqueIdentifier>{160875b8-5d16-4f96-84d4-31ddea4682c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update\number">
+      <UniqueIdentifier>{d6e55c40-bb37-466e-bbae-8da6d03d94d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\update\number">
+      <UniqueIdentifier>{381fd40b-3165-43a6-84c5-ccfc130220a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\debug">
+      <UniqueIdentifier>{ccdda9ae-6a0f-44ee-9568-f51b004d1db5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\shader">
+      <UniqueIdentifier>{5cd0635b-5be1-44a0-9de9-69ddc68c8ffe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\manager\MRT">
+      <UniqueIdentifier>{e3270481-a1a9-4844-9431-235ba2e855df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{38891b0b-3546-4c08-8739-999ecd57384d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\renderer\shader">
+      <UniqueIdentifier>{74c663db-89dc-447f-a5a4-5b9e71da1bb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\renderer\shader">
+      <UniqueIdentifier>{34652501-9bc4-46ef-b014-5b911ac18d7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\shader">
+      <UniqueIdentifier>{f3ceeaf9-9178-409e-90e8-7a53f10858af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\renderer\mesh">
+      <UniqueIdentifier>{09e748a1-dddb-4c57-a351-0d0441d9e9db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\renderer\mesh">
+      <UniqueIdentifier>{a91aae2f-5e42-47ba-9472-3f7ab1cacc73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\shader">
+      <UniqueIdentifier>{f4cac21e-95a4-496e-a441-bc181365420b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\core\loader">
+      <UniqueIdentifier>{9a359387-fa2f-4e39-9ee4-52a733afded6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\core\loader">
+      <UniqueIdentifier>{92e6aabb-f3fb-40a4-8d9e-64ad2ca8def8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\scene\state">
+      <UniqueIdentifier>{aac66452-001e-4e78-a03d-1c4ec4f1cabc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\tag">
+      <UniqueIdentifier>{40a42828-60ae-4e7e-9e5c-bd8413b602ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\update\scene">
+      <UniqueIdentifier>{45c5ac09-912b-45b7-bd85-86cb41efaef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update\scene">
+      <UniqueIdentifier>{93c344d7-f584-45e0-a507-ca36efbb1399}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\system">
+      <UniqueIdentifier>{5594c021-f0e7-408c-97e9-38e5c7dde221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system\update\menu">
+      <UniqueIdentifier>{429ca911-f9f5-45eb-8acb-e2891d4b4a68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update\menu">
+      <UniqueIdentifier>{5c05818d-ef56-4b1a-aa54-5f0afaf90664}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\constants">
+      <UniqueIdentifier>{3a71a163-58a7-490e-91b2-4892a2f50353}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\sprite">
+      <UniqueIdentifier>{e0a44879-c3d1-416e-8f8b-9c157bdc7ed2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\scene">
+      <UniqueIdentifier>{24a91f00-9ed6-4b00-9ab2-960ad94ca3e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\scene\state">
+      <UniqueIdentifier>{453d214c-6882-4d7d-9754-ba3dca158e79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\systems\update\sprite">
+      <UniqueIdentifier>{7093d3bf-8516-4017-8951-db5ace8c3bbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\animation">
+      <UniqueIdentifier>{06b8e2b2-ed37-4afe-a5b9-645c50a7f344}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\sheet">
+      <UniqueIdentifier>{0357a218-9a77-4ce7-8e28-dc3f69e6885e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\component\scene">
+      <UniqueIdentifier>{5ff969c3-5055-4562-9260-fb66454d6935}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="data\SHADER\outline.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\bloom.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\gausblur.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\luminance.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\shadow_map.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\shadow_map_reciever.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+    <FxCompile Include="data\SHADER\shadow_map_reciever_mt.hlsl">
+      <Filter>shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\SYSTEM\model_list.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="data\SYSTEM\particle_param.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="data\SYSTEM\player.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="data\SYSTEM\scene_camera_animation.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="data\SYSTEM\scenebase.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="data\SYSTEM\sky.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="data\SYSTEM\texture_list.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="data\SYSTEM\FIELD\first_scene_field.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="data\SYSTEM\FIELD\scenebase_field.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="data\SYSTEM\WALL\first_scene_wall.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="data\SYSTEM\WALL\game_wall.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="data\SYSTEM\WALL\effect_wall.json">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="data\SHADER\shader_const.hlsli">
+      <Filter>shader</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\cpp\ball_to_field_collision_system.cpp">
+      <Filter>ソース ファイル\system\update\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\calcu_world_matrix.cpp">
+      <Filter>ソース ファイル\system\update\transform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\camera_aimation_system.cpp">
+      <Filter>ソース ファイル\base\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\camera_shake.cpp">
+      <Filter>ソース ファイル\base\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\character_motion_spec.cpp">
+      <Filter>ソース ファイル\specification</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\character_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\character_system.cpp">
+      <Filter>ソース ファイル\system\update\character</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\character_transform_spec.cpp">
+      <Filter>ソース ファイル\specification</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\check_camera_behind_wall.cpp">
+      <Filter>ソース ファイル\base\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\collider_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\collider_system.cpp">
+      <Filter>ソース ファイル\system\update\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\collision.cpp">
+      <Filter>ソース ファイル\system\update\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\collision_effect_wall_system.cpp">
+      <Filter>ソース ファイル\system\update\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\debug_info.cpp">
+      <Filter>ソース ファイル\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\debug_proc.cpp">
+      <Filter>ソース ファイル\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\debug_system.cpp">
+      <Filter>ソース ファイル\debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\effect_system.cpp">
+      <Filter>ソース ファイル\system\update\character</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\effect_wall_loader.cpp">
+      <Filter>ソース ファイル\core\loader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\entity_manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\explotion_manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\factory_2d.cpp">
+      <Filter>ソース ファイル\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\factory_billboard.cpp">
+      <Filter>ソース ファイル\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\factory_character.cpp">
+      <Filter>ソース ファイル\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\factory_mesh.cpp">
+      <Filter>ソース ファイル\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\factory_mesh_quad.cpp">
+      <Filter>ソース ファイル\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\factory_model.cpp">
+      <Filter>ソース ファイル\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\factory_system_entity.cpp">
+      <Filter>ソース ファイル\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\fade.cpp">
+      <Filter>ソース ファイル\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\field_collision_system.cpp">
+      <Filter>ソース ファイル\system\update\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\follow_camera.cpp">
+      <Filter>ソース ファイル\base\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\game_controller.cpp">
+      <Filter>ソース ファイル\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\hitstop.cpp">
+      <Filter>ソース ファイル\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\hitstop_controller.cpp">
+      <Filter>ソース ファイル\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\init_2d.cpp">
+      <Filter>ソース ファイル\factory\init</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\init_mesh.cpp">
+      <Filter>ソース ファイル\factory\init</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\init_mesh_field.cpp">
+      <Filter>ソース ファイル\factory\init</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\input.cpp">
+      <Filter>ソース ファイル\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\jet_pack_system.cpp">
+      <Filter>ソース ファイル\system\update\model</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\json_manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\light.cpp">
+      <Filter>ソース ファイル\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\line.cpp">
+      <Filter>ソース ファイル\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\locator_system.cpp">
+      <Filter>ソース ファイル\system\update\transform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\main.cpp">
+      <Filter>ソース ファイル\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\camera.cpp">
+      <Filter>ソース ファイル\base\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\menu_select_system.cpp">
+      <Filter>ソース ファイル\system\update\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_wall_renderer.cpp">
+      <Filter>ソース ファイル\system\update\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_circle_system.cpp">
+      <Filter>ソース ファイル\system\update\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_field_update_system.cpp">
+      <Filter>ソース ファイル\system\update\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_orbit_system.cpp">
+      <Filter>ソース ファイル\system\update\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_quad_system.cpp">
+      <Filter>ソース ファイル\system\update\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_sky_loader.cpp">
+      <Filter>ソース ファイル\system\update\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_sphere_system.cpp">
+      <Filter>ソース ファイル\system\update\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_wave_system.cpp">
+      <Filter>ソース ファイル\system\update\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_dome_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_effect_manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_field_loader.cpp">
+      <Filter>ソース ファイル\core\loader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_quad_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_renderer_mt.cpp">
+      <Filter>ソース ファイル\system\renderer\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_sphere_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_sphere_renderer_mrt.cpp">
+      <Filter>ソース ファイル\system\renderer\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_wall_loader.cpp">
+      <Filter>ソース ファイル\core\loader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\minigame_result_state.cpp">
+      <Filter>ソース ファイル\scene\state</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\minigame_state.cpp">
+      <Filter>ソース ファイル\scene\state</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\minigame_manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\minigame_player_system.cpp">
+      <Filter>ソース ファイル\system\update\character</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\model_manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\model_renderer_mrt.cpp">
+      <Filter>ソース ファイル\system\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\motion_manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\motion_system.cpp">
+      <Filter>ソース ファイル\system\update\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\motion_loader.cpp">
+      <Filter>ソース ファイル\core\loader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\move_to_rotation_system.cpp">
+      <Filter>ソース ファイル\system\update\transform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\outline_character_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\outline_mesh_SphereRenderer.cpp">
+      <Filter>ソース ファイル\system\renderer\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\outline_model_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\particle_helper.cpp">
+      <Filter>ソース ファイル\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\particle_system.cpp">
+      <Filter>ソース ファイル\system\update\billboard</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\pause_menu_system.cpp">
+      <Filter>ソース ファイル\system\update\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\player_loader.cpp">
+      <Filter>ソース ファイル\core\loader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\player_motion_system.cpp">
+      <Filter>ソース ファイル\system\update\character</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\player_spec.cpp">
+      <Filter>ソース ファイル\specification</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\player_system.cpp">
+      <Filter>ソース ファイル\system\update\character</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\ranking_highlight_system.cpp">
+      <Filter>ソース ファイル\system\update\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\renderer.cpp">
+      <Filter>ソース ファイル\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\renderer_manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\result_ball_system.cpp">
+      <Filter>ソース ファイル\system\update\ball</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\result_loader.cpp">
+      <Filter>ソース ファイル\core\loader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\result_system.cpp">
+      <Filter>ソース ファイル\system\update\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\rotation_move_system.cpp">
+      <Filter>ソース ファイル\system\update\transform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\scene.cpp">
+      <Filter>ソース ファイル\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\scene_controller.cpp">
+      <Filter>ソース ファイル\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\scene_loader.cpp">
+      <Filter>ソース ファイル\core\loader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\score_area_system.cpp">
+      <Filter>ソース ファイル\system\update\quad</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\score_manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shader.cpp">
+      <Filter>ソース ファイル\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\score_system.cpp">
+      <Filter>ソース ファイル\system\update\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shader_manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shader_outline.cpp">
+      <Filter>ソース ファイル\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadow_system.cpp">
+      <Filter>ソース ファイル\system\update\quad</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\sound.cpp">
+      <Filter>ソース ファイル\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\spec_combinators.cpp">
+      <Filter>ソース ファイル\specification</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\sprite_mrt_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\sprite_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\statebase.cpp">
+      <Filter>ソース ファイル\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\stencil_polygon.cpp">
+      <Filter>ソース ファイル\system\update\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\stencil_shadow_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\system_manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\texture_animation_system.cpp">
+      <Filter>ソース ファイル\system\update\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\texture_manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\texture_mrt_manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\texture_scrol_system.cpp">
+      <Filter>ソース ファイル\system\update\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\timer_renderer_mt.cpp">
+      <Filter>ソース ファイル\system\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\title_menu_system.cpp">
+      <Filter>ソース ファイル\system\update\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\title_state.cpp">
+      <Filter>ソース ファイル\scene\state</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\title_wall_system.cpp">
+      <Filter>ソース ファイル\system\update\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\titlemenu_animation_system.cpp">
+      <Filter>ソース ファイル\system\update\menu</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\tutorial_ui_system.cpp">
+      <Filter>ソース ファイル\system\update\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\ui_fadeout_system.cpp">
+      <Filter>ソース ファイル\system\update\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\ui_flash_system.cpp">
+      <Filter>ソース ファイル\system\update\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\ui_scaling_system.cpp">
+      <Filter>ソース ファイル\system\update\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\ui_slide_system.cpp">
+      <Filter>ソース ファイル\system\update\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\ui_wall_controller.cpp">
+      <Filter>ソース ファイル\system\update\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\ui_wall_system.cpp">
+      <Filter>ソース ファイル\system\update\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\update_ball_system.cpp">
+      <Filter>ソース ファイル\system\update\ball</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\update_billboard_system.cpp">
+      <Filter>ソース ファイル\system\update\billboard</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\update_position_3d_system.cpp">
+      <Filter>ソース ファイル\system\update\transform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\update_sprite_sheet_system.cpp">
+      <Filter>ソース ファイル\system\update\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\update_sprite_system.cpp">
+      <Filter>ソース ファイル\system\update\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\update_timer_system.cpp">
+      <Filter>ソース ファイル\system\update\number</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\vertex_build.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\wall_effect_system.cpp">
+      <Filter>ソース ファイル\system\update\billboard</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\world_system_manager.cpp">
+      <Filter>ソース ファイル\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\pch.cpp">
+      <Filter>ソース ファイル\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\utility_math.cpp">
+      <Filter>ソース ファイル\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\ball_spec.cpp">
+      <Filter>ソース ファイル\specification</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\billboard_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\character_collision_spec.cpp">
+      <Filter>ソース ファイル\specification</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\model_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\mesh_wall_collision_system.cpp">
+      <Filter>ソース ファイル\system\update\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\input_system.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\screen_polygon.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadow_charactermodel_renderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadowmap_recieve_model_renderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\include\shadowmap_recieve_field_renderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\gaus_blur_shader.cpp">
+      <Filter>ソース ファイル\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\bloom_shader.cpp">
+      <Filter>ソース ファイル\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\luminance_shader.cpp">
+      <Filter>ソース ファイル\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadow_map_reciever_mt_shader.cpp">
+      <Filter>ソース ファイル\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadow_map_reciever_shader.cpp">
+      <Filter>ソース ファイル\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadow_map_shader.cpp">
+      <Filter>ソース ファイル\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadow_model_renderer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\cpp\shadow_map_mesh_sphere_renderer.cpp">
+      <Filter>ソース ファイル\system\renderer\mesh</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\include\ball_constants.hpp">
+      <Filter>ヘッダー ファイル\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\ball_spec.h">
+      <Filter>ヘッダー ファイル\specification</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\ball_to_field_collision_system.h">
+      <Filter>ヘッダー ファイル\systems\update\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\billboard_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\calcu_world_matrix.h">
+      <Filter>ヘッダー ファイル\systems\update\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\camera.h">
+      <Filter>ヘッダー ファイル\base\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\camera_animation_system.h">
+      <Filter>ヘッダー ファイル\base\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\camera_shake.h">
+      <Filter>ヘッダー ファイル\base\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\camera_system_base.h">
+      <Filter>ヘッダー ファイル\base\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\character_collision_spec.h">
+      <Filter>ヘッダー ファイル\specification</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\character_constants.hpp">
+      <Filter>ヘッダー ファイル\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\character_motion_spec.h">
+      <Filter>ヘッダー ファイル\specification</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\character_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\character_system.h">
+      <Filter>ヘッダー ファイル\systems\update\character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\character_transform_spec.h">
+      <Filter>ヘッダー ファイル\specification</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\check_camera_behind_wall.h">
+      <Filter>ヘッダー ファイル\base\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\collider_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\collider_system.h">
+      <Filter>ヘッダー ファイル\systems\update\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\collision.h">
+      <Filter>ヘッダー ファイル\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\collision_effect_wall_system.h">
+      <Filter>ヘッダー ファイル\systems\update\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\color_constants.hpp">
+      <Filter>ヘッダー ファイル\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\debug_info.h">
+      <Filter>ヘッダー ファイル\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\debug_proc.h">
+      <Filter>ヘッダー ファイル\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\debug_system.h">
+      <Filter>ヘッダー ファイル\debug</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\effect_constants.hpp">
+      <Filter>ヘッダー ファイル\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\effect_system.h">
+      <Filter>ヘッダー ファイル\systems\update\billboard\effect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\effect_wall_loader.h">
+      <Filter>ヘッダー ファイル\core\loader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\entity_layer.hpp">
+      <Filter>ヘッダー ファイル\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\entity_manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\explotion_manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\factory_2d.h">
+      <Filter>ヘッダー ファイル\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\factory_billboard.h">
+      <Filter>ヘッダー ファイル\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\factory_character.h">
+      <Filter>ヘッダー ファイル\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\factory_mesh.h">
+      <Filter>ヘッダー ファイル\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\factory_mesh_quad.h">
+      <Filter>ヘッダー ファイル\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\factory_model.h">
+      <Filter>ヘッダー ファイル\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\factory_system_entity.h">
+      <Filter>ヘッダー ファイル\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\fade.h">
+      <Filter>ヘッダー ファイル\base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\field_collision_system.h">
+      <Filter>ヘッダー ファイル\systems\update\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\field_effect_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\follow_camera.h">
+      <Filter>ヘッダー ファイル\base\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\game_controller.h">
+      <Filter>ヘッダー ファイル\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\hitstop.h">
+      <Filter>ヘッダー ファイル\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\hitstop_controller.h">
+      <Filter>ヘッダー ファイル\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\init_2d.h">
+      <Filter>ヘッダー ファイル\factory\init</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\init_mesh.h">
+      <Filter>ヘッダー ファイル\factory\init</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\init_mesh_field.h">
+      <Filter>ヘッダー ファイル\factory\init</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\input.h">
+      <Filter>ヘッダー ファイル\base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\jet_pack_system.h">
+      <Filter>ヘッダー ファイル\systems\update\model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\json_manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\light.h">
+      <Filter>ヘッダー ファイル\base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\line.h">
+      <Filter>ヘッダー ファイル\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\loader_constants.hpp">
+      <Filter>ヘッダー ファイル\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\main.h">
+      <Filter>ヘッダー ファイル\base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\locator_system.h">
+      <Filter>ヘッダー ファイル\systems\update\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\menu_select_system.h">
+      <Filter>ヘッダー ファイル\systems\update\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_circle_system.h">
+      <Filter>ヘッダー ファイル\systems\update\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_field_update_system.h">
+      <Filter>ヘッダー ファイル\systems\update\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_orbit_system.h">
+      <Filter>ヘッダー ファイル\systems\update\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_quad_system.h">
+      <Filter>ヘッダー ファイル\systems\update\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_sphere_system.h">
+      <Filter>ヘッダー ファイル\systems\update\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_wall_collision_system.h">
+      <Filter>ヘッダー ファイル\systems\update\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_wave_system.h">
+      <Filter>ヘッダー ファイル\systems\update\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_effect_manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_dome_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_field_loader.h">
+      <Filter>ヘッダー ファイル\core\loader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_layer.hpp">
+      <Filter>ヘッダー ファイル\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_quad_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_renderer_mt.h">
+      <Filter>ヘッダー ファイル\systems\renderer\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_sphere_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_sphere_renderer_mrt.h">
+      <Filter>ヘッダー ファイル\systems\renderer\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_wall_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_sky_loader.h">
+      <Filter>ヘッダー ファイル\core\loader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\mesh_wall_loader.h">
+      <Filter>ヘッダー ファイル\core\loader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\minigame_manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\minigame_player_system.h">
+      <Filter>ヘッダー ファイル\systems\update\character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\minigame_result_state.h">
+      <Filter>ヘッダー ファイル\scene\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\minigame_state.h">
+      <Filter>ヘッダー ファイル\scene\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\model_manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\model_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\model_renderer_mrt.h">
+      <Filter>ヘッダー ファイル\systems\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\motion_loader.h">
+      <Filter>ヘッダー ファイル\core\loader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\player_loader.h">
+      <Filter>ヘッダー ファイル\core\loader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\result_loader.h">
+      <Filter>ヘッダー ファイル\core\loader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\scene_loader.h">
+      <Filter>ヘッダー ファイル\core\loader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\motion_manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\motion_system.h">
+      <Filter>ヘッダー ファイル\systems\update\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\move_to_rotation_system.h">
+      <Filter>ヘッダー ファイル\systems\update\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\outline_character_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\outline_model_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\outline_mesh_sphere_renderer.h">
+      <Filter>ヘッダー ファイル\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\particle_helper.h">
+      <Filter>ヘッダー ファイル\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\particle_system.h">
+      <Filter>ヘッダー ファイル\systems\update\billboard\effect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pause_menu.hpp">
+      <Filter>ヘッダー ファイル\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\renderer.h">
+      <Filter>ヘッダー ファイル\base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\player_constants.hpp">
+      <Filter>ヘッダー ファイル\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\player_spec.h">
+      <Filter>ヘッダー ファイル\specification</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\spec_combinators.h">
+      <Filter>ヘッダー ファイル\specification</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\specification_base.hpp">
+      <Filter>ヘッダー ファイル\specification</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\player_motion_system.h">
+      <Filter>ヘッダー ファイル\systems\update\character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\player_system.h">
+      <Filter>ヘッダー ファイル\systems\update\character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\scene.h">
+      <Filter>ヘッダー ファイル\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\scene_controller.h">
+      <Filter>ヘッダー ファイル\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\scene_state_base.h">
+      <Filter>ヘッダー ファイル\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pause_menu_system.h">
+      <Filter>ヘッダー ファイル\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\ranking_highlight_system.h">
+      <Filter>ヘッダー ファイル\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\renderer_manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\score_manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shader_manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\system_manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\texture_manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\texture_mrt_manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\vertex_build.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\world_system_manager.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\renderer_mrt_system_base.h">
+      <Filter>ヘッダー ファイル\systems\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\result_ball_system.h">
+      <Filter>ヘッダー ファイル\systems\update\ball</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\rotation_move_system.h">
+      <Filter>ヘッダー ファイル\systems\update\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shader_outline.h">
+      <Filter>ヘッダー ファイル\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shader.h">
+      <Filter>ヘッダー ファイル\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\result_system.h">
+      <Filter>ヘッダー ファイル\systems\update\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\score_area_system.h">
+      <Filter>ヘッダー ファイル\systems\update\quad</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\score_system.h">
+      <Filter>ヘッダー ファイル\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadow_system.h">
+      <Filter>ヘッダー ファイル\systems\update\quad</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\sound.h">
+      <Filter>ヘッダー ファイル\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\stencil_polygon.h">
+      <Filter>ヘッダー ファイル\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\titlemenu_animation_system.h">
+      <Filter>ヘッダー ファイル\systems\update\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\ui_fadeout_system.h">
+      <Filter>ヘッダー ファイル\systems\update\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\ui_flash_system.h">
+      <Filter>ヘッダー ファイル\systems\update\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\ui_scaling_system.h">
+      <Filter>ヘッダー ファイル\systems\update\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\ui_slide_system.h">
+      <Filter>ヘッダー ファイル\systems\update\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\ui_wall_controller.h">
+      <Filter>ヘッダー ファイル\systems\update\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\ui_wall_system.h">
+      <Filter>ヘッダー ファイル\systems\update\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\texture_scrol_system.h">
+      <Filter>ヘッダー ファイル\systems\update\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\texture_animation_system.h">
+      <Filter>ヘッダー ファイル\systems\update\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\title_state.h">
+      <Filter>ヘッダー ファイル\scene\state</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\statebase.h">
+      <Filter>ヘッダー ファイル\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\system_base.h">
+      <Filter>ヘッダー ファイル\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\world_system.h">
+      <Filter>ヘッダー ファイル\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\timer_renderer_mt.h">
+      <Filter>ヘッダー ファイル\systems\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tItle_menu.hpp">
+      <Filter>ヘッダー ファイル\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\update_ball_system.h">
+      <Filter>ヘッダー ファイル\systems\update\ball</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\update_billboard_system.h">
+      <Filter>ヘッダー ファイル\systems\update\billboard</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\title_menu_system.h">
+      <Filter>ヘッダー ファイル\systems\update\menu</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\title_wall_system.h">
+      <Filter>ヘッダー ファイル\systems\update\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\tutorial_ui_system.h">
+      <Filter>ヘッダー ファイル\systems\update\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\update_sprite_sheet_system.h">
+      <Filter>ヘッダー ファイル\systems\update\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\update_sprite_system.h">
+      <Filter>ヘッダー ファイル\systems\update\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\update_timer_system.h">
+      <Filter>ヘッダー ファイル\systems\update\quad</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\wall_effect_system.h">
+      <Filter>ヘッダー ファイル\systems\update\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\wall_constants.hpp">
+      <Filter>ヘッダー ファイル\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\wall_ui_type.hpp">
+      <Filter>ヘッダー ファイル\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\animation_particle_component.hpp">
+      <Filter>ヘッダー ファイル\component\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\ranking_highlight_component.hpp">
+      <Filter>ヘッダー ファイル\component\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\ui_wall_component.hpp">
+      <Filter>ヘッダー ファイル\component\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\ui_slide_component.hpp">
+      <Filter>ヘッダー ファイル\component\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\ui_scaling_component.hpp">
+      <Filter>ヘッダー ファイル\component\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\ui_flash_component.hpp">
+      <Filter>ヘッダー ファイル\component\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\ui_fadeout_component.hpp">
+      <Filter>ヘッダー ファイル\component\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\ball_component.hpp">
+      <Filter>ヘッダー ファイル\component\ball</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\result_ball_component.hpp">
+      <Filter>ヘッダー ファイル\component\ball</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\ball_field_collision_component.hpp">
+      <Filter>ヘッダー ファイル\component\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\box_collider_component.hpp">
+      <Filter>ヘッダー ファイル\component\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\capsule_collider_component.hpp">
+      <Filter>ヘッダー ファイル\component\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\character_component.hpp">
+      <Filter>ヘッダー ファイル\component\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\collider_component.hpp">
+      <Filter>ヘッダー ファイル\component\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\collision_effect_wall_component.hpp">
+      <Filter>ヘッダー ファイル\component\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\field_collision_component.hpp">
+      <Filter>ヘッダー ファイル\component\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\mesh_wall_collision_component.hpp">
+      <Filter>ヘッダー ファイル\component\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\sphere_collider_component.hpp">
+      <Filter>ヘッダー ファイル\component\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\character_model_component.hpp">
+      <Filter>ヘッダー ファイル\component\character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\player_command_component.hpp">
+      <Filter>ヘッダー ファイル\component\character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\player_component.hpp">
+      <Filter>ヘッダー ファイル\component\character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\minigame_player_component.hpp">
+      <Filter>ヘッダー ファイル\component\character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\mesh_circle_component.hpp">
+      <Filter>ヘッダー ファイル\component\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\mesh_cylinder_component.hpp">
+      <Filter>ヘッダー ファイル\component\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\mesh_dome_component.hpp">
+      <Filter>ヘッダー ファイル\component\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\mesh_orbit_component.hpp">
+      <Filter>ヘッダー ファイル\component\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\mesh_sphere_component.hpp">
+      <Filter>ヘッダー ファイル\component\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\mesh_vtx_component.hpp">
+      <Filter>ヘッダー ファイル\component\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\mesh_wall_component.hpp">
+      <Filter>ヘッダー ファイル\component\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\mesh_wave_component.hpp">
+      <Filter>ヘッダー ファイル\component\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\menu_select_component.hpp">
+      <Filter>ヘッダー ファイル\component\system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\menu_component.hpp">
+      <Filter>ヘッダー ファイル\component\system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\score_area_component.hpp">
+      <Filter>ヘッダー ファイル\component\quad</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\score_area_polygon_component.hpp">
+      <Filter>ヘッダー ファイル\component\quad</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\parent_component.hpp">
+      <Filter>ヘッダー ファイル\component\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\move_to_rotation_component.hpp">
+      <Filter>ヘッダー ファイル\component\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\velocity_component.hpp">
+      <Filter>ヘッダー ファイル\component\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\transform_component.hpp">
+      <Filter>ヘッダー ファイル\component\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\outline_shader_component.hpp">
+      <Filter>ヘッダー ファイル\component\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\titlemenu_animation_component.hpp">
+      <Filter>ヘッダー ファイル\component\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\texture_scrol_component.hpp">
+      <Filter>ヘッダー ファイル\component\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\texture_animation_component.hpp">
+      <Filter>ヘッダー ファイル\component\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\motion_component.hpp">
+      <Filter>ヘッダー ファイル\component\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\sheet_component.hpp">
+      <Filter>ヘッダー ファイル\component\sheet</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\tag_component.hpp">
+      <Filter>ヘッダー ファイル\component\tag</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\effect_component.hpp">
+      <Filter>ヘッダー ファイル\component\billboard\effect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\particle_component.hpp">
+      <Filter>ヘッダー ファイル\component\billboard\effect</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\locator_component.hpp">
+      <Filter>ヘッダー ファイル\component\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\vertex_buffer_component.hpp">
+      <Filter>ヘッダー ファイル\component\vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\color_component.hpp">
+      <Filter>ヘッダー ファイル\component\vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\renderer_system_base.h">
+      <Filter>ヘッダー ファイル\systems\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\size_component.hpp">
+      <Filter>ヘッダー ファイル\component\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\rotation_move_component.hpp">
+      <Filter>ヘッダー ファイル\component\vertex</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\renderer_component.hpp">
+      <Filter>ヘッダー ファイル\component\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\layer_component.hpp">
+      <Filter>ヘッダー ファイル\component\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\mrt_target_component.hpp">
+      <Filter>ヘッダー ファイル\component\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\jet_pack_component.hpp">
+      <Filter>ヘッダー ファイル\component\model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\model_component.hpp">
+      <Filter>ヘッダー ファイル\component\model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\result_system_component.hpp">
+      <Filter>ヘッダー ファイル\component\system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\tutorial_ui_component.hpp">
+      <Filter>ヘッダー ファイル\component\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\tutorial_system_component.hpp">
+      <Filter>ヘッダー ファイル\component\system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\ranking_component.hpp">
+      <Filter>ヘッダー ファイル\component\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\title_wall_component.hpp">
+      <Filter>ヘッダー ファイル\component\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\wall_effect_component.hpp">
+      <Filter>ヘッダー ファイル\component\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\entity_name_component.hpp">
+      <Filter>ヘッダー ファイル\component\tag</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\score_component.hpp">
+      <Filter>ヘッダー ファイル\component\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\shadow_component.hpp">
+      <Filter>ヘッダー ファイル\component\quad</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\sphere_component.hpp">
+      <Filter>ヘッダー ファイル\component\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\texture_mt_component.hpp">
+      <Filter>ヘッダー ファイル\component\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\texture_id_component.hpp">
+      <Filter>ヘッダー ファイル\component\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\timer_component.hpp">
+      <Filter>ヘッダー ファイル\component\sheet</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\sprite_mrt_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\sprite_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\stencil_shadow_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\pch.h">
+      <Filter>ヘッダー ファイル\base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\json.hpp">
+      <Filter>vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\entt.hpp">
+      <Filter>vendor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\utility_math.h">
+      <Filter>ヘッダー ファイル\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\update_position_3d_system.h">
+      <Filter>ヘッダー ファイル\systems\update\transform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\scene_change_constants.hpp">
+      <Filter>ヘッダー ファイル\constants</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\input_system.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\motion_blur_component.hpp">
+      <Filter>ヘッダー ファイル\component</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\screen_polygon.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadow_charactermodel_renderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadowmap_recieve_model_renderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadowmap_recieve_field_renderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\bloom_shader.h">
+      <Filter>ヘッダー ファイル\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\gaus_blur_shader.h">
+      <Filter>ヘッダー ファイル\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\luminance_shader.h">
+      <Filter>ヘッダー ファイル\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadow_map_recieve_shader.h">
+      <Filter>ヘッダー ファイル\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadow_map_reciever_mt_shader.h">
+      <Filter>ヘッダー ファイル\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadow_map_shader.h">
+      <Filter>ヘッダー ファイル\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadow_model_renderer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\shadow_map_mesh_sphere_renderer.h">
+      <Filter>ヘッダー ファイル\systems\renderer\mesh</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

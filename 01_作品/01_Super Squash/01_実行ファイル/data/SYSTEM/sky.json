@@ -1,0 +1,10 @@
+{
+  "sky": {
+    "texture": "data/TEXTURE/sky001.jpg",
+    "segment": 16,
+    "radius": 5000,
+    "reverse": true,
+    "rotation_speed": [ 0, 0.0004, 0 ],
+    "pos": [ 0,0,0 ]
+  }
+}

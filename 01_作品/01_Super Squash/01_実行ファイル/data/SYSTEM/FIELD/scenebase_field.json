@@ -1,0 +1,9 @@
+{
+  "field": {
+    "texture": "data/TEXTURE/wall.png",
+    "segmentU": 4,
+    "segmentV": 4,
+    "size": [ 550, 0, 1000 ],
+    "pos": [ 0,0,-50 ]
+  }
+}

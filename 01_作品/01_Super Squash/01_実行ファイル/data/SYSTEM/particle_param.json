@@ -1,0 +1,88 @@
+{
+  "config": [
+    {
+      "key": "ballSpeedLevel_2",
+      "texture": "data/TEXTURE/effect000.jpg",
+      "move": [ 2.0, 2.0, 2.0 ],
+      "col": [ 0.0, 1.0, 1.0, 1.0 ],
+      "angle_max": 314,
+      "angle_min": -314,
+      "radius": 20.0,
+      "num": 1,
+      "life": 60,
+      "spawn_time": 1
+    },
+    {
+      "key": "ballSpeedLevel_3",
+      "texture": "data/TEXTURE/effect000.jpg",
+      "move": [ 2.0, 2.0, 2.0 ],
+      "col": [1.0,0.0,1.0,1.0],
+      "angle_max": 314,
+      "angle_min": -314,
+      "radius": 20.0,
+      "num": 1,
+      "life": 60,
+      "spawn_time": 1
+    },
+    {
+      "key": "Ball_Shot_000",
+      "texture": "data/TEXTURE/effect000.jpg",
+      "move": [ 8.0, 8.0, 8.0 ],
+      "col": [1.0,1.0,1.0,1.0],
+      "angle_max": 314,
+      "angle_min": -314,
+      "radius": 5.0,
+      "num": 10,
+      "life": 90,
+      "spawn_time": 1
+    },
+    {
+      "key": "Ball_Smoke",
+      "texture": "data/TEXTURE/explosion001.png",
+      "move": [ 0.0, 0.0, 0.0 ],
+      "col": [1.0,1.0,1.0,1.0],
+      "angle_max": 0,
+      "angle_min": 314,
+      "radius": 50.0,
+      "num": 1,
+      "life": 30,
+      "spawn_time": 1
+    },
+    {
+      "key": "JetPack",
+      "texture": "data/TEXTURE/smoke.jpg",
+      "move": [ 0.0, 2.0, 0.0 ],
+      "col": [ 1.0, 0.18, 0.0, 1.0 ],
+      "angle_max": -314,
+      "angle_min": -314,
+      "radius": 10.0,
+      "num": 2,
+      "life": 30,
+      "spawn_time": 1
+    },
+    {
+      "key": "charge",
+      "texture": "data/TEXTURE/star.jpg",
+      "move": [ 0.0, 0.0, 0.0 ],
+      "col": [0.2745,0.5,0.7,1.0],
+      "angle_max": -314,
+      "angle_min": -314,
+      "radius": 5.0,
+      "num": 3,
+      "life": 50,
+      "spawn_time": 1
+    },
+    {
+      "key": "move_smoke",
+      "texture": "data/TEXTURE/explosion001.png",
+      "move": [ 4.0, 0.0, 4.0 ],
+      "col": [ 1.0, 1.0, 1.0, 0.5 ],
+      "angle_max": 180,
+      "angle_min": -180,
+      "radius": 40.0,
+      "num": 1,
+      "life": 60,
+      "spawn_time": 1
+    }
+  ]
+}

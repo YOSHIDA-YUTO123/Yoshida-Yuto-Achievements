@@ -1,0 +1,190 @@
+{
+    "TEXTURE_INFO": [
+        {
+            "file_path": "data/TEXTURE/field/field.png"
+        },
+        {
+            "file_path": "data/TEXTURE/sky000.jpg"
+        },
+        {
+            "file_path": "data/TEXTURE/effect000.jpg"
+        },
+        {
+            "file_path": "data/TEXTURE/ball000.png"
+        },
+        {
+            "file_path": "data/TEXTURE/sky001.jpg"
+        },
+        {
+            "file_path": "data/TEXTURE/target.jpg"
+        },
+        {
+            "file_path": "data/TEXTURE/number001.png"
+        },
+        {
+            "file_path": "data/TEXTURE/explosion002.png"
+        },
+        {
+            "file_path": "data/TEXTURE/explosion001.png"
+        },
+        {
+            "file_path": "data/TEXTURE/smoke.jpg"
+        },
+        {
+            "file_path": "data/TEXTURE/field.png"
+        },
+        {
+            "file_path": "data/TEXTURE/title_start.png"
+        },
+        {
+            "file_path": "data/TEXTURE/title_minigame.png"
+        },
+        {
+            "file_path": "data/TEXTURE/title_tobecontinued.png"
+        },
+        {
+            "file_path": "data/TEXTURE/pause_continue.png"
+        },
+        {
+            "file_path": "data/TEXTURE/pause_retry.png"
+        },
+        {
+            "file_path": "data/TEXTURE/pause_quit.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_move.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_success.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_jetpack.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_shot.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_quick.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_ball_shot.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_ball_small.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_ball_medium.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_rule.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_game_start.png"
+        },
+        {
+            "file_path": "data/TEXTURE/result_ui_000.png"
+        },
+        {
+            "file_path": "data/TEXTURE/wall.png"
+        },
+        {
+            "file_path": "data/TEXTURE/title_logo.png"
+        },
+        {
+            "file_path": "data/TEXTURE/title_logo001.png"
+        },
+        {
+            "file_path": "data/TEXTURE/title_sky000.png"
+        },
+        {
+            "file_path": "data/TEXTURE/test.png"
+        },
+        {
+            "file_path": "data/TEXTURE/wall_backgrond_000.jpg"
+        },
+        {
+            "file_path": "data/TEXTURE/title_UI.png"
+        },
+        {
+            "file_path": "data/TEXTURE/backgrond001.png"
+        },
+        {
+            "file_path": "data/TEXTURE/backgrond002.png"
+        },
+        {
+            "file_path": "data/TEXTURE/backgrond003.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_start.png"
+        },
+        {
+            "file_path": "data/TEXTURE/backgrond005.png"
+        },
+        {
+            "file_path": "data/TEXTURE/backgrond006.png"
+        },
+        {
+            "file_path": "data/TEXTURE/backgrond007.png"
+        },
+        {
+            "file_path": "data/TEXTURE/backgrond008.png"
+        },
+        {
+            "file_path": "data/TEXTURE/backgrond009.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_skip.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_small.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_medium.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_gamestart.png"
+        },
+        {
+            "file_path": "data/TEXTURE/tutorial_dec_skip.png"
+        },
+        {
+            "file_path": "data/TEXTURE/background009.png"
+        },
+        {
+            "file_path": "data/TEXTURE/result_ui.png"
+        },
+        {
+            "file_path": "data/TEXTURE/rank_1.png"
+        },
+        {
+            "file_path": "data/TEXTURE/rank_2.png"
+        },
+        {
+            "file_path": "data/TEXTURE/rank_3.png"
+        },
+        {
+            "file_path": "data/TEXTURE/rank_4.png"
+        },
+        {
+            "file_path": "data/TEXTURE/rank_5.png"
+        },
+        {
+            "file_path": "data/TEXTURE/result_support.png"
+        },
+        {
+            "file_path": "data/TEXTURE/TimeLimit60.png"
+        },
+        {
+            "file_path": "data/TEXTURE/dust000.png"
+        },
+        {
+            "file_path": "data/TEXTURE/ball001.png"
+        },
+        {
+            "file_path": "data/TEXTURE/star.jpg"
+        },
+        {
+            "file_path": "data/TEXTURE/max_charge.png"
+        }
+    ]
+}

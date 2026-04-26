@@ -1,0 +1,8 @@
+{
+  "pause_menus": [
+    {
+      "texture": "data/TEXTURE/pause_continue.png",
+      "pos": [ 640.0, 360.0 ]
+    }
+  ]
+}

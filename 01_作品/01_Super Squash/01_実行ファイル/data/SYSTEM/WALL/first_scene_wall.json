@@ -1,0 +1,59 @@
+{
+  "walls": [
+    {
+      "texture": "data/TEXTURE/wall.png",
+      "entity_name": "left_wall",
+      "segmentU": 64,
+      "segmentV": 64,
+      "dest_pos": [ -270, 125, -50 ],
+      "dest_rot": [ 0, 0, 0 ],
+      "size": [ 800, 270, 0 ],
+      "pos": [ -405, 125, -50 ],
+      "rot": [ 1.57079, -1.57079, 0 ]
+    },
+    {
+      "texture": "data/TEXTURE/wall.png",
+      "entity_name": "front_wall",
+      "segmentU": 64,
+      "segmentV": 64,
+      "dest_pos": [ 0, 125, 350 ],
+      "dest_rot": [ 0, 0, 0 ],
+      "size": [ 550, 270, 0 ],
+      "pos": [ 0, 125, 550 ],
+      "rot": [ 1.57079, 0, 0 ]
+    },
+    {
+      "texture": "data/TEXTURE/wall.png",
+      "entity_name": "right_wall",
+      "segmentU": 64,
+      "segmentV": 64,
+      "dest_pos": [ 270, 125, -50 ],
+      "dest_rot": [ 0, 0, 0 ],
+      "size": [ 800, 270, 0 ],
+      "pos": [ 405, 125, -50 ],
+      "rot": [ 1.57079, 1.57079, 0 ]
+    },
+    {
+      "texture": "data/TEXTURE/wall.png",
+      "entity_name": "back_wall",
+      "segmentU": 64,
+      "segmentV": 64,
+      "dest_pos": [ 0, 125, -450 ],
+      "dest_rot": [ 0, 0, 0 ],
+      "size": [ 550, 270, 0 ],
+      "pos": [ 0, 125, -650 ],
+      "rot": [ 0, 3.14, 0 ]
+    },
+    {
+      "texture": "data/TEXTURE/wall.png",
+      "entity_name": "top_wall",
+      "segmentU": 64,
+      "segmentV": 64,
+      "dest_pos": [ 0, 250, -50 ],
+      "dest_rot": [ 0, 0, 0 ],
+      "size": [ 540, 800, 0 ],
+      "pos": [ 0, 550, 0 ],
+      "rot": [ -1.57, 0, 0 ]
+    }
+  ]
+}

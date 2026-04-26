@@ -1,0 +1,49 @@
+{
+  "walls": [
+    {
+      "texture": "data/TEXTURE/target.png",
+      "entity_name": "left_wall",
+      "segmentU": 64,
+      "segmentV": 64,
+      "size": [ 800, 270, 0 ],
+      "pos": [ -270, 125, -50 ],
+      "rot": [ 0, -1.57079, 0 ]
+    },
+    {
+      "texture": "data/TEXTURE/target.png",
+      "entity_name": "front_wall",
+      "segmentU": 64,
+      "segmentV": 64,
+      "size": [ 550, 270, 0 ],
+      "pos": [ 0, 125, 350 ],
+      "rot": [ 0, 0, 0 ]
+    },
+    {
+      "texture": "data/TEXTURE/targe.png",
+      "entity_name": "right_wall",
+      "segmentU": 64,
+      "segmentV": 64,
+      "size": [ 800, 270, 0 ],
+      "pos": [ 270, 125, -50 ],
+      "rot": [ 0, 1.57079, 0 ]
+    },
+    {
+      "texture": "data/TEXTURE/targe.png",
+      "entity_name": "back_wall",
+      "segmentU": 64,
+      "segmentV": 64,
+      "size": [ 550, 270, 0 ],
+      "pos": [ 0, 125, -450 ],
+      "rot": [ 0, 3.14, 0 ]
+    },
+    {
+      "texture": "data/TEXTURE/wall.png",
+      "entity_name": "top_wall",
+      "segmentU": 64,
+      "segmentV": 64,
+      "size": [ 540, 800, 0 ],
+      "pos": [ 0, 250, -50 ],
+      "rot": [ -1.57, 0, 0 ]
+    }
+  ]
+}
