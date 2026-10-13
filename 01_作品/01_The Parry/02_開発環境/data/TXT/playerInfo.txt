@@ -1,3 +1,0 @@
-PARFECT = 3
-NORMAL = 11
-WEAK = 2

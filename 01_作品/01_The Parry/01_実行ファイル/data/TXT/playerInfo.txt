@@ -1,3 +1,0 @@
-PARFECT = 0
-NORMAL = 2
-WEAK = 1

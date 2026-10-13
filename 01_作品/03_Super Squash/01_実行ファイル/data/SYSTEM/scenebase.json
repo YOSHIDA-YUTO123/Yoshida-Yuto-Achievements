@@ -1,9 +1,0 @@
-{
-  "sky": {
-    "texture": "data/TEXTURE/sky001.jpg",
-    "segment": 16,
-    "radius": 5000,
-    "reverse": true,
-    "pos": [ 0, 0, 0 ]
-  }
-}
