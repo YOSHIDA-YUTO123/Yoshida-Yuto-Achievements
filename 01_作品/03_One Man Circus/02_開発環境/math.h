@@ -1,0 +1,153 @@
+//===================================================
+//
+// 計算 [math.h]
+// Author:YUTO YOSHIDA
+//
+//===================================================
+
+//***************************************************
+// 多重インクルード防止
+//***************************************************
+#ifndef _MATH_H_
+#define _MATH_H_
+
+//***************************************************
+// インクルードファイル
+//***************************************************
+#include"main.h"
+#include <random>
+
+//***************************************************
+// 計算用namespaceの定義
+//***************************************************
+namespace math
+{
+	// 範囲内に収める
+	template <class T> T Clamp(const T value, const T min, const T max)
+	{
+		if (value < min) return min;
+
+		if (value > max) return max;
+
+		return value;
+	};
+
+	// 範囲内にをループする
+	template <class T> T Wrap(const T value, const T min, const T max)
+	{
+		if (value < min) return max;
+
+		if (value > max) return min;
+
+		return value;
+	};
+
+	// 角度を正規化する
+	template <class T> T NormalizeRot(T* value)
+	{
+		if ((*value) < -D3DX_PI)
+		{
+			(*value) += D3DX_PI * 2.0f;
+		}
+		else if ((*value) > D3DX_PI)
+		{
+			(*value) += -D3DX_PI * 2.0f;
+		}
+
+		return (*value);
+	};
+
+	// 目的の角度までの距離を求め正規化する
+	template <class T> T NormalizeDiffRot(const T Diff, T* value)
+	{
+		if (Diff <= -D3DX_PI)
+		{
+			(*value) += -D3DX_PI * 2.0f;
+		}
+		else if (Diff >= D3DX_PI)
+		{
+			(*value) += D3DX_PI * 2.0f;
+		}
+
+		return *value;
+	};
+
+	// 目的の値までの補間
+	template <class T> T LerpDest(const T dest, const T value, const float coef)
+	{
+		T out = value + (dest - value) * coef;
+
+		return out;
+	};
+
+	// 目的の値までの補間
+	template <class T> T LerpDiff(const T offset, const T Diff, const float fRate)
+	{
+		T out = offset + (Diff * fRate);
+
+		return out;
+	};
+
+	// 
+	template <class T> bool IsInRange(const T value, const T min, const T max)
+	{
+		if (value >= min && value <= max)
+		{
+			return true;
+		}
+
+		return false;
+	};
+
+	// ランダム
+	template <class T> T Random(T min, T max)
+	{
+		if (min > max) std::swap(min, max);
+
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_real_distribution<T> dist(min, max);
+
+		return dist(gen);
+	}
+
+	/**
+	* @brief 距離を求める関数
+	* @param 二つの位置の差分
+	* @return 計算後の距離
+	*/
+	float GetDistance(const D3DXVECTOR3 diff);
+	/**
+	* @brief 単位ベクトルを取得する関数
+	* @param 目的の位置
+	* @param 位置
+	* @return 正規化されたベクトル
+	*/
+	D3DXVECTOR3 GetVector(const D3DXVECTOR3 dest, const D3DXVECTOR3 pos);
+	float GetTargetAngle(const D3DXVECTOR3 dest, const D3DXVECTOR3 pos); // 目標までの角度の取得
+	D3DXVECTOR3 GetPositionFromMatrix(const D3DXMATRIX mtxWorld);		 // MATRIXの位置の情報をD3DXVECTOR3型に変換する
+	D3DXQUATERNION CreateQuaternion(D3DXQUATERNION* pOut, D3DXVECTOR3 axis, float fAngle);
+	D3DXMATRIX SetMatrixRotationQuaternion(D3DXMATRIX* pOut, D3DXQUATERNION quaternion);
+	D3DXVECTOR3 MatrixToEulerXYZ(const D3DXMATRIX mtxWorld);			// 回転行列をオイラー角に変換
+
+	/// <summary>
+	/// マウスのレイの取得
+	/// </summary>
+	/// <param name="pRayOrigin"></param>
+	/// <param name="OutDir"></param>
+	void GetMouseRay(D3DXVECTOR3* pRayOrigin, D3DXVECTOR3* OutDir);
+
+	/// <summary>
+	/// スクリーン座標をワールド座標に変換
+	/// </summary>
+	/// <param name="screen"></param>
+	/// <param name="fWorldY"></param>
+	/// <param name="vp"></param>
+	/// <param name="view"></param>
+	/// <param name="proj"></param>
+	/// <returns>変換座標</returns>
+	D3DXVECTOR3 ScreenToWorld(const D3DXVECTOR2 screen, const float fWorldY, const D3DVIEWPORT9 vp, const D3DXMATRIX view, const D3DXMATRIX proj);
+
+	int Random(const int nMin, const int nMax);
+};
+#endif

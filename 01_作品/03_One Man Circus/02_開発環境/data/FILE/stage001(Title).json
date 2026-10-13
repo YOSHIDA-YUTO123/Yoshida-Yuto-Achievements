@@ -1,0 +1,522 @@
+{
+    "MODEL_INFO": [
+        {
+            "file_path": "data/MODEL/MapObjectFile/circustent.x",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/arch.x",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -500.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/signboard.x",
+            "position": {
+                "x": 26.0,
+                "y": 9.501999855041504,
+                "z": -547.1329956054688
+            },
+            "rotation": {
+                "x": -0.23561932146549225,
+                "y": 0.40542250871658325,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": -146.81451416015625,
+                "y": 0.0,
+                "z": -103.92095184326172
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": 348.2269287109375,
+                "y": 13.008045196533203,
+                "z": -364.08062744140625
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": -137.1396026611328,
+                "y": 0.0,
+                "z": 1.8495608568191528
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": 137.01312255859375,
+                "y": 0.0,
+                "z": 40.3885498046875
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": 166.67308044433594,
+                "y": 0.0,
+                "z": 14.089298248291016
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": 193.6669464111328,
+                "y": 0.0,
+                "z": -18.350431442260742
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": -173.54351806640625,
+                "y": 0.0,
+                "z": -142.59329223632813
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": -192.6285858154297,
+                "y": 0.0,
+                "z": -220.62506103515625
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": -232.9695281982422,
+                "y": 0.0,
+                "z": -278.2323913574219
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": -244.8019561767578,
+                "y": 0.0,
+                "z": -320.33935546875
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": 227.9136199951172,
+                "y": 0.0,
+                "z": -88.88970947265625
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": 269.12176513671875,
+                "y": 0.0,
+                "z": -110.681640625
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": 304.4512634277344,
+                "y": 0.0,
+                "z": -141.9836883544922
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": 330.56219482421875,
+                "y": 0.0,
+                "z": -197.5554656982422
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": 341.0022277832031,
+                "y": 0.0,
+                "z": -247.12551879882813
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": 352.539794921875,
+                "y": 0.0,
+                "z": -297.61181640625
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": 379.3593444824219,
+                "y": 0.0,
+                "z": -373.3659973144531
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": 390.7470397949219,
+                "y": 0.0,
+                "z": -420.8560791015625
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": 117.07211303710938,
+                "y": 0.0,
+                "z": -48.68162155151367
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/tree.x",
+            "position": {
+                "x": -116.07524108886719,
+                "y": 0.0,
+                "z": -62.1712532043457
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/Title_Road.x",
+            "position": {
+                "x": 21.757299423217773,
+                "y": 0.0,
+                "z": -308.1158447265625
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/Title_Road.x",
+            "position": {
+                "x": 21.0824031829834,
+                "y": 0.0,
+                "z": -630.8746337890625
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/Title_Road.x",
+            "position": {
+                "x": 22.747848510742188,
+                "y": 0.0,
+                "z": -146.06948852539063
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/Title_Road.x",
+            "position": {
+                "x": -22.48457145690918,
+                "y": 0.0,
+                "z": -145.22840881347656
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/Title_Road.x",
+            "position": {
+                "x": -22.82294273376465,
+                "y": 0.0,
+                "z": -308.53460693359375
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/Title_Road.x",
+            "position": {
+                "x": -20.990863800048828,
+                "y": 0.0,
+                "z": -633.5795288085938
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/Title_Road.x",
+            "position": {
+                "x": -21.99953269958496,
+                "y": 0.0,
+                "z": -471.4717712402344
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/Title_Road.x",
+            "position": {
+                "x": 21.04246711730957,
+                "y": 0.0,
+                "z": -469.79681396484375
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/Title_Wall.x",
+            "position": {
+                "x": -270.15557861328125,
+                "y": 0.0,
+                "z": -242.15159606933594
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": -1.3788093328475952,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/Title_Wall.x",
+            "position": {
+                "x": 23.99313735961914,
+                "y": 0.0,
+                "z": 61.03131866455078
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.017453286796808243,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/Title_Wall.x",
+            "position": {
+                "x": -163.74417114257813,
+                "y": 0.0,
+                "z": -30.879493713378906
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": -0.8290314078330994,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/Title_Wall.x",
+            "position": {
+                "x": 407.0794982910156,
+                "y": 0.0,
+                "z": -386.5186767578125
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 1.754055142402649,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/Title_Wall.x",
+            "position": {
+                "x": 206.0381622314453,
+                "y": 0.0,
+                "z": 4.367228031158447
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.5759586691856384,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/Title_Wall.x",
+            "position": {
+                "x": 368.0960693359375,
+                "y": 0.0,
+                "z": -168.46080017089844
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 1.0559241771697998,
+                "z": 0.0
+            },
+            "type": "static"
+        }
+    ]
+}

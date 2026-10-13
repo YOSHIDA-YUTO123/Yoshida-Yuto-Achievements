@@ -1,0 +1,88 @@
+{
+    "MODEL_INFO": [
+        {
+            "file_path": "data/MODEL/MapObjectFile/goal.x",
+            "position": {
+                "x": 1500.0,
+                "y": 8.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/block_blue.x",
+            "position": {
+                "x": 1269.0198974609375,
+                "y": 74.13279724121094,
+                "z": 200.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/block_blue.x",
+            "position": {
+                "x": 1271.8189697265625,
+                "y": 75.0,
+                "z": 40.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/rod.x",
+            "position": {
+                "x": 1350.0,
+                "y": 70.0,
+                "z": 40.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/ball.x",
+            "position": {
+                "x": 1350.0,
+                "y": 30.0,
+                "z": -120.0
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        },
+        {
+            "file_path": "data/MODEL/MapObjectFile/move_floor.x",
+            "position": {
+                "x": 1395.3306884765625,
+                "y": 67.95254516601563,
+                "z": 121.18991088867188
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "type": "static"
+        }
+    ]
+}

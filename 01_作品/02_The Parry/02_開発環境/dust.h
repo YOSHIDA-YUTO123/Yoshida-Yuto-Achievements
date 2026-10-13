@@ -1,0 +1,77 @@
+//===================================================
+//
+// 瓦礫 [dust.h]
+// Author:YUTO YOSHIDA
+//
+//===================================================
+
+//***************************************************
+// 多重インクルード防止
+//***************************************************
+#ifndef _DUST_H_
+#define _DUST_H_
+
+//***************************************************
+// インクルードファイル
+//***************************************************
+#include"objectX.h"
+#include<memory>
+
+//***************************************************
+// 前方宣言
+//***************************************************
+class CShadow;
+class CVelocity;
+
+//***************************************************
+// 瓦礫クラスの定義
+//***************************************************
+class CRubble : public CObjectX
+{
+public:
+
+	// 瓦礫の種類
+	typedef enum
+	{
+		TYPE_ONE = 0,
+		TYPE_TWO,
+		TYPE_THREE,
+		TYPE_FOUR,
+		TYPE_FIVE,
+		TYPE_SIX,
+		TYPE_SEVEN,
+		TYPE_MAX
+	}TYPE;
+
+	CRubble(int nPriority = 3);
+	~CRubble();
+
+	static CRubble* Create(const D3DXVECTOR3 pos,const D3DXVECTOR3 dir, const int nLife, int nType);
+
+	HRESULT Init(void);
+	void Uninit(void);
+	void Update(void);
+	void Draw(void);
+private:
+	std::unique_ptr<CShadow> m_pShadow;		// 影クラスの定義
+	std::unique_ptr<CVelocity> m_pMove;	// 移動クラス
+	float m_fShadowSize;					// 影の大きさ
+	float m_fDecAlv;						// アルファ値の減少スピード
+	int m_nLife;							// 寿命
+	int m_nMaxLife;							// 最大のHP
+};
+
+//***************************************************
+// 瓦礫のマネージャークラスの定義
+//***************************************************
+class CRubbleManager
+{
+public:
+	CRubbleManager();
+	~CRubbleManager();
+	static void SetImpact(const D3DXVECTOR3 pos, const int nLife, const int nNum, const D3DXVECTOR2 move);
+	static void SetExplosionTNT(const D3DXVECTOR3 pos, const int nLife, const int nNum, const D3DXVECTOR2 move);
+private:
+};
+#endif
+

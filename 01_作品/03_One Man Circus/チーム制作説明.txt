@@ -1,0 +1,71 @@
+//==============================================================================
+//
+// チーム制作 作品説明資料
+//
+// Author : 吉田 祐人
+//
+// 最終更新日 : 2026/3/23
+//==============================================================================
+
+
+◆01_One Man Circus================================================
+使用言語     : C++
+開発期間     : 2025年10月～2025年12月(2か月)
+ジャンル     : 3Dアクション
+担当箇所     : プロジェクトの基盤、回転する床、当たり判定、エフェクト
+
+◆作品説明
+一人のピエロがサーカスでパフォーマンスをして観客を沸かせる。
+ベルトスクロールバランスアクションゲーム
+
+[ インゲーム関係 ]--------------------------------------------------
+・マップにあるスポットライトが当たっているオブジェクトに乗ってバランスをとることができます。
+・バランスを一定時間取り続けるとスコアが入ります。
+・画面右に進むとゴールがあります。
+・時間内で稼いだ最終スコアで競います。
+
+◆工夫した点
+サーカス会場に実際にいるような臨場感を出すために、スポットライトを実装したこと。
+配置エディターでマップの配置をすることで、ステージ制作効率を上げたこと。
+
+◆苦労した点
+・回転する床の当たり判定
+・回転する床に追従、回転、移動
+・マップのオブジェクトの当たり判定
+
+◆反省点
+・チュートリアルなしでもできる簡単なゲームを作ろうとした結果
+  何が目的のゲームなのか伝わらなかった
+  命名規則が定まっていない
+  
+・チームに司令塔を作らなかったせいで、チームがまとまらなかった。
+・観客が暗くて見えずらかった。
+
+担当クラス名 :
+[ AnimationEffect.cpp h ]
+[ CameraAnimationSystem.cpp h ]
+[ Collider.cpp h ]
+[ Collision.cpp h ]
+[ CollisionMapObject.cpp h ]
+[ CollisionMapObjManager.cpp h ]
+[ CollisionObject3D.cpp h ]
+[ CollisionPlayerToMapObject.cpp h ]
+[ Command.cpp h ]
+[ effect.cpp h ]
+[ particle.cpp h ]
+[ functionCollisionPlayerToGimmick.cpp h ]
+[ ScenePlayer.cpp h ]
+[ MapObject.cpp h ]
+[ MenuItem.cpp h ]
+[ MenuManager.cpp h ]
+[ MenuVisual.cpp h ]
+[ MeshField.cpp h ]
+[ MeshCircle.cpp h ]
+[ Orbit.cpp h ]
+[ ScenePlayerFactory.cpp h ]
+[ StageLodaer.cpp h ]
+[ Timer.cpp h ]
+[ Transform.cpp h ]
+[ NormalTimer.cpp h ]
+[ DualUnitTimer.cpp h ]
+[ object.cpp h (オブジェクトの2D,3D,モデルなどの基盤)] 

@@ -1,0 +1,163 @@
+{
+    "TEXTURE_INFO": [
+        {
+            "file_path": "data/TEXTURE/TITLE/TITLE_CURSOR.png"
+        },
+        {
+            "file_path": "data/TEXTURE/number002.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Audience000.jpg"
+        },
+        {
+            "file_path": "data/TEXTURE/number001.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Coron_White.png"
+        },
+        {
+            "file_path": "data/TEXTURE/number000.png"
+        },
+        {
+            "file_path": "data/TEXTURE/TITLE/START.png"
+        },
+        {
+            "file_path": "data/TEXTURE/TITLE/EXIT.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Audience000.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Audience001.png"
+        },
+        {
+            "file_path": "data/TEXTURE/field/gamefloor.jpg"
+        },
+        {
+            "file_path": "data/TEXTURE/quit.png"
+        },
+        {
+            "file_path": "data/TEXTURE/TITLE/sky.png"
+        },
+        {
+            "file_path": "data/TEXTURE/gameback.jpg"
+        },
+        {
+            "file_path": "data/TEXTURE/Audience_Normal.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Audience_Back01.jpg"
+        },
+        {
+            "file_path": "data/TEXTURE/TITLE/logo.png"
+        },
+        {
+            "file_path": "data/TEXTURE/TITLE/SELECT.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Pause\\Continue.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Pause\\Retry.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Pause\\Exit.png"
+        },
+        {
+            "file_path": "data/TEXTURE/effect/effect000.jpg"
+        },
+        {
+            "file_path": "data/TEXTURE/TITLE/Copyright.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Number001.png"
+        },
+        {
+            "file_path": "data/TEXTURE/ButtonUI_Juggling_Base.png"
+        },
+        {
+            "file_path": "data/TEXTURE/ButtonUI_Juggling_Keyboard_Up.png"
+        },
+        {
+            "file_path": "data/TEXTURE/ButtonUI_Juggling_Keyboard_Left.png"
+        },
+        {
+            "file_path": "data/TEXTURE/ButtonUI_Juggling_Keyboard_Down.png"
+        },
+        {
+            "file_path": "data/TEXTURE/ButtonUI_Juggling_Keyboard_Right.png"
+        },
+        {
+            "file_path": "data/TEXTURE/WASD.png"
+        },
+        {
+            "file_path": "data/TEXTURE/ButtonUI_Hula hoop_Keyboard.png"
+        },
+        {
+            "file_path": "data/TEXTURE/RESULT/Check.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Coron_Black.png"
+        },
+        {
+            "file_path": "data/TEXTURE/field/Title_Floor.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Animation/explosion001.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Ranking/Cork.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Pause/Retry.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Pause/EXIT.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Title_Road.jpg"
+        },
+        {
+            "file_path": "data/TEXTURE/Title_Wall.png"
+        },
+        {
+            "file_path": "data/TEXTURE/ButtonUI_Timing_Circle.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Command_UI_Stick01Anim.png"
+        },
+        {
+            "file_path": "data/TEXTURE/ButtonUI_Juggling_JoyPad_Y.png"
+        },
+        {
+            "file_path": "data/TEXTURE/ButtonUI_Juggling_JoyPad_X.png"
+        },
+        {
+            "file_path": "data/TEXTURE/ButtonUI_Juggling_JoyPad_A.png"
+        },
+        {
+            "file_path": "data/TEXTURE/ButtonUI_Juggling_JoyPad_B.png"
+        },
+        {
+            "file_path": "data/TEXTURE/ButtonUI_Hula hoop_JoyPad.png"
+        },
+        {
+            "file_path": "data\\TEXTURE\\TITLE\\logo.png"
+        },
+        {
+            "file_path": "data\\TEXTURE\\TITLE\\kanban 1.png"
+        },
+        {
+            "file_path": "data\\TEXTURE\\TITLE\\kanban 2.png"
+        },
+        {
+            "file_path": "data/TEXTURE/SKIP_Keyboard.png"
+        },
+        {
+            "file_path": "data/TEXTURE/SKIP_Joypad.png"
+        },
+        {
+            "file_path": "data/TEXTURE/Time_Up.png"
+        }
+    ]
+}

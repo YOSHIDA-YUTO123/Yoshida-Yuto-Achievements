@@ -1,0 +1,124 @@
+{
+    "MODEL_INFO": [
+        {
+            "file_name": "data/MODEL/MapObjectFile/rod.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/block_red.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/balancebeam.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/block_blue.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/rope.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/drumcan.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/goal.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/ball.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/move_floor.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/00_Waist.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/01_Stomach.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/02_Chest.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/03_Head.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/04_ArmUR.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/05_ArmR.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/06_HandR.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/07_ArmUL.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/08_ArmL.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/09_HandL.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/10_LegUR.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/11_LegR.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/12_FootR.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/13_LegUL.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/14_LegL.x"
+        },
+        {
+            "file_name": "data/MODEL/Player_Model/15_FootL.x"
+        },
+        {
+            "file_name": "data/MODEL/ShadowS.x"
+        },
+        {
+            "file_name": "data\\MODEL\\player\\testPlayer_000.x"
+        },
+        {
+            "file_name": "data/MODEL/Model()/drumcan.x"
+        },
+        {
+            "file_name": "data/MODEL/Model()/move_floor.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/circustent.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/arch.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/signboard.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile\\ballJa.x"
+        },
+        {
+            "file_name": "data/MODEL/Model()\\hulahoop.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/ballJa.x"
+        },
+        {
+            "file_name": "data/MODEL/Model()/hulahoop.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/tree.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/Title_Road.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile/Title_Wall.x"
+        },
+        {
+            "file_name": "data/MODEL/MapObjectFile\\ball.x"
+        }
+    ]
+}
